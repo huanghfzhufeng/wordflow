@@ -45,11 +45,6 @@ export function createApp({ config, db, repository }) {
     if (!repository.archiveItem(req.params.id)) return res.status(404).json({ error: '没有找到这条内容' });
     res.status(204).end();
   });
-  app.post('/api/items/:id/activate', (req, res) => {
-    const item = repository.activateItem(req.params.id);
-    if (!item) return res.status(404).json({ error: '没有找到这条内容' });
-    res.json({ item });
-  });
   app.post('/api/items/:id/reviews', (req, res) => {
     const result = repository.reviewItem(req.params.id, req.body?.rating);
     if (!result) return res.status(404).json({ error: '没有找到这条内容' });

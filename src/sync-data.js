@@ -33,6 +33,9 @@ const PHONETICS = new Map([
   ['Restore', '/rɪˈstɔːr/'],
   ['Sign Out', '/saɪn aʊt/']
 ]);
+const CORE_MEANINGS = new Map(Object.entries(JSON.parse(
+  fs.readFileSync(new URL('../seed/core-meanings.zh-CN.json', import.meta.url), 'utf8')
+)).map(([term, meaning]) => [normalizeTerm(term), meaning]));
 
 function readRequired(memoryRoot, filename) {
   return fs.readFileSync(path.join(memoryRoot, filename), 'utf8');
@@ -63,7 +66,7 @@ function normalizeTerm(term) {
 
 function normalizedStatus(status) {
   const match = String(status || '').match(/S[0-3]/);
-  return match?.[0] || 'candidate';
+  return match?.[0] || 'S0';
 }
 
 function curriculumModule(unitType) {
@@ -150,19 +153,23 @@ function iphoneItems(markdown, statusByTerm, reviewedAt) {
 }
 
 function curriculumItems(csv) {
-  return parseCsv(csv, { columns: true, skip_empty_lines: true }).map((row) => ({
-    term: row.unit,
-    meaning: row.meaning_zh,
-    status: normalizedStatus(row.status),
-    kind: curriculumKind(row),
-    module: curriculumModule(row.unit_type),
-    source: row.source || '300 词候选课程',
-    example: row.example_or_chunk,
-    note: row.notes,
-    priority: row.status === 'candidate' ? Math.max(1, 30 - Number(row.order || 300) / 15) : 25,
-    orderIndex: Number(row.order || 0) || null,
-    lastReviewedAt: null
-  }));
+  return parseCsv(csv, { columns: true, skip_empty_lines: true }).map((row) => {
+    const meaning = String(row.meaning_zh || CORE_MEANINGS.get(normalizeTerm(row.unit)) || '').trim();
+    if (!meaning) throw new Error(`课程词条缺少中文核心义: ${row.unit}`);
+    return {
+      term: row.unit,
+      meaning,
+      status: normalizedStatus(row.status),
+      kind: curriculumKind(row),
+      module: curriculumModule(row.unit_type),
+      source: row.source || '300 词核心课程',
+      example: row.example_or_chunk,
+      note: row.notes,
+      priority: 25,
+      orderIndex: Number(row.order || 0) || null,
+      lastReviewedAt: null
+    };
+  });
 }
 
 export function parseProgressTracks(markdown) {

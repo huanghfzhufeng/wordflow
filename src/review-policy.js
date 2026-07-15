@@ -1,5 +1,4 @@
 const STATUS_RANK = {
-  candidate: -1,
   S0: 0,
   S1: 1,
   S2: 2,
@@ -44,7 +43,7 @@ export function applyReviewPolicy({
   const previousDay = localDay(previousReviewedAt, timeZone);
   const today = localDay(now, timeZone);
   const isDelayedReview = Boolean(previousDay && previousDay !== today);
-  let nextStatus = status === 'candidate' ? 'S0' : status;
+  let nextStatus = status;
   let nextReviewAt;
 
   if (rating === 'again') {

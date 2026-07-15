@@ -62,3 +62,30 @@ test('repository persists additions and applies delayed evidence transitions', (
   assert.equal(delayed.item.reviewCount, 3);
   assert.equal(repository.progress().totalReviews, 3);
 });
+
+test('seed sync promotes legacy pending rows into formal S0 content', (t) => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wordflow-migration-'));
+  const db = openDatabase(path.join(dir, 'test.db'));
+  t.after(() => {
+    db.close();
+    fs.rmSync(dir, { recursive: true, force: true });
+  });
+  const now = new Date().toISOString();
+  db.prepare(`
+    INSERT INTO learning_items (seed_key, term, meaning, status, created_at, updated_at)
+    VALUES ('fixture:formal', 'formal', '', 'candidate', ?, ?)
+  `).run(now, now);
+
+  const result = syncSeedData(db, {
+    items: [{
+      seedKey: 'fixture:formal', term: 'formal', meaning: '正式的', kind: 'word',
+      module: 'foundation', source: 'test', status: 'S0', priority: 25
+    }],
+    tracks: []
+  });
+  const item = createRepository(db, { timeZone: 'Asia/Singapore' }).listItems({}).items[0];
+  assert.equal(result.migrated, 1);
+  assert.equal(item.status, 'S0');
+  assert.equal(item.meaning, '正式的');
+  assert.ok(item.nextReviewAt);
+});

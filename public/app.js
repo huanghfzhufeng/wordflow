@@ -21,7 +21,6 @@ const KIND_LABELS = {
 };
 
 const STATUS_LABELS = {
-  candidate: '待加入',
   S0: '已出现',
   S1: '即时理解',
   S2: '延迟记住',
@@ -47,7 +46,6 @@ const state = {
   libraryModule: 'all',
   libraryQuery: '',
   editingItem: null,
-  pendingActivateId: null,
   authEnabled: false,
   started: false
 };
@@ -450,7 +448,7 @@ function renderLibrary() {
     <div class="library-row">
       <button class="library-row-main" type="button" data-edit-id="${item.id}">
         <p class="library-term">${escapeHtml(item.term)}</p>
-        <p class="library-meaning">${escapeHtml(item.meaning || '补充中文后加入')}</p>
+        <p class="library-meaning">${escapeHtml(item.meaning)}</p>
         <div class="row-badges">
           ${statusBadge(item.status)}
           ${moduleBadge(item.module)}
@@ -458,12 +456,6 @@ function renderLibrary() {
       </button>
       <div class="library-row-actions">
         ${speakerButton(item, 'row-speaker')}
-        ${item.status === 'candidate' ? `
-          <button class="icon-button activate-button" type="button" data-activate-id="${item.id}"
-            aria-label="${item.meaning ? '加入复习' : '补充中文后加入'}" title="${item.meaning ? '加入复习' : '补充中文后加入'}">
-            <i data-lucide="${item.meaning ? 'plus' : 'pencil'}"></i>
-          </button>
-        ` : ''}
       </div>
     </div>
   `).join('');
@@ -484,7 +476,6 @@ function renderLibrary() {
     <div class="library-filter-row">
       <div class="segment-row" aria-label="掌握状态">
         ${segmentButton('all', '全部')}
-        ${segmentButton('candidate', '待加入')}
         ${segmentButton('learning', '学习中')}
         ${segmentButton('mastered', '已记住')}
       </div>
@@ -531,24 +522,6 @@ function bindLibraryEvents() {
     });
   });
   document.querySelector('#load-more')?.addEventListener('click', () => loadLibrary(false));
-  document.querySelectorAll('[data-activate-id]').forEach((button) => {
-    button.addEventListener('click', async () => {
-      try {
-        const item = state.library.find((entry) => entry.id === Number(button.dataset.activateId));
-        if (item && !item.meaning.trim()) {
-          state.pendingActivateId = item.id;
-          openEditDialog(item.id);
-          toast('补充中文，保存后自动加入');
-          return;
-        }
-        await api(`/api/items/${button.dataset.activateId}/activate`, { method: 'POST', body: '{}' });
-        toast('已加入今日复习');
-        await loadLibrary(true);
-      } catch (error) {
-        showError(error);
-      }
-    });
-  });
   document.querySelectorAll('[data-edit-id]').forEach((button) => {
     button.addEventListener('click', () => openEditDialog(Number(button.dataset.editId)));
   });
@@ -632,9 +605,9 @@ function renderProgress() {
     <section class="progress-section">
       <div class="section-heading"><div><p class="section-kicker">词汇证据</p><h2>S0–S3 分布</h2></div></div>
       <div class="evidence-list">
-        ${['candidate', 'S0', 'S1', 'S2', 'S3'].map((status) => `
+        ${['S0', 'S1', 'S2', 'S3'].map((status) => `
           <div class="evidence-row evidence-${status}">
-            <span class="evidence-name"><b>${status === 'candidate' ? '待' : status}</b>${escapeHtml(STATUS_LABELS[status])}</span>
+            <span class="evidence-name"><b>${status}</b>${escapeHtml(STATUS_LABELS[status])}</span>
             <div class="evidence-track"><span style="width:${formatPercent(progress.counts[status], evidenceTotal)}%"></span></div>
             <strong>${progress.counts[status]}</strong>
           </div>
@@ -665,7 +638,6 @@ function switchView(view) {
 
 function openAddDialog() {
   state.editingItem = null;
-  state.pendingActivateId = null;
   els.itemForm.reset();
   document.querySelector('#item-id').value = '';
   document.querySelector('#dialog-eyebrow').textContent = '新内容';
@@ -688,14 +660,13 @@ function openEditDialog(id) {
   document.querySelector('#item-example').value = item.example || '';
   document.querySelector('#item-note').value = item.note || '';
   document.querySelector('#item-source').value = item.source || '';
-  document.querySelector('#dialog-eyebrow').textContent = item.status === 'candidate' ? '待加入' : `${item.status} · ${STATUS_LABELS[item.status]}`;
+  document.querySelector('#dialog-eyebrow').textContent = `${item.status} · ${STATUS_LABELS[item.status]}`;
   document.querySelector('#dialog-title').textContent = '编辑词句';
   document.querySelector('#delete-item').classList.remove('hidden');
   els.itemDialog.showModal();
 }
 
 function closeItemDialog() {
-  state.pendingActivateId = null;
   els.itemDialog.close();
 }
 
@@ -713,17 +684,12 @@ async function saveItem(event) {
     source: document.querySelector('#item-source').value
   };
   try {
-    const response = await api(id ? `/api/items/${id}` : '/api/items', {
+    await api(id ? `/api/items/${id}` : '/api/items', {
       method: id ? 'PATCH' : 'POST',
       body: JSON.stringify(body)
     });
-    const savedId = Number(id || response.item.id);
-    if (state.pendingActivateId && savedId === state.pendingActivateId) {
-      await api(`/api/items/${savedId}/activate`, { method: 'POST', body: '{}' });
-    }
-    const activatedAfterEdit = Boolean(state.pendingActivateId && savedId === state.pendingActivateId);
     closeItemDialog();
-    toast(activatedAfterEdit ? '已补充并加入今日复习' : id ? '已保存修改' : '已加入今日复习');
+    toast(id ? '已保存修改' : '已加入今日复习');
     await loadToday();
     if (state.view === 'library') await loadLibrary(true);
   } catch (error) {
@@ -899,5 +865,5 @@ const initialView = ['today', 'library', 'progress'].includes(location.hash.slic
 bootstrapAuth();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.4.3'), { scope: APP_BASE_URL.pathname }).catch(console.error);
+  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.4.4'), { scope: APP_BASE_URL.pathname }).catch(console.error);
 }

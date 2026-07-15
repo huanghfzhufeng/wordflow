@@ -10,6 +10,8 @@ test('workspace learning files merge into one evidence-aware seed', () => {
   const seed = buildSeedData(root);
   assert.ok(seed.items.length >= 400);
   assert.equal(seed.tracks.length, 6);
+  assert.equal(seed.items.filter((item) => !item.meaning.trim()).length, 0);
+  assert.equal(seed.items.filter((item) => !/^S[0-3]$/.test(item.status)).length, 0);
   assert.equal(seed.items.filter((item) => item.module === 'iphone-p0').length, 12);
   assert.equal(seed.items.filter((item) => item.module === 'iphone-p1').length, 24);
 

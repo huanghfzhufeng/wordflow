@@ -20,3 +20,10 @@ test('bundled seed keeps a standalone clone runnable without workspace memory', 
   assert.equal(result.source, 'bundled-seed');
   assert.deepEqual(result.data, fixture);
 });
+
+test('bundled curriculum contains only formal items with Chinese meanings', () => {
+  const seedPath = path.resolve('seed/learning-seed.json');
+  const seed = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
+  assert.equal(seed.items.filter((item) => !item.meaning.trim()).length, 0);
+  assert.equal(seed.items.filter((item) => !/^S[0-3]$/.test(item.status)).length, 0);
+});

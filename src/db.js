@@ -100,7 +100,6 @@ export function syncSeedData(db, seedData) {
     UPDATE learning_items SET
       term = ?, meaning = ?, phonetic = ?, kind = ?, module = ?, source = ?, example = ?, note = ?,
       priority = ?, order_index = ?, status = ?, last_reviewed_at = COALESCE(last_reviewed_at, ?),
-      next_review_at = CASE WHEN status = 'candidate' AND ? <> 'candidate' THEN ? ELSE next_review_at END,
       updated_at = ?
     WHERE id = ?
   `);
@@ -116,17 +115,25 @@ export function syncSeedData(db, seedData) {
   const now = nowIso();
   let inserted = 0;
   let updated = 0;
+  let migrated = 0;
 
   db.transaction(() => {
+    migrated = db.prepare(`
+      UPDATE learning_items
+      SET status = 'S0', next_review_at = COALESCE(next_review_at, ?), updated_at = ?
+      WHERE status = 'candidate'
+    `).run(now, now).changes;
+
     for (const item of seedData.items) {
+      if (!/^S[0-3]$/.test(item.status)) throw new Error(`学习内容状态无效: ${item.term}`);
+      if (!item.meaning?.trim()) throw new Error(`学习内容缺少中文核心义: ${item.term}`);
       const existing = find.get(item.seedKey);
-      const nextReviewAt = item.status === 'candidate' ? null : now;
       if (!existing) {
         insert.run(
           item.seedKey, item.term, item.meaning || '', item.phonetic || '', item.kind, item.module, item.source,
           item.sourceUrl || null, item.example || '', item.note || '', item.status,
           item.priority || 10, item.orderIndex || null, item.lastReviewedAt || null,
-          nextReviewAt, now, now
+          now, now, now
         );
         inserted += 1;
         continue;
@@ -138,7 +145,7 @@ export function syncSeedData(db, seedData) {
       update.run(
         item.term, item.meaning || existing.meaning, item.phonetic || existing.phonetic || '', item.kind, item.module, item.source,
         item.example || '', item.note || '', item.priority || 10, item.orderIndex || null,
-        mergedStatus, item.lastReviewedAt || null, item.status, nextReviewAt, now, existing.id
+        mergedStatus, item.lastReviewedAt || null, now, existing.id
       );
       updated += 1;
     }
@@ -148,7 +155,7 @@ export function syncSeedData(db, seedData) {
     }
   })();
 
-  return { inserted, updated, total: seedData.items.length };
+  return { inserted, updated, migrated, total: seedData.items.length };
 }
 
 function publicItem(row) {
@@ -192,7 +199,6 @@ export function createRepository(db, { timeZone }) {
       const like = `%${q.trim()}%`;
       params.push(like, like, like);
     }
-    if (status === 'candidate') clauses.push("status = 'candidate'");
     if (status === 'learning') clauses.push("status IN ('S0', 'S1')");
     if (status === 'mastered') clauses.push("status IN ('S2', 'S3')");
     if (/^S[0-3]$/.test(status)) {
@@ -222,7 +228,6 @@ export function createRepository(db, { timeZone }) {
     const rows = db.prepare(`
       SELECT * FROM learning_items
       WHERE archived = 0
-        AND status <> 'candidate'
         AND (next_review_at IS NULL OR next_review_at <= ?)
       ORDER BY
         CASE status WHEN 'S0' THEN 0 WHEN 'S1' THEN 1 WHEN 'S2' THEN 2 WHEN 'S3' THEN 3 ELSE 4 END,
@@ -280,17 +285,6 @@ export function createRepository(db, { timeZone }) {
     return info.changes > 0;
   }
 
-  function activateItem(id) {
-    const current = getItemRow.get(Number(id));
-    if (!current) return null;
-    if (!current.meaning.trim()) throw new Error('请先补充中文核心义，再加入复习');
-    db.prepare(`
-      UPDATE learning_items SET status = 'S0', next_review_at = ?, priority = MAX(priority, 65), updated_at = ?
-      WHERE id = ? AND archived = 0 AND status = 'candidate'
-    `).run(nowIso(), nowIso(), Number(id));
-    return getItem(id);
-  }
-
   function reviewItem(id, rating, reviewedAt = new Date()) {
     const row = getItemRow.get(Number(id));
     if (!row) return null;
@@ -335,7 +329,7 @@ export function createRepository(db, { timeZone }) {
       SELECT status, COUNT(*) AS value FROM learning_items WHERE archived = 0 GROUP BY status
     `).all();
     const counts = Object.fromEntries(statusRows.map((row) => [row.status, row.value]));
-    for (const status of ['candidate', 'S0', 'S1', 'S2', 'S3']) counts[status] ||= 0;
+    for (const status of ['S0', 'S1', 'S2', 'S3']) counts[status] ||= 0;
 
     const today = localDay(new Date(), timeZone);
     const events = db.prepare('SELECT reviewed_at, rating FROM review_events').all();
@@ -403,7 +397,6 @@ export function createRepository(db, { timeZone }) {
     createItem,
     updateItem,
     archiveItem,
-    activateItem,
     reviewItem,
     progress,
     exportData
