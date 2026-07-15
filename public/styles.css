@@ -59,6 +59,9 @@ body {
   color: var(--ink);
   background: var(--bg);
   overscroll-behavior-y: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -68,6 +71,14 @@ textarea,
 select {
   font: inherit;
   letter-spacing: 0;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+  user-select: text;
+  -webkit-touch-callout: default;
+  -webkit-user-select: text;
 }
 
 button,
@@ -620,25 +631,6 @@ h2 {
   white-space: nowrap;
 }
 
-.daily-count {
-  display: flex;
-  height: 44px;
-  align-items: baseline;
-  color: var(--tertiary);
-  font-family: "Avenir Next", sans-serif;
-}
-
-.daily-count strong {
-  color: var(--ink);
-  font-size: 31px;
-  line-height: 1;
-}
-
-.daily-count span {
-  font-size: 13px;
-  font-weight: 700;
-}
-
 .practice-toolbar {
   display: grid;
   grid-template-columns: 176px minmax(0, 1fr);
@@ -687,34 +679,6 @@ h2 {
   color: var(--ink);
   background: #fff;
   box-shadow: 0 1px 4px rgb(26 30 44 / 12%);
-}
-
-.daily-dots {
-  display: grid;
-  grid-template-columns: repeat(10, minmax(5px, 1fr));
-  gap: 5px;
-}
-
-.daily-dots span {
-  height: 6px;
-  border-radius: 3px;
-  background: #dadbe1;
-}
-
-.daily-dots span.filled {
-  background: var(--blue);
-}
-
-.daily-dots span.filled:nth-child(4n + 2) {
-  background: var(--green);
-}
-
-.daily-dots span.filled:nth-child(4n + 3) {
-  background: var(--orange);
-}
-
-.daily-dots span.filled:nth-child(4n) {
-  background: var(--pink);
 }
 
 .review-card {
@@ -1726,10 +1690,6 @@ h2 {
     gap: 12px;
   }
 
-  .daily-dots {
-    gap: 3px;
-  }
-
   .library-filter-row {
     grid-template-columns: 1fr;
   }
@@ -2011,14 +1971,6 @@ h2 {
 }
 
 @media (max-width: 899px) {
-  .today-progress {
-    padding-top: 13px;
-  }
-
-  .today-progress > p {
-    margin: 10px 1px 0 0;
-  }
-
   .long-term-stats {
     margin-top: 24px;
     padding: 20px 18px 22px;
@@ -2329,12 +2281,15 @@ h2 {
   }
 
   .topbar {
-    position: relative;
-    height: calc(98px + env(safe-area-inset-top));
-    padding: calc(22px + env(safe-area-inset-top)) 27px 10px;
+    position: sticky;
+    z-index: 60;
+    top: 0;
+    height: calc(76px + env(safe-area-inset-top));
+    padding: calc(12px + env(safe-area-inset-top)) 27px 8px;
     border-bottom: 0;
-    background: transparent;
-    backdrop-filter: none;
+    background: rgb(250 249 248 / 86%);
+    box-shadow: 0 1px 0 rgb(255 255 255 / 72%) inset;
+    backdrop-filter: saturate(140%) blur(24px);
   }
 
   .brand {
@@ -2350,34 +2305,34 @@ h2 {
   }
 
   .brand-copy strong {
-    font-size: 31px;
+    font-size: 27px;
     font-weight: 800;
     line-height: 1.05;
   }
 
   .brand-copy small {
     color: #a1a0a6;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 560;
     line-height: 1.2;
   }
 
   .topbar-actions {
-    gap: 14px;
+    gap: 10px;
   }
 
   .topbar .icon-button {
-    width: 50px;
-    height: 50px;
-    flex-basis: 50px;
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
     color: #24232c;
     background: rgb(255 255 255 / 78%);
     box-shadow: 0 12px 28px rgb(35 31 48 / 10%);
   }
 
   .topbar .icon-button svg {
-    width: 24px;
-    height: 24px;
+    width: 21px;
+    height: 21px;
     stroke-width: 2;
   }
 
@@ -2388,99 +2343,19 @@ h2 {
   }
 
   .topbar .primary-icon svg {
-    width: 28px;
-    height: 28px;
+    width: 25px;
+    height: 25px;
   }
 
   main {
     width: 100%;
-    min-height: calc(100vh - 98px);
-    padding: 20px 27px calc(112px + env(safe-area-inset-bottom));
-  }
-
-  .today-dashboard {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 151px;
-    min-height: 143px;
-    align-items: start;
-    gap: 12px;
-  }
-
-  .today-date {
-    margin: 0 0 9px;
-    color: #96959d;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.2;
-  }
-
-  .today-copy h1 {
-    font-size: 43px;
-    font-weight: 790;
-    line-height: 1.08;
-  }
-
-  .today-motivation {
-    margin: 20px 0 0;
-    color: #96959d;
-    font-size: 13px;
-    line-height: 1.4;
-    white-space: nowrap;
-  }
-
-  .today-progress {
-    display: grid;
-    justify-items: end;
-    padding-top: 12px;
-  }
-
-  .daily-count {
-    height: auto;
-  }
-
-  .daily-count strong {
-    font-size: 45px;
-    font-weight: 720;
-    line-height: .95;
-  }
-
-  .daily-count span {
-    margin-left: 6px;
-    color: #8e8d96;
-    font-size: 16px;
-  }
-
-  .today-progress > p {
-    margin: 9px 1px 11px 0;
-    color: #aaa9b0;
-    font-size: 12px;
-    font-weight: 600;
-  }
-
-  .today-progress .daily-dots {
-    width: 151px;
-  }
-
-  .daily-dots {
-    gap: 4px;
-  }
-
-  .daily-dots span {
-    height: 7px;
-    border-radius: 4px;
-    background: #ebeaf0;
-  }
-
-  .daily-dots span.filled,
-  .daily-dots span.filled:nth-child(4n + 2),
-  .daily-dots span.filled:nth-child(4n + 3),
-  .daily-dots span.filled:nth-child(4n) {
-    background: #4f3579;
+    min-height: calc(100vh - 76px);
+    padding: 14px 27px calc(112px + env(safe-area-inset-bottom));
   }
 
   .practice-toolbar {
     display: block;
-    margin: 3px 0 7px;
+    margin: 0 0 10px;
   }
 
   .mode-segment {
@@ -2713,18 +2588,6 @@ h2 {
     padding-left: 20px;
   }
 
-  .today-dashboard {
-    grid-template-columns: minmax(0, 1fr) 128px;
-  }
-
-  .today-progress .daily-dots {
-    width: 128px;
-  }
-
-  .today-motivation {
-    font-size: 11px;
-  }
-
   .review-term {
     font-size: 42px;
   }
@@ -2736,47 +2599,6 @@ h2 {
 }
 
 @media (min-width: 900px) {
-  .today-dashboard {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 180px;
-    min-height: 142px;
-    align-items: start;
-    gap: 24px;
-  }
-
-  .today-date {
-    margin: 0 0 6px;
-    color: var(--tertiary);
-    font-size: 12px;
-    font-weight: 650;
-  }
-
-  .today-copy h1 {
-    font-size: 40px;
-  }
-
-  .today-motivation {
-    margin: 16px 0 0;
-    color: var(--tertiary);
-    font-size: 13px;
-  }
-
-  .today-progress {
-    display: grid;
-    justify-items: end;
-    padding-top: 8px;
-  }
-
-  .today-progress > p {
-    margin: 6px 0 10px;
-    color: var(--tertiary);
-    font-size: 11px;
-  }
-
-  .today-progress .daily-dots {
-    width: 180px;
-  }
-
   .practice-toolbar {
     display: block;
     margin-bottom: 16px;
@@ -2823,36 +2645,6 @@ h2 {
   main {
     min-height: calc(100vh - 78px);
     padding-top: 8px;
-  }
-
-  .today-dashboard {
-    min-height: 105px;
-  }
-
-  .today-date {
-    margin-bottom: 4px;
-    font-size: 12px;
-  }
-
-  .today-copy h1 {
-    font-size: 36px;
-  }
-
-  .today-motivation {
-    margin-top: 8px;
-    font-size: 11px;
-  }
-
-  .today-progress {
-    padding-top: 3px;
-  }
-
-  .daily-count strong {
-    font-size: 38px;
-  }
-
-  .today-progress > p {
-    margin-top: 5px;
   }
 
   .practice-toolbar {

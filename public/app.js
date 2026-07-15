@@ -200,15 +200,6 @@ function formatPercent(current, target) {
   return Math.min(100, Math.round((current / target) * 100));
 }
 
-function dateLabel() {
-  const parts = Object.fromEntries(new Intl.DateTimeFormat('zh-CN', {
-    month: 'numeric',
-    day: 'numeric',
-    weekday: 'short'
-  }).formatToParts(new Date()).map((part) => [part.type, part.value]));
-  return `${parts.month}月${parts.day}日 ${parts.weekday}`;
-}
-
 function findItem(id) {
   return state.today.find((item) => item.id === id)
     || state.library.find((item) => item.id === id)
@@ -259,20 +250,8 @@ function bindSpeechButtons(root = document) {
 }
 
 function renderToday() {
-  const remembered = (state.progress?.counts?.S2 || 0) + (state.progress?.counts?.S3 || 0);
   const item = state.today[0];
   els.today.innerHTML = `
-    <div class="today-dashboard">
-      <div class="today-copy">
-        <p class="today-date">${escapeHtml(dateLabel())}</p>
-        <h1 id="today-title">今天</h1>
-        <p class="today-motivation">坚持学习，词汇流动起来。</p>
-      </div>
-      <div class="today-progress" aria-label="长期已记住 ${remembered} 条">
-        <div class="daily-count"><strong>${remembered}</strong></div>
-        <p>已记住</p>
-      </div>
-    </div>
     <div class="practice-toolbar">
       <div class="mode-segment" aria-label="练习模式">
         <button class="${state.reviewMode === 'reading' ? 'active' : ''}" type="button" data-review-mode="reading">
@@ -902,9 +881,23 @@ els.loginForm.addEventListener('submit', submitLogin);
 document.querySelector('#password-toggle').addEventListener('click', togglePasswordVisibility);
 document.querySelector('#logout-button').addEventListener('click', logout);
 
+function isEditableTarget(target) {
+  return target instanceof Element && Boolean(target.closest('input, textarea, [contenteditable="true"]'));
+}
+
+document.addEventListener('selectstart', (event) => {
+  if (!isEditableTarget(event.target)) event.preventDefault();
+});
+document.addEventListener('copy', (event) => {
+  if (!isEditableTarget(event.target)) event.preventDefault();
+});
+document.addEventListener('contextmenu', (event) => {
+  if (!isEditableTarget(event.target)) event.preventDefault();
+});
+
 const initialView = ['today', 'library', 'progress'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'today';
 bootstrapAuth();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.4.2'), { scope: APP_BASE_URL.pathname }).catch(console.error);
+  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.4.3'), { scope: APP_BASE_URL.pathname }).catch(console.error);
 }
