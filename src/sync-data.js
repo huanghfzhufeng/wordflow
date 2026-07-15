@@ -25,6 +25,14 @@ const HIGH_RISK_PRIORITIES = new Map([
   ['Sign Out', 116],
   ['Delete', 112]
 ]);
+const PHONETICS = new Map([
+  ['Delete', '/dɪˈliːt/'],
+  ['Remove', '/rɪˈmuːv/'],
+  ['Erase', '/ɪˈreɪs/'],
+  ['Reset', '/ˌriːˈset/'],
+  ['Restore', '/rɪˈstɔːr/'],
+  ['Sign Out', '/saɪn aʊt/']
+]);
 
 function readRequired(memoryRoot, filename) {
   return fs.readFileSync(path.join(memoryRoot, filename), 'utf8');
@@ -95,6 +103,7 @@ function vocabularyItems(markdown, reviewedAt) {
       entries.push({
         term,
         meaning,
+        phonetic: PHONETICS.get(term) || '',
         status: normalizedStatus(status),
         kind,
         module: 'learning-ledger',

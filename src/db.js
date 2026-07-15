@@ -21,6 +21,12 @@ function requireText(value, label, maxLength = 500) {
   return text;
 }
 
+function optionalText(value, label, maxLength) {
+  const text = typeof value === 'string' ? value.trim() : '';
+  if (text.length > maxLength) throw new Error(`${label}过长`);
+  return text;
+}
+
 export function openDatabase(dbPath) {
   fs.mkdirSync(path.dirname(dbPath), { recursive: true });
   const db = new Database(dbPath);
@@ -32,6 +38,7 @@ export function openDatabase(dbPath) {
       seed_key TEXT UNIQUE,
       term TEXT NOT NULL,
       meaning TEXT NOT NULL DEFAULT '',
+      phonetic TEXT NOT NULL DEFAULT '',
       kind TEXT NOT NULL DEFAULT 'word',
       module TEXT NOT NULL DEFAULT 'custom',
       source TEXT NOT NULL DEFAULT '手动添加',
@@ -74,6 +81,10 @@ export function openDatabase(dbPath) {
       updated_at TEXT NOT NULL
     );
   `);
+  const itemColumns = new Set(db.prepare('PRAGMA table_info(learning_items)').all().map((column) => column.name));
+  if (!itemColumns.has('phonetic')) {
+    db.exec("ALTER TABLE learning_items ADD COLUMN phonetic TEXT NOT NULL DEFAULT ''");
+  }
   return db;
 }
 
@@ -81,13 +92,13 @@ export function syncSeedData(db, seedData) {
   const find = db.prepare('SELECT * FROM learning_items WHERE seed_key = ?');
   const insert = db.prepare(`
     INSERT INTO learning_items (
-      seed_key, term, meaning, kind, module, source, source_url, example, note,
+      seed_key, term, meaning, phonetic, kind, module, source, source_url, example, note,
       status, priority, order_index, last_reviewed_at, next_review_at, created_at, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
   const update = db.prepare(`
     UPDATE learning_items SET
-      term = ?, meaning = ?, kind = ?, module = ?, source = ?, example = ?, note = ?,
+      term = ?, meaning = ?, phonetic = ?, kind = ?, module = ?, source = ?, example = ?, note = ?,
       priority = ?, order_index = ?, status = ?, last_reviewed_at = COALESCE(last_reviewed_at, ?),
       next_review_at = CASE WHEN status = 'candidate' AND ? <> 'candidate' THEN ? ELSE next_review_at END,
       updated_at = ?
@@ -112,7 +123,7 @@ export function syncSeedData(db, seedData) {
       const nextReviewAt = item.status === 'candidate' ? null : now;
       if (!existing) {
         insert.run(
-          item.seedKey, item.term, item.meaning || '', item.kind, item.module, item.source,
+          item.seedKey, item.term, item.meaning || '', item.phonetic || '', item.kind, item.module, item.source,
           item.sourceUrl || null, item.example || '', item.note || '', item.status,
           item.priority || 10, item.orderIndex || null, item.lastReviewedAt || null,
           nextReviewAt, now, now
@@ -125,7 +136,7 @@ export function syncSeedData(db, seedData) {
         ? item.status
         : existing.status;
       update.run(
-        item.term, item.meaning || existing.meaning, item.kind, item.module, item.source,
+        item.term, item.meaning || existing.meaning, item.phonetic || existing.phonetic || '', item.kind, item.module, item.source,
         item.example || '', item.note || '', item.priority || 10, item.orderIndex || null,
         mergedStatus, item.lastReviewedAt || null, item.status, nextReviewAt, now, existing.id
       );
@@ -146,6 +157,7 @@ function publicItem(row) {
     id: row.id,
     term: row.term,
     meaning: row.meaning,
+    phonetic: row.phonetic,
     kind: row.kind,
     module: row.module,
     source: row.source,
@@ -228,11 +240,11 @@ export function createRepository(db, { timeZone }) {
     const now = nowIso();
     const info = db.prepare(`
       INSERT INTO learning_items (
-        term, meaning, kind, module, source, source_url, example, note, status,
+        term, meaning, phonetic, kind, module, source, source_url, example, note, status,
         priority, next_review_at, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'S0', 70, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'S0', 70, ?, ?, ?)
     `).run(
-      term, meaning, kind, module, input.source?.trim() || '手动添加',
+      term, meaning, optionalText(input.phonetic, '音标', 120), kind, module, input.source?.trim() || '手动添加',
       input.sourceUrl?.trim() || null, input.example?.trim() || '', input.note?.trim() || '',
       now, now, now
     );
@@ -248,11 +260,11 @@ export function createRepository(db, { timeZone }) {
     const module = VALID_MODULES.has(input.module) ? input.module : current.module;
     db.prepare(`
       UPDATE learning_items SET
-        term = ?, meaning = ?, kind = ?, module = ?, source = ?, source_url = ?,
+        term = ?, meaning = ?, phonetic = ?, kind = ?, module = ?, source = ?, source_url = ?,
         example = ?, note = ?, updated_at = ?
       WHERE id = ?
     `).run(
-      term, meaning, kind, module,
+      term, meaning, input.phonetic === undefined ? current.phonetic : optionalText(input.phonetic, '音标', 120), kind, module,
       input.source === undefined ? current.source : input.source.trim() || '手动添加',
       input.sourceUrl === undefined ? current.source_url : input.sourceUrl.trim() || null,
       input.example === undefined ? current.example : input.example.trim(),

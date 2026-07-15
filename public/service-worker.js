@@ -1,5 +1,5 @@
-const CACHE = 'wordflow-shell-v4';
-const SHELL = ['/', '/styles.css', '/app.js', '/speech.js', '/icon.svg', '/icon-192.png', '/icon-512.png', '/manifest.webmanifest'];
+const CACHE = 'wordflow-shell-v5';
+const SHELL = ['/', '/styles.css', '/app.js', '/speech.js', '/ui-atmosphere.png', '/card-wave.png', '/icon.svg', '/icon-192.png', '/icon-512.png', '/manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));

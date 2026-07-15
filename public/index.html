@@ -30,7 +30,7 @@
 
     <nav class="app-nav" aria-label="主导航">
       <button class="nav-item active" type="button" data-view="today">
-        <i data-lucide="sparkles"></i>
+        <i data-lucide="house"></i>
         <span>今日</span>
       </button>
       <button class="nav-item" type="button" data-view="library">
@@ -38,7 +38,7 @@
         <span>词句</span>
       </button>
       <button class="nav-item" type="button" data-view="progress">
-        <i data-lucide="chart-spline"></i>
+        <i data-lucide="chart-no-axes-combined"></i>
         <span>进度</span>
       </button>
     </nav>
@@ -70,6 +70,11 @@
       <label class="field">
         <span>中文核心义</span>
         <textarea id="item-meaning" rows="2" maxlength="500" required placeholder="抹掉所有内容"></textarea>
+      </label>
+
+      <label class="field">
+        <span>音标（可选）</span>
+        <input id="item-phonetic" maxlength="120" placeholder="/ɪˈreɪs/">
       </label>
 
       <div class="field-grid">

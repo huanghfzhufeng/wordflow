@@ -41,10 +41,17 @@ test('repository persists additions and applies delayed evidence transitions', (
   const added = repository.createItem({
     term: 'Try Again',
     meaning: '重试',
+    phonetic: '/traɪ əˈɡen/',
     kind: 'phrase',
     module: 'iphone-p1'
   });
   assert.equal(added.status, 'S0');
+  assert.equal(added.phonetic, '/traɪ əˈɡen/');
+  assert.throws(() => repository.createItem({
+    term: 'invalid',
+    meaning: '无效',
+    phonetic: 'x'.repeat(121)
+  }), /音标过长/);
 
   const first = repository.reviewItem(added.id, 'good', new Date('2026-07-14T01:00:00.000Z'));
   assert.equal(first.item.status, 'S1');

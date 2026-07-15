@@ -1551,3 +1551,485 @@ h2 {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Mobile composition matched to the approved iOS reference. */
+@media (max-width: 899px) {
+  body {
+    background-color: #faf9f8;
+    background-image: url('/ui-atmosphere.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .topbar {
+    position: relative;
+    height: calc(98px + env(safe-area-inset-top));
+    padding: calc(22px + env(safe-area-inset-top)) 27px 10px;
+    border-bottom: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .brand {
+    align-items: flex-start;
+  }
+
+  .brand-mark {
+    display: none;
+  }
+
+  .brand-copy {
+    gap: 1px;
+  }
+
+  .brand-copy strong {
+    font-size: 31px;
+    font-weight: 800;
+    line-height: 1.05;
+  }
+
+  .brand-copy small {
+    color: #a1a0a6;
+    font-size: 15px;
+    font-weight: 560;
+    line-height: 1.2;
+  }
+
+  .topbar-actions {
+    gap: 14px;
+  }
+
+  .topbar .icon-button {
+    width: 50px;
+    height: 50px;
+    flex-basis: 50px;
+    color: #24232c;
+    background: rgb(255 255 255 / 78%);
+    box-shadow: 0 12px 28px rgb(35 31 48 / 10%);
+  }
+
+  .topbar .icon-button svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+  }
+
+  .topbar .primary-icon {
+    color: #fff;
+    background: #24232b;
+    box-shadow: 0 14px 30px rgb(35 31 48 / 20%);
+  }
+
+  .topbar .primary-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  main {
+    width: 100%;
+    min-height: calc(100vh - 98px);
+    padding: 20px 27px calc(112px + env(safe-area-inset-bottom));
+  }
+
+  .today-dashboard {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 151px;
+    min-height: 143px;
+    align-items: start;
+    gap: 12px;
+  }
+
+  .today-date {
+    margin: 0 0 9px;
+    color: #96959d;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .today-copy h1 {
+    font-size: 43px;
+    font-weight: 790;
+    line-height: 1.08;
+  }
+
+  .today-motivation {
+    margin: 20px 0 0;
+    color: #96959d;
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .today-progress {
+    display: grid;
+    justify-items: end;
+    padding-top: 12px;
+  }
+
+  .daily-count {
+    height: auto;
+  }
+
+  .daily-count strong {
+    font-size: 45px;
+    font-weight: 720;
+    line-height: .95;
+  }
+
+  .daily-count span {
+    margin-left: 6px;
+    color: #8e8d96;
+    font-size: 16px;
+  }
+
+  .today-progress > p {
+    margin: 9px 1px 11px 0;
+    color: #aaa9b0;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .today-progress .daily-dots {
+    width: 151px;
+  }
+
+  .daily-dots {
+    gap: 4px;
+  }
+
+  .daily-dots span {
+    height: 7px;
+    border-radius: 4px;
+    background: #ebeaf0;
+  }
+
+  .daily-dots span.filled,
+  .daily-dots span.filled:nth-child(4n + 2),
+  .daily-dots span.filled:nth-child(4n + 3),
+  .daily-dots span.filled:nth-child(4n) {
+    background: #4f3579;
+  }
+
+  .practice-toolbar {
+    display: block;
+    margin: 3px 0 7px;
+  }
+
+  .mode-segment {
+    width: 218px;
+    padding: 3px;
+    border-radius: 24px;
+    background: rgb(240 236 235 / 78%);
+  }
+
+  .mode-segment button {
+    height: 42px;
+    gap: 8px;
+    border-radius: 21px;
+    color: #9998a0;
+    font-size: 14px;
+  }
+
+  .mode-segment button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .mode-segment button.active {
+    color: #2e2941;
+    background: rgb(255 255 255 / 92%);
+    box-shadow: 0 8px 18px rgb(45 39 62 / 8%);
+  }
+
+  .review-card {
+    min-height: 357px;
+    padding: 19px 22px 22px;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 94%);
+    border-radius: 30px;
+    background: rgb(255 255 255 / 70%);
+    box-shadow: 0 24px 52px rgb(48 42 65 / 10%), 0 1px 0 rgb(255 255 255 / 95%) inset;
+    backdrop-filter: blur(18px);
+  }
+
+  .review-card::before {
+    display: none;
+  }
+
+  .review-card::after {
+    position: absolute;
+    z-index: 0;
+    right: -1px;
+    left: 0;
+    bottom: 54px;
+    width: 100%;
+    height: 44%;
+    background-image: url('/card-wave.png');
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: 72% 100%;
+    content: "";
+    opacity: .9;
+    pointer-events: none;
+  }
+
+  .review-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .review-card-top {
+    align-items: center;
+  }
+
+  .status-badge,
+  .module-badge {
+    min-height: 26px;
+    padding: 4px 9px;
+    border-radius: 8px;
+    font-size: 10px;
+  }
+
+  .module-badge {
+    color: #51417d;
+    background: #eee9fa;
+  }
+
+  .status-S0 {
+    color: #c86b36;
+    background: #fbede5;
+  }
+
+  .queue-position {
+    color: #777681;
+    font-size: 11px;
+  }
+
+  .review-stage {
+    min-height: 230px;
+    align-content: start;
+    padding: 50px 4px 30px;
+  }
+
+  .review-term {
+    font-size: 47px;
+    font-weight: 780;
+    line-height: 1.08;
+  }
+
+  .pronunciation-row {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 12px;
+    margin-top: 5px;
+  }
+
+  .pronunciation-row > span {
+    color: #8f8e98;
+    font-family: "Avenir Next", sans-serif;
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .term-speaker {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+    color: #463562;
+    background: rgb(255 255 255 / 86%);
+    box-shadow: 0 8px 18px rgb(48 42 65 / 9%);
+  }
+
+  .term-speaker svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .review-source {
+    margin-top: 7px;
+    color: #92919a;
+    font-size: 14px;
+  }
+
+  .reveal-button {
+    height: 56px;
+    gap: 14px;
+    border-radius: 19px;
+    color: #fff;
+    background: #24232c;
+    box-shadow: 0 14px 28px rgb(36 35 44 / 18%);
+    font-size: 16px;
+  }
+
+  .reveal-button svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .listening-card .reveal-button {
+    background: #24232c;
+    box-shadow: 0 14px 28px rgb(36 35 44 / 18%);
+  }
+
+  .listening-card .review-stage {
+    align-content: center;
+    padding-top: 28px;
+  }
+
+  .answer-panel {
+    min-height: 148px;
+  }
+
+  .review-actions {
+    gap: 7px;
+  }
+
+  .app-nav {
+    right: 26px;
+    bottom: max(26px, env(safe-area-inset-bottom));
+    left: 26px;
+    height: 78px;
+    padding: 8px 16px 7px;
+    border: 0;
+    border-radius: 32px;
+    background: rgb(255 255 255 / 84%);
+    box-shadow: 0 20px 46px rgb(48 42 65 / 12%);
+    backdrop-filter: blur(22px);
+  }
+
+  .nav-item {
+    position: relative;
+    gap: 4px;
+    color: #a3a2aa;
+    font-size: 12px;
+  }
+
+  .nav-item svg {
+    width: 23px;
+    height: 23px;
+    stroke-width: 2.2;
+  }
+
+  .nav-item.active {
+    color: #342848;
+  }
+
+  .nav-item[data-view="today"].active svg {
+    fill: currentColor;
+  }
+
+  .nav-item.active::after {
+    position: absolute;
+    bottom: -4px;
+    width: 30px;
+    height: 3px;
+    border-radius: 2px;
+    background: #342848;
+    content: "";
+  }
+
+  .toast {
+    bottom: max(118px, calc(92px + env(safe-area-inset-bottom)));
+  }
+}
+
+@media (max-width: 355px) {
+  main {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .topbar {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .today-dashboard {
+    grid-template-columns: minmax(0, 1fr) 128px;
+  }
+
+  .today-progress .daily-dots {
+    width: 128px;
+  }
+
+  .today-motivation {
+    font-size: 11px;
+  }
+
+  .review-term {
+    font-size: 42px;
+  }
+
+  .app-nav {
+    right: 20px;
+    left: 20px;
+  }
+}
+
+@media (min-width: 900px) {
+  .today-dashboard {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 180px;
+    min-height: 142px;
+    align-items: start;
+    gap: 24px;
+  }
+
+  .today-date {
+    margin: 0 0 6px;
+    color: var(--tertiary);
+    font-size: 12px;
+    font-weight: 650;
+  }
+
+  .today-copy h1 {
+    font-size: 40px;
+  }
+
+  .today-motivation {
+    margin: 16px 0 0;
+    color: var(--tertiary);
+    font-size: 13px;
+  }
+
+  .today-progress {
+    display: grid;
+    justify-items: end;
+    padding-top: 8px;
+  }
+
+  .today-progress > p {
+    margin: 6px 0 10px;
+    color: var(--tertiary);
+    font-size: 11px;
+  }
+
+  .today-progress .daily-dots {
+    width: 180px;
+  }
+
+  .practice-toolbar {
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .mode-segment {
+    width: 188px;
+  }
+
+  .pronunciation-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .pronunciation-row > span {
+    color: var(--tertiary);
+    font-family: "Avenir Next", sans-serif;
+    font-size: 19px;
+  }
+}

@@ -21,4 +21,7 @@ test('workspace learning files merge into one evidence-aware seed', () => {
   const erase = seed.items.find((item) => item.term === 'Erase');
   assert.equal(erase.status, 'S0');
   assert.ok(erase.priority > general.priority);
+
+  const restore = seed.items.find((item) => item.term === 'Restore');
+  assert.equal(restore.phonetic, '/rɪˈstɔːr/');
 });

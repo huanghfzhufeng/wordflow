@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T00:29:28.217Z",
+  "generatedAt": "2026-07-15T00:45:20.489Z",
   "items": [
     {
       "term": "the",
@@ -13,7 +13,8 @@
       "priority": 35,
       "orderIndex": 1,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:the"
+      "seedKey": "item:the",
+      "phonetic": ""
     },
     {
       "term": "be",
@@ -55,7 +56,8 @@
       "priority": 35,
       "orderIndex": 4,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:and"
+      "seedKey": "item:and",
+      "phonetic": ""
     },
     {
       "term": "IMO",
@@ -111,7 +113,8 @@
       "priority": 35,
       "orderIndex": 8,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:to"
+      "seedKey": "item:to",
+      "phonetic": ""
     },
     {
       "term": "agent",
@@ -153,7 +156,8 @@
       "priority": 35,
       "orderIndex": 11,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:in"
+      "seedKey": "item:in",
+      "phonetic": ""
     },
     {
       "term": "have",
@@ -167,7 +171,8 @@
       "priority": 35,
       "orderIndex": 12,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:have"
+      "seedKey": "item:have",
+      "phonetic": ""
     },
     {
       "term": "he's",
@@ -195,7 +200,8 @@
       "priority": 35,
       "orderIndex": 14,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:it"
+      "seedKey": "item:it",
+      "phonetic": ""
     },
     {
       "term": "IMHO",
@@ -223,7 +229,8 @@
       "priority": 35,
       "orderIndex": 16,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:you"
+      "seedKey": "item:you",
+      "phonetic": ""
     },
     {
       "term": "she's",
@@ -251,7 +258,8 @@
       "priority": 35,
       "orderIndex": 18,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:he"
+      "seedKey": "item:he",
+      "phonetic": ""
     },
     {
       "term": "prompt",
@@ -279,7 +287,8 @@
       "priority": 35,
       "orderIndex": 20,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:for"
+      "seedKey": "item:for",
+      "phonetic": ""
     },
     {
       "term": "they",
@@ -293,7 +302,8 @@
       "priority": 35,
       "orderIndex": 21,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:they"
+      "seedKey": "item:they",
+      "phonetic": ""
     },
     {
       "term": "not",
@@ -307,7 +317,8 @@
       "priority": 35,
       "orderIndex": 22,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:not"
+      "seedKey": "item:not",
+      "phonetic": ""
     },
     {
       "term": "it's",
@@ -335,7 +346,8 @@
       "priority": 35,
       "orderIndex": 24,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:that"
+      "seedKey": "item:that",
+      "phonetic": ""
     },
     {
       "term": "TBH",
@@ -363,7 +375,8 @@
       "priority": 35,
       "orderIndex": 26,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:we"
+      "seedKey": "item:we",
+      "phonetic": ""
     },
     {
       "term": "we're",
@@ -419,7 +432,8 @@
       "priority": 80,
       "orderIndex": 30,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:with"
+      "seedKey": "item:with",
+      "phonetic": ""
     },
     {
       "term": "this",
@@ -433,7 +447,8 @@
       "priority": 35,
       "orderIndex": 31,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:this"
+      "seedKey": "item:this",
+      "phonetic": ""
     },
     {
       "term": "I",
@@ -447,7 +462,8 @@
       "priority": 35,
       "orderIndex": 32,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:i"
+      "seedKey": "item:i",
+      "phonetic": ""
     },
     {
       "term": "they're",
@@ -475,7 +491,8 @@
       "priority": 35,
       "orderIndex": 34,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:do"
+      "seedKey": "item:do",
+      "phonetic": ""
     },
     {
       "term": "NGL",
@@ -559,7 +576,8 @@
       "priority": 35,
       "orderIndex": 40,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:she"
+      "seedKey": "item:she",
+      "phonetic": ""
     },
     {
       "term": "but",
@@ -573,7 +591,8 @@
       "priority": 35,
       "orderIndex": 41,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:but"
+      "seedKey": "item:but",
+      "phonetic": ""
     },
     {
       "term": "from",
@@ -699,7 +718,8 @@
       "priority": 35,
       "orderIndex": 50,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:say"
+      "seedKey": "item:say",
+      "phonetic": ""
     },
     {
       "term": "go",
@@ -867,7 +887,8 @@
       "priority": 35,
       "orderIndex": 62,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:can"
+      "seedKey": "item:can",
+      "phonetic": ""
     },
     {
       "term": "you'd",
@@ -951,7 +972,8 @@
       "priority": 35,
       "orderIndex": 68,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:know"
+      "seedKey": "item:know",
+      "phonetic": ""
     },
     {
       "term": "workflow",
@@ -993,7 +1015,8 @@
       "priority": 35,
       "orderIndex": 71,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:get"
+      "seedKey": "item:get",
+      "phonetic": ""
     },
     {
       "term": "who",
@@ -1035,7 +1058,8 @@
       "priority": 35,
       "orderIndex": 74,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:like"
+      "seedKey": "item:like",
+      "phonetic": ""
     },
     {
       "term": "FWIW",
@@ -1091,7 +1115,8 @@
       "priority": 35,
       "orderIndex": 78,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:think"
+      "seedKey": "item:think",
+      "phonetic": ""
     },
     {
       "term": "request",
@@ -1105,7 +1130,8 @@
       "priority": 35,
       "orderIndex": 79,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:request"
+      "seedKey": "item:request",
+      "phonetic": ""
     },
     {
       "term": "make",
@@ -1147,7 +1173,8 @@
       "priority": 35,
       "orderIndex": 82,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:see"
+      "seedKey": "item:see",
+      "phonetic": ""
     },
     {
       "term": "they'd",
@@ -1175,7 +1202,8 @@
       "priority": 35,
       "orderIndex": 84,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:what"
+      "seedKey": "item:what",
+      "phonetic": ""
     },
     {
       "term": "TL;DR",
@@ -1245,7 +1273,8 @@
       "priority": 35,
       "orderIndex": 89,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:response"
+      "seedKey": "item:response",
+      "phonetic": ""
     },
     {
       "term": "other",
@@ -1287,7 +1316,8 @@
       "priority": 35,
       "orderIndex": 92,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:good"
+      "seedKey": "item:good",
+      "phonetic": ""
     },
     {
       "term": "you'll",
@@ -1315,7 +1345,8 @@
       "priority": 35,
       "orderIndex": 94,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:people"
+      "seedKey": "item:people",
+      "phonetic": ""
     },
     {
       "term": "OP",
@@ -1385,7 +1416,8 @@
       "priority": 80,
       "orderIndex": 99,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:framework"
+      "seedKey": "item:framework",
+      "phonetic": ""
     },
     {
       "term": "no",
@@ -1399,7 +1431,8 @@
       "priority": 35,
       "orderIndex": 100,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:no"
+      "seedKey": "item:no",
+      "phonetic": ""
     },
     {
       "term": "well",
@@ -1427,7 +1460,8 @@
       "priority": 35,
       "orderIndex": 102,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:because"
+      "seedKey": "item:because",
+      "phonetic": ""
     },
     {
       "term": "she'll",
@@ -1567,7 +1601,8 @@
       "priority": 35,
       "orderIndex": 112,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:use"
+      "seedKey": "item:use",
+      "phonetic": ""
     },
     {
       "term": "they'll",
@@ -1763,7 +1798,8 @@
       "priority": 35,
       "orderIndex": 126,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:want"
+      "seedKey": "item:want",
+      "phonetic": ""
     },
     {
       "term": "wasn't",
@@ -1917,7 +1953,8 @@
       "priority": 35,
       "orderIndex": 137,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:don't"
+      "seedKey": "item:don't",
+      "phonetic": ""
     },
     {
       "term": "any",
@@ -2127,7 +2164,8 @@
       "priority": 35,
       "orderIndex": 152,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:right"
+      "seedKey": "item:right",
+      "phonetic": ""
     },
     {
       "term": "can't",
@@ -2141,7 +2179,8 @@
       "priority": 35,
       "orderIndex": 153,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:can't"
+      "seedKey": "item:can't",
+      "phonetic": ""
     },
     {
       "term": "how",
@@ -2183,7 +2222,8 @@
       "priority": 95,
       "orderIndex": 156,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:back"
+      "seedKey": "item:back",
+      "phonetic": ""
     },
     {
       "term": "couldn't",
@@ -2211,7 +2251,8 @@
       "priority": 35,
       "orderIndex": 158,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:mean"
+      "seedKey": "item:mean",
+      "phonetic": ""
     },
     {
       "term": "personal experience",
@@ -2407,7 +2448,8 @@
       "priority": 35,
       "orderIndex": 172,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:really"
+      "seedKey": "item:really",
+      "phonetic": ""
     },
     {
       "term": "shouldn't",
@@ -2757,7 +2799,8 @@
       "priority": 35,
       "orderIndex": 197,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:i don't know"
+      "seedKey": "item:i don't know",
+      "phonetic": ""
     },
     {
       "term": "still",
@@ -3163,7 +3206,8 @@
       "priority": 80,
       "orderIndex": 226,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:start"
+      "seedKey": "item:start",
+      "phonetic": ""
     },
     {
       "term": "feel like",
@@ -3583,7 +3627,8 @@
       "priority": 35,
       "orderIndex": 256,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:why"
+      "seedKey": "item:why",
+      "phonetic": ""
     },
     {
       "term": "according to",
@@ -3681,7 +3726,8 @@
       "priority": 35,
       "orderIndex": 263,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:agree with"
+      "seedKey": "item:agree with",
+      "phonetic": ""
     },
     {
       "term": "might",
@@ -4204,6 +4250,7 @@
     {
       "term": "is",
       "meaning": "是",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4216,6 +4263,7 @@
     {
       "term": "understand",
       "meaning": "理解；明白",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4228,6 +4276,7 @@
     {
       "term": "true",
       "meaning": "真的；正确的",
+      "phonetic": "",
       "status": "S2",
       "kind": "word",
       "module": "learning-ledger",
@@ -4240,6 +4289,7 @@
     {
       "term": "wrong",
       "meaning": "错的",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4252,6 +4302,7 @@
     {
       "term": "agree",
       "meaning": "同意",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4264,6 +4315,7 @@
     {
       "term": "disagree",
       "meaning": "不同意",
+      "phonetic": "",
       "status": "S2",
       "kind": "word",
       "module": "learning-ledger",
@@ -4276,6 +4328,7 @@
     {
       "term": "maybe",
       "meaning": "也许",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4288,6 +4341,7 @@
     {
       "term": "yes",
       "meaning": "是；对",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4300,6 +4354,7 @@
     {
       "term": "them",
       "meaning": "他们（动作对象）",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4312,6 +4367,7 @@
     {
       "term": "are",
       "meaning": "是",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4324,6 +4380,7 @@
     {
       "term": "has",
       "meaning": "有",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4336,6 +4393,7 @@
     {
       "term": "ready",
       "meaning": "准备好的",
+      "phonetic": "",
       "status": "S0",
       "kind": "word",
       "module": "learning-ledger",
@@ -4348,6 +4406,7 @@
     {
       "term": "fresh",
       "meaning": "新的；新鲜的",
+      "phonetic": "",
       "status": "S0",
       "kind": "word",
       "module": "learning-ledger",
@@ -4360,6 +4419,7 @@
     {
       "term": "a / an",
       "meaning": "一个",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4372,6 +4432,7 @@
     {
       "term": "agent / agents",
       "meaning": "Agent；智能体",
+      "phonetic": "",
       "status": "S2",
       "kind": "word",
       "module": "learning-ledger",
@@ -4384,6 +4445,7 @@
     {
       "term": "tool / tools",
       "meaning": "工具",
+      "phonetic": "",
       "status": "S2",
       "kind": "word",
       "module": "learning-ledger",
@@ -4396,6 +4458,7 @@
     {
       "term": "complete",
       "meaning": "完成",
+      "phonetic": "",
       "status": "S2",
       "kind": "word",
       "module": "learning-ledger",
@@ -4408,6 +4471,7 @@
     {
       "term": "task",
       "meaning": "任务",
+      "phonetic": "",
       "status": "S2",
       "kind": "word",
       "module": "learning-ledger",
@@ -4420,6 +4484,7 @@
     {
       "term": "information",
       "meaning": "信息",
+      "phonetic": "",
       "status": "S2",
       "kind": "word",
       "module": "learning-ledger",
@@ -4432,6 +4497,7 @@
     {
       "term": "memory",
       "meaning": "记忆",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4444,6 +4510,7 @@
     {
       "term": "store / stores",
       "meaning": "存储；保存",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4456,6 +4523,7 @@
     {
       "term": "later",
       "meaning": "后来；之后",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4468,6 +4536,7 @@
     {
       "term": "Search",
       "meaning": "搜索",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "iphone-p0",
@@ -4480,6 +4549,7 @@
     {
       "term": "Settings",
       "meaning": "设置",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "iphone-p0",
@@ -4492,6 +4562,7 @@
     {
       "term": "General",
       "meaning": "通用",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "iphone-p0",
@@ -4504,6 +4575,7 @@
     {
       "term": "Language & Region",
       "meaning": "语言与地区",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "iphone-p0",
@@ -4516,6 +4588,7 @@
     {
       "term": "Add Language",
       "meaning": "添加语言",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "iphone-p0",
@@ -4528,6 +4601,7 @@
     {
       "term": "English",
       "meaning": "英语",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "iphone-p0",
@@ -4540,6 +4614,7 @@
     {
       "term": "Simplified Chinese",
       "meaning": "简体中文",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "iphone-p0",
@@ -4552,6 +4627,7 @@
     {
       "term": "Primary Language",
       "meaning": "主要语言",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "iphone-p0",
@@ -4564,6 +4640,7 @@
     {
       "term": "Done",
       "meaning": "完成",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "iphone-p0",
@@ -4576,6 +4653,7 @@
     {
       "term": "Cancel",
       "meaning": "取消",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "iphone-p0",
@@ -4588,6 +4666,7 @@
     {
       "term": "Continue",
       "meaning": "继续",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "iphone-p0",
@@ -4600,6 +4679,7 @@
     {
       "term": "Delete",
       "meaning": "删除",
+      "phonetic": "/dɪˈliːt/",
       "status": "S1",
       "kind": "word",
       "module": "iphone-p1",
@@ -4612,6 +4692,7 @@
     {
       "term": "Remove",
       "meaning": "移除",
+      "phonetic": "/rɪˈmuːv/",
       "status": "S0",
       "kind": "word",
       "module": "iphone-p1",
@@ -4624,6 +4705,7 @@
     {
       "term": "Erase",
       "meaning": "抹掉、彻底清除",
+      "phonetic": "/ɪˈreɪs/",
       "status": "S0",
       "kind": "word",
       "module": "iphone-p1",
@@ -4636,6 +4718,7 @@
     {
       "term": "Reset",
       "meaning": "重置设置或状态",
+      "phonetic": "/ˌriːˈset/",
       "status": "S0",
       "kind": "word",
       "module": "iphone-p1",
@@ -4648,6 +4731,7 @@
     {
       "term": "Restore",
       "meaning": "从备份恢复",
+      "phonetic": "/rɪˈstɔːr/",
       "status": "S0",
       "kind": "word",
       "module": "iphone-p1",
@@ -4660,6 +4744,7 @@
     {
       "term": "Sign Out",
       "meaning": "退出登录",
+      "phonetic": "/saɪn aʊt/",
       "status": "S1",
       "kind": "phrase",
       "module": "iphone-p1",
@@ -4672,6 +4757,7 @@
     {
       "term": "project",
       "meaning": "项目",
+      "phonetic": "",
       "status": "S2",
       "kind": "word",
       "module": "learning-ledger",
@@ -4684,6 +4770,7 @@
     {
       "term": "provide / provides",
       "meaning": "提供",
+      "phonetic": "",
       "status": "S2",
       "kind": "word",
       "module": "learning-ledger",
@@ -4696,6 +4783,7 @@
     {
       "term": "build",
       "meaning": "构建",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4708,6 +4796,7 @@
     {
       "term": "building",
       "meaning": "构建；`build` 的句中形式",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4720,6 +4809,7 @@
     {
       "term": "lightweight",
       "meaning": "轻量的",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4732,6 +4822,7 @@
     {
       "term": "yet",
       "meaning": "然而；但却",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4744,6 +4835,7 @@
     {
       "term": "powerful",
       "meaning": "强大的",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4756,6 +4848,7 @@
     {
       "term": "workflow / workflows",
       "meaning": "工作流",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4768,6 +4861,7 @@
     {
       "term": "multi-agent",
       "meaning": "多智能体的",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4780,6 +4874,7 @@
     {
       "term": "send / sends",
       "meaning": "发送",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4792,6 +4887,7 @@
     {
       "term": "seed",
       "meaning": "种子；随机种子",
+      "phonetic": "",
       "status": "S2",
       "kind": "word",
       "module": "learning-ledger",
@@ -4804,6 +4900,7 @@
     {
       "term": "model",
       "meaning": "模型",
+      "phonetic": "",
       "status": "S1",
       "kind": "word",
       "module": "learning-ledger",
@@ -4816,6 +4913,7 @@
     {
       "term": "receive / receives",
       "meaning": "接收；收到",
+      "phonetic": "",
       "status": "S2",
       "kind": "word",
       "module": "learning-ledger",
@@ -4828,6 +4926,7 @@
     {
       "term": "What do you think?",
       "meaning": "你觉得呢？",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4840,6 +4939,7 @@
     {
       "term": "I think...",
       "meaning": "我认为……",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4852,6 +4952,7 @@
     {
       "term": "what you mean",
       "meaning": "你的意思；你是什么意思",
+      "phonetic": "",
       "status": "S2",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4864,6 +4965,7 @@
     {
       "term": "what they mean",
       "meaning": "他们的意思；他们是什么意思",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4876,6 +4978,7 @@
     {
       "term": "provide tools",
       "meaning": "提供工具",
+      "phonetic": "",
       "status": "S2",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4888,6 +4991,7 @@
     {
       "term": "use tools",
       "meaning": "使用工具",
+      "phonetic": "",
       "status": "S2",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4900,6 +5004,7 @@
     {
       "term": "to complete a task",
       "meaning": "为了完成任务",
+      "phonetic": "",
       "status": "S2",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4912,6 +5017,7 @@
     {
       "term": "get information",
       "meaning": "获取信息",
+      "phonetic": "",
       "status": "S2",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4924,6 +5030,7 @@
     {
       "term": "build AI agents",
       "meaning": "构建 AI Agent",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4936,6 +5043,7 @@
     {
       "term": "send a request",
       "meaning": "发送请求",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4948,6 +5056,7 @@
     {
       "term": "receive a response",
       "meaning": "接收响应",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4960,6 +5069,7 @@
     {
       "term": "store information in memory",
       "meaning": "将信息存储在记忆中",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4972,6 +5082,7 @@
     {
       "term": "store a response in memory",
       "meaning": "将响应存储在记忆中",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4984,6 +5095,7 @@
     {
       "term": "search for information",
       "meaning": "搜索信息",
+      "phonetic": "",
       "status": "S0",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -4996,6 +5108,7 @@
     {
       "term": "lightweight yet powerful",
       "meaning": "轻量但功能强大",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -5008,6 +5121,7 @@
     {
       "term": "framework for building multi-agent workflows",
       "meaning": "用于构建多智能体工作流的框架",
+      "phonetic": "",
       "status": "S1",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -5020,6 +5134,7 @@
     {
       "term": "ready to...",
       "meaning": "准备做……",
+      "phonetic": "",
       "status": "S0",
       "kind": "phrase",
       "module": "learning-ledger",
@@ -5032,6 +5147,7 @@
     {
       "term": "start fresh",
       "meaning": "重新开始",
+      "phonetic": "",
       "status": "S0",
       "kind": "phrase",
       "module": "learning-ledger",

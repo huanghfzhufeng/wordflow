@@ -117,11 +117,12 @@ function formatPercent(current, target) {
 }
 
 function dateLabel() {
-  return new Intl.DateTimeFormat('zh-CN', {
-    month: 'long',
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('zh-CN', {
+    month: 'numeric',
     day: 'numeric',
     weekday: 'short'
-  }).format(new Date());
+  }).formatToParts(new Date()).map((part) => [part.type, part.value]));
+  return `${parts.month}月${parts.day}日 ${parts.weekday}`;
 }
 
 function findItem(id) {
@@ -177,13 +178,18 @@ function renderToday() {
   const reviewed = state.progress?.today?.reviewed || 0;
   const item = state.today[0];
   els.today.innerHTML = `
-    <div class="page-heading today-heading">
-      <div>
-        <p class="eyebrow">${escapeHtml(dateLabel())}</p>
+    <div class="today-dashboard">
+      <div class="today-copy">
+        <p class="today-date">${escapeHtml(dateLabel())}</p>
         <h1 id="today-title">今天</h1>
+        <p class="today-motivation">坚持学习，词汇流动起来。</p>
       </div>
-      <div class="daily-count" aria-label="今日完成 ${reviewed}/${DAILY_TARGET}">
-        <strong>${reviewed}</strong><span>/${DAILY_TARGET}</span>
+      <div class="today-progress" aria-label="今日完成 ${reviewed}/${DAILY_TARGET}">
+        <div class="daily-count"><strong>${reviewed}</strong><span>/${DAILY_TARGET}</span></div>
+        <p>今日进度</p>
+        <div class="daily-dots" aria-hidden="true">
+          ${Array.from({ length: DAILY_TARGET }, (_, index) => `<span class="${index < reviewed ? 'filled' : ''}"></span>`).join('')}
+        </div>
       </div>
     </div>
     <div class="practice-toolbar">
@@ -194,9 +200,6 @@ function renderToday() {
         <button class="${state.reviewMode === 'listening' ? 'active' : ''}" type="button" data-review-mode="listening">
           <i data-lucide="headphones"></i><span>听辨</span>
         </button>
-      </div>
-      <div class="daily-dots" aria-hidden="true">
-        ${Array.from({ length: DAILY_TARGET }, (_, index) => `<span class="${index < reviewed ? 'filled' : ''}"></span>`).join('')}
       </div>
     </div>
     ${item ? reviewCard(item) : emptyToday()}
@@ -227,8 +230,9 @@ function reviewCard(item) {
             <small>${speech.getPreferences().rate.toFixed(2).replace(/0$/, '')}× · ${speech.getPreferences().accent === 'en-GB' ? '英式' : '美式'}</small>
           </button>
         ` : `
-          <div class="term-line">
-            <div class="review-term">${escapeHtml(item.term)}</div>
+          <div class="review-term">${escapeHtml(item.term)}</div>
+          <div class="pronunciation-row">
+            ${item.phonetic ? `<span>${escapeHtml(item.phonetic)}</span>` : ''}
             ${speakerButton(item, 'term-speaker')}
           </div>
           <p class="review-source">${escapeHtml(item.source || '学习内容')}</p>
@@ -238,7 +242,7 @@ function reviewCard(item) {
       ${state.revealed ? answerPanel(item) : `
         <button class="reveal-button" id="reveal-answer" type="button">
           <span>${listeningPrompt ? '看答案' : '显示答案'}</span>
-          <i data-lucide="arrow-up"></i>
+          <i data-lucide="chevron-down"></i>
         </button>
       `}
     </article>
@@ -593,6 +597,7 @@ function openEditDialog(id) {
   document.querySelector('#item-id').value = item.id;
   document.querySelector('#item-term').value = item.term;
   document.querySelector('#item-meaning').value = item.meaning;
+  document.querySelector('#item-phonetic').value = item.phonetic || '';
   document.querySelector('#item-kind').value = item.kind;
   document.querySelector('#item-module').value = item.module in MODULE_LABELS ? item.module : 'custom';
   document.querySelector('#item-example').value = item.example || '';
@@ -615,6 +620,7 @@ async function saveItem(event) {
   const body = {
     term: document.querySelector('#item-term').value,
     meaning: document.querySelector('#item-meaning').value,
+    phonetic: document.querySelector('#item-phonetic').value,
     kind: document.querySelector('#item-kind').value,
     module: document.querySelector('#item-module').value,
     example: document.querySelector('#item-example').value,
