@@ -1,0 +1,24 @@
+{
+  "name": "wordflow",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Evidence-based English review and listening PWA",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env --watch src/server.js",
+    "start": "node --env-file-if-exists=.env src/server.js",
+    "sync": "node scripts/sync-learning-data.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.2.0",
+    "csv-parse": "^6.1.0",
+    "express": "^5.1.0",
+    "lucide": "^0.468.0"
+  },
+  "license": "MIT"
+}

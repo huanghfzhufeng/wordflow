@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f2f2f7">
+  <meta name="description" content="词流英语学习记录与复习工具">
+  <title>词流</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#today" aria-label="词流首页">
+        <span class="brand-mark" aria-hidden="true"><i data-lucide="audio-lines"></i></span>
+        <span class="brand-copy"><strong>词流</strong><small>wordflow</small></span>
+      </a>
+      <div class="topbar-actions">
+        <button class="icon-button" id="audio-settings-button" type="button" aria-label="发音设置" title="发音设置">
+          <i data-lucide="headphones"></i>
+        </button>
+        <button class="icon-button primary-icon" id="add-button" type="button" aria-label="添加词句" title="添加词句">
+          <i data-lucide="plus"></i>
+        </button>
+      </div>
+    </header>
+
+    <nav class="app-nav" aria-label="主导航">
+      <button class="nav-item active" type="button" data-view="today">
+        <i data-lucide="sparkles"></i>
+        <span>今日</span>
+      </button>
+      <button class="nav-item" type="button" data-view="library">
+        <i data-lucide="notebook-tabs"></i>
+        <span>词句</span>
+      </button>
+      <button class="nav-item" type="button" data-view="progress">
+        <i data-lucide="chart-spline"></i>
+        <span>进度</span>
+      </button>
+    </nav>
+
+    <main id="app-main" tabindex="-1">
+      <section class="view active" id="today-view" aria-labelledby="today-title"></section>
+      <section class="view" id="library-view" aria-labelledby="library-title"></section>
+      <section class="view" id="progress-view" aria-labelledby="progress-title"></section>
+    </main>
+  </div>
+
+  <dialog class="item-dialog" id="item-dialog">
+    <form method="dialog" class="dialog-frame" id="item-form">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow" id="dialog-eyebrow">新内容</p>
+          <h2 id="dialog-title">添加词句</h2>
+        </div>
+        <button class="icon-button" type="button" id="close-dialog" aria-label="关闭" title="关闭">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <input type="hidden" id="item-id">
+      <label class="field">
+        <span>英文</span>
+        <textarea id="item-term" rows="2" maxlength="500" required placeholder="Erase all content"></textarea>
+      </label>
+      <label class="field">
+        <span>中文核心义</span>
+        <textarea id="item-meaning" rows="2" maxlength="500" required placeholder="抹掉所有内容"></textarea>
+      </label>
+
+      <div class="field-grid">
+        <label class="field">
+          <span>类型</span>
+          <select id="item-kind">
+            <option value="word">单词</option>
+            <option value="phrase">短语</option>
+            <option value="sentence">句子</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>范围</span>
+          <select id="item-module">
+            <option value="custom">临时收集</option>
+            <option value="learning-ledger">学习账本</option>
+            <option value="iphone-p0">iPhone 路径</option>
+            <option value="iphone-p1">iPhone 安全</option>
+            <option value="iphone-p2">iPhone 权限</option>
+            <option value="iphone-path">iPhone 恢复路径</option>
+            <option value="reddit-x">Reddit / X</option>
+            <option value="tech">AI / 技术</option>
+            <option value="daily">日常</option>
+            <option value="basketball">篮球</option>
+            <option value="foundation">基础</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="field">
+        <span>例句或上下文</span>
+        <textarea id="item-example" rows="2" maxlength="1000" placeholder="可留空"></textarea>
+      </label>
+      <label class="field">
+        <span>易错点</span>
+        <textarea id="item-note" rows="2" maxlength="1000" placeholder="可留空"></textarea>
+      </label>
+      <label class="field">
+        <span>来源</span>
+        <input id="item-source" maxlength="200" placeholder="例如：iPhone 设置">
+      </label>
+
+      <div class="dialog-actions">
+        <button class="text-button danger-button hidden" id="delete-item" type="button">
+          <i data-lucide="trash-2"></i>
+          删除
+        </button>
+        <span class="action-spacer"></span>
+        <button class="text-button secondary-button" id="cancel-dialog" type="button">取消</button>
+        <button class="text-button primary-button" type="submit">
+          <i data-lucide="check"></i>
+          保存
+        </button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="item-dialog audio-dialog" id="audio-dialog">
+    <form method="dialog" class="dialog-frame" id="audio-form">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow">LISTENING</p>
+          <h2>发音与听力</h2>
+        </div>
+        <button class="icon-button" type="button" id="close-audio-dialog" aria-label="关闭" title="关闭">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <fieldset class="settings-group">
+        <legend>英语口音</legend>
+        <div class="settings-segment" id="accent-options">
+          <button type="button" data-accent="en-US">美式</button>
+          <button type="button" data-accent="en-GB">英式</button>
+        </div>
+      </fieldset>
+
+      <label class="range-field" for="speech-rate">
+        <span><strong>语速</strong><output id="speech-rate-value">0.85×</output></span>
+        <input id="speech-rate" type="range" min="0.65" max="1.15" step="0.05" value="0.85">
+        <span class="range-labels"><small>慢</small><small>自然</small></span>
+      </label>
+
+      <label class="toggle-row">
+        <span>
+          <strong>下一张自动播放</strong>
+          <small>手动播放一次后生效</small>
+        </span>
+        <input id="speech-autoplay" type="checkbox" role="switch">
+      </label>
+
+      <div class="dialog-actions audio-dialog-actions">
+        <button class="text-button listen-preview-button" id="speech-preview" type="button">
+          <i data-lucide="volume-2"></i>
+          试听
+        </button>
+        <span class="action-spacer"></span>
+        <button class="text-button primary-button" id="save-audio-settings" type="button">完成</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/vendor/lucide/lucide.min.js"></script>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
