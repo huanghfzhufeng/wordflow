@@ -380,6 +380,7 @@ export function createRepository(db, { timeZone }) {
         reviewed: todayEvents.length,
         remembered: todayEvents.filter((event) => ['good', 'real'].includes(event.rating)).length
       },
+      totalReviews: events.length,
       totalReviewDays: reviewDays.size,
       tracks,
       e0Goals

@@ -1541,6 +1541,401 @@ h2 {
   }
 }
 
+.long-term-stats {
+  margin-top: 24px;
+  padding: 22px;
+  border-radius: 30px;
+  background: rgb(255 255 255 / 76%);
+  box-shadow: 0 22px 48px rgb(48 42 65 / 8%);
+  backdrop-filter: blur(20px);
+}
+
+.stats-title {
+  margin: 0 0 18px;
+  color: #96959d;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stat-item {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  padding: 0 12px;
+  border-right: 1px solid rgb(210 208 216 / 72%);
+}
+
+.stat-item:first-child {
+  padding-left: 0;
+}
+
+.stat-item:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.stat-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.stat-icon svg {
+  width: 21px;
+  height: 21px;
+  stroke-width: 2.3;
+}
+
+.stat-reviews .stat-icon {
+  color: #5c8c62;
+  background: #edf5eb;
+}
+
+.stat-mastered .stat-icon {
+  color: #cf8a1d;
+  background: #fff3dc;
+}
+
+.stat-days .stat-icon {
+  color: #7759af;
+  background: #f1ecfb;
+}
+
+.stat-item > span:last-child {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.stat-item strong {
+  color: #23222a;
+  font-family: ui-rounded, "SF Pro Rounded", "Avenir Next", sans-serif;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.stat-item strong em {
+  margin-left: 3px;
+  color: #8f8e97;
+  font-family: inherit;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.stat-item small {
+  overflow: hidden;
+  color: #96959d;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+@media (max-width: 899px) {
+  .today-progress {
+    padding-top: 13px;
+  }
+
+  .today-progress > p {
+    margin: 10px 1px 0 0;
+  }
+
+  .long-term-stats {
+    margin-top: 24px;
+    padding: 20px 18px 22px;
+    border: 1px solid rgb(255 255 255 / 90%);
+  }
+
+  .stats-title {
+    margin-bottom: 17px;
+  }
+
+  .stat-item {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 7px;
+    padding: 0 9px;
+  }
+
+  .stat-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .stat-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .stat-item strong {
+    font-size: 22px;
+  }
+
+  .page-heading {
+    min-height: 78px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+  }
+
+  .page-heading .eyebrow {
+    margin-bottom: 7px;
+    color: #96959d;
+    font-size: 11px;
+  }
+
+  .page-heading h1 {
+    font-size: 43px;
+    font-weight: 790;
+  }
+
+  .page-heading .page-metric {
+    padding-bottom: 4px;
+    color: #777681;
+    font-size: 13px;
+  }
+
+  .search-field {
+    margin-bottom: 14px;
+  }
+
+  .search-field input {
+    height: 52px;
+    padding-left: 46px;
+    border-radius: 22px;
+    background: rgb(255 255 255 / 76%);
+    box-shadow: 0 14px 30px rgb(48 42 65 / 7%), 0 0 0 1px rgb(255 255 255 / 88%) inset;
+    backdrop-filter: blur(18px);
+  }
+
+  .search-field svg {
+    top: 17px;
+    left: 16px;
+  }
+
+  .library-filter-row {
+    gap: 11px;
+    margin-bottom: 15px;
+  }
+
+  .library-filter-row .segment-row {
+    padding: 4px;
+    border-radius: 24px;
+    background: rgb(237 234 236 / 80%);
+  }
+
+  .library-filter-row .segment-button {
+    height: 40px;
+    border-radius: 20px;
+  }
+
+  .library-filter-row select {
+    height: 48px;
+    padding: 0 16px;
+    border-radius: 20px;
+    background-color: rgb(255 255 255 / 76%);
+    box-shadow: 0 12px 26px rgb(48 42 65 / 6%), 0 0 0 1px rgb(255 255 255 / 88%) inset;
+  }
+
+  .result-count {
+    margin: 0 0 10px 4px;
+    color: #aaa9b0;
+  }
+
+  .library-list {
+    border: 1px solid rgb(255 255 255 / 92%);
+    border-radius: 30px;
+    background: rgb(255 255 255 / 72%);
+    box-shadow: 0 22px 48px rgb(48 42 65 / 8%);
+    backdrop-filter: blur(20px);
+  }
+
+  .library-row {
+    min-height: 94px;
+    padding: 14px 16px 14px 18px;
+    border-color: rgb(220 217 224 / 66%);
+  }
+
+  .library-term {
+    font-size: 17px;
+  }
+
+  .row-speaker,
+  .activate-button {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+    color: #463562;
+    background: rgb(255 255 255 / 82%);
+    box-shadow: 0 8px 18px rgb(48 42 65 / 8%);
+  }
+
+  .load-more-button {
+    height: 52px;
+    margin-top: 16px;
+    border-radius: 22px;
+    color: #fff;
+    background: #24232c;
+    box-shadow: 0 14px 28px rgb(36 35 44 / 16%);
+  }
+
+  .progress-summary {
+    overflow: hidden;
+    margin-bottom: 28px;
+    border: 1px solid rgb(255 255 255 / 92%);
+    border-radius: 30px;
+    background: rgb(255 255 255 / 74%);
+    box-shadow: 0 22px 48px rgb(48 42 65 / 8%);
+    backdrop-filter: blur(20px);
+  }
+
+  .progress-summary div {
+    min-height: 104px;
+    align-content: center;
+  }
+
+  .progress-summary strong {
+    font-size: 30px;
+  }
+
+  .progress-section {
+    margin-top: 26px;
+    padding: 0;
+    border-top: 0;
+  }
+
+  .section-heading {
+    margin-bottom: 14px;
+    padding: 0 2px;
+  }
+
+  .section-kicker {
+    margin-bottom: 6px;
+    color: #96959d;
+  }
+
+  .section-heading h2 {
+    font-size: 24px;
+  }
+
+  .section-heading > strong {
+    color: #4f3579;
+  }
+
+  .goal-list,
+  .track-list,
+  .evidence-list {
+    border: 1px solid rgb(255 255 255 / 92%);
+    border-radius: 30px;
+    background: rgb(255 255 255 / 72%);
+    box-shadow: 0 22px 48px rgb(48 42 65 / 8%);
+    backdrop-filter: blur(20px);
+  }
+
+  .goal-list {
+    overflow: hidden;
+  }
+
+  .goal-row {
+    min-height: 58px;
+    padding: 9px 16px;
+    border-color: rgb(220 217 224 / 66%);
+  }
+
+  .track-list,
+  .evidence-list {
+    gap: 18px;
+    padding: 21px 18px;
+  }
+
+  .track-code,
+  .evidence-name b {
+    color: #51417d;
+    background: #eee9fa;
+  }
+
+  .progress-fill {
+    background: #4f3579;
+  }
+
+  .item-dialog {
+    width: min(calc(100% - 24px), 550px);
+    border-radius: 30px;
+    background: rgb(255 255 255 / 94%);
+    backdrop-filter: blur(24px);
+  }
+
+  .dialog-frame {
+    padding: 24px;
+  }
+
+  .field input,
+  .field textarea,
+  .field select {
+    border-radius: 18px;
+    background: #f5f3f5;
+    box-shadow: none;
+  }
+
+  .dialog-actions {
+    bottom: -24px;
+    margin: 10px -24px -24px;
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .dialog-actions .primary-button {
+    color: #fff;
+    background: #24232c;
+  }
+
+  .settings-segment {
+    border-radius: 22px;
+  }
+
+  .settings-segment button {
+    border-radius: 19px;
+  }
+
+  .empty-state {
+    border-radius: 30px;
+    background: rgb(255 255 255 / 74%);
+    box-shadow: 0 22px 48px rgb(48 42 65 / 8%);
+  }
+}
+
+@media (max-width: 355px) {
+  .long-term-stats {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .stat-item {
+    grid-template-columns: 31px minmax(0, 1fr);
+    gap: 5px;
+    padding: 0 6px;
+  }
+
+  .stat-icon {
+    width: 31px;
+    height: 31px;
+  }
+
+  .stat-item strong {
+    font-size: 19px;
+  }
+
+  .stat-item small {
+    font-size: 9px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

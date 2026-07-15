@@ -60,4 +60,5 @@ test('repository persists additions and applies delayed evidence transitions', (
   const delayed = repository.reviewItem(added.id, 'good', new Date('2026-07-15T01:00:00.000Z'));
   assert.equal(delayed.item.status, 'S2');
   assert.equal(delayed.item.reviewCount, 3);
+  assert.equal(repository.progress().totalReviews, 3);
 });

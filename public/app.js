@@ -28,7 +28,6 @@ const STATUS_LABELS = {
   S3: '真实稳定'
 };
 
-const DAILY_TARGET = 10;
 const LIBRARY_PAGE_SIZE = 80;
 const REVIEW_MODE_KEY = 'wordflow.reviewMode.v1';
 const speech = createSpeechController();
@@ -175,7 +174,7 @@ function bindSpeechButtons(root = document) {
 }
 
 function renderToday() {
-  const reviewed = state.progress?.today?.reviewed || 0;
+  const remembered = (state.progress?.counts?.S2 || 0) + (state.progress?.counts?.S3 || 0);
   const item = state.today[0];
   els.today.innerHTML = `
     <div class="today-dashboard">
@@ -184,12 +183,9 @@ function renderToday() {
         <h1 id="today-title">今天</h1>
         <p class="today-motivation">坚持学习，词汇流动起来。</p>
       </div>
-      <div class="today-progress" aria-label="今日完成 ${reviewed}/${DAILY_TARGET}">
-        <div class="daily-count"><strong>${reviewed}</strong><span>/${DAILY_TARGET}</span></div>
-        <p>今日进度</p>
-        <div class="daily-dots" aria-hidden="true">
-          ${Array.from({ length: DAILY_TARGET }, (_, index) => `<span class="${index < reviewed ? 'filled' : ''}"></span>`).join('')}
-        </div>
+      <div class="today-progress" aria-label="长期已记住 ${remembered} 条">
+        <div class="daily-count"><strong>${remembered}</strong></div>
+        <p>已记住</p>
       </div>
     </div>
     <div class="practice-toolbar">
@@ -203,10 +199,35 @@ function renderToday() {
       </div>
     </div>
     ${item ? reviewCard(item) : emptyToday()}
+    ${longTermStats()}
   `;
   bindTodayEvents();
   bindSpeechButtons(els.today);
   icons(els.today);
+}
+
+function longTermStats() {
+  const progress = state.progress;
+  const remembered = (progress?.counts?.S2 || 0) + (progress?.counts?.S3 || 0);
+  return `
+    <section class="long-term-stats" aria-labelledby="long-term-stats-title">
+      <p class="stats-title" id="long-term-stats-title">学习数据</p>
+      <div class="stats-grid">
+        <div class="stat-item stat-reviews">
+          <span class="stat-icon"><i data-lucide="rotate-cw"></i></span>
+          <span><strong>${progress?.totalReviews || 0}</strong><small>累计复习</small></span>
+        </div>
+        <div class="stat-item stat-mastered">
+          <span class="stat-icon"><i data-lucide="check"></i></span>
+          <span><strong>${remembered}</strong><small>已记住</small></span>
+        </div>
+        <div class="stat-item stat-days">
+          <span class="stat-icon"><i data-lucide="calendar-days"></i></span>
+          <span><strong>${progress?.totalReviewDays || 0}<em>天</em></strong><small>学习天数</small></span>
+        </div>
+      </div>
+    </section>
+  `;
 }
 
 function reviewCard(item) {
@@ -510,7 +531,7 @@ function renderProgress() {
       </div>
     </div>
     <div class="progress-summary">
-      <div><strong>${progress.today.reviewed}</strong><span>今日完成</span></div>
+      <div><strong>${progress.totalReviews}</strong><span>累计复习</span></div>
       <div><strong>${progress.totalReviewDays}</strong><span>应用学习日</span></div>
       <div><strong>${remembered}</strong><span>S2 以上</span></div>
     </div>
