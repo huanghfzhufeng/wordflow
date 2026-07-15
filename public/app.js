@@ -30,6 +30,7 @@ const STATUS_LABELS = {
 
 const LIBRARY_PAGE_SIZE = 80;
 const REVIEW_MODE_KEY = 'wordflow.reviewMode.v1';
+const APP_BASE_URL = new URL('./', window.location.href);
 const speech = createSpeechController();
 
 const state = {
@@ -76,8 +77,12 @@ function escapeHtml(value = '') {
     .replaceAll("'", '&#039;');
 }
 
+function appUrl(path) {
+  return new URL(String(path).replace(/^\//, ''), APP_BASE_URL).href;
+}
+
 async function api(path, options = {}) {
-  const response = await fetch(path, {
+  const response = await fetch(appUrl(path), {
     headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
     ...options
   });
@@ -525,7 +530,7 @@ function renderProgress() {
         <button class="icon-button" id="sync-button" type="button" aria-label="同步学习档案" title="同步学习档案">
           <i data-lucide="refresh-cw"></i>
         </button>
-        <a class="icon-button" href="/api/export" download aria-label="导出学习数据" title="导出学习数据">
+        <a class="icon-button" href="${appUrl('/api/export')}" download aria-label="导出学习数据" title="导出学习数据">
           <i data-lucide="download"></i>
         </a>
       </div>
@@ -773,5 +778,5 @@ loadToday()
   });
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js').catch(console.error);
+  navigator.serviceWorker.register(appUrl('/service-worker.js'), { scope: APP_BASE_URL.pathname }).catch(console.error);
 }

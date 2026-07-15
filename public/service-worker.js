@@ -1,5 +1,18 @@
-const CACHE = 'wordflow-shell-v5';
-const SHELL = ['/', '/styles.css', '/app.js', '/speech.js', '/ui-atmosphere.png', '/card-wave.png', '/icon.svg', '/icon-192.png', '/icon-512.png', '/manifest.webmanifest'];
+const CACHE = 'wordflow-shell-v6';
+const BASE_URL = new URL('./', self.location.href);
+const API_PATH = new URL('api/', BASE_URL).pathname;
+const SHELL = [
+  './',
+  'styles.css',
+  'app.js',
+  'speech.js',
+  'ui-atmosphere.png',
+  'card-wave.png',
+  'icon.svg',
+  'icon-192.png',
+  'icon-512.png',
+  'manifest.webmanifest'
+].map((path) => new URL(path, BASE_URL).href);
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));
@@ -15,7 +28,7 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET' || new URL(event.request.url).pathname.startsWith('/api/')) return;
+  if (event.request.method !== 'GET' || new URL(event.request.url).pathname.startsWith(API_PATH)) return;
   event.respondWith(
     fetch(event.request)
       .then((response) => {
@@ -23,6 +36,6 @@ self.addEventListener('fetch', (event) => {
         caches.open(CACHE).then((cache) => cache.put(event.request, copy));
         return response;
       })
-      .catch(() => caches.match(event.request).then((cached) => cached || caches.match('/')))
+      .catch(() => caches.match(event.request).then((cached) => cached || caches.match(BASE_URL.href)))
   );
 });

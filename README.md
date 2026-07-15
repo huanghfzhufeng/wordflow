@@ -38,6 +38,13 @@ npm start
 - 可选外部档案：通过 `MEMORY_ROOT` 指向包含 `english-vocabulary.md` 等文件的目录
 - 导出：进度页右上角下载按钮
 
+## 线上访问
+
+- 地址：`http://1.15.122.48/wordflow/`
+- 使用记账系统的老板账号进入；入口认证位于服务器 Nginx，不在仓库保存密码。
+- 生产数据：`/var/lib/wordflow/wordflow.db`，每天自动备份并保留 14 天。
+- 更新和回滚步骤见 [DEPLOY.md](DEPLOY.md)。
+
 重新生成内置种子：
 
 ```bash
