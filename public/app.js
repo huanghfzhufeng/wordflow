@@ -30,6 +30,7 @@ const STATUS_LABELS = {
 
 const LIBRARY_PAGE_SIZE = 80;
 const REVIEW_MODE_KEY = 'wordflow.reviewMode.v1';
+const AUTH_USERNAME_KEY = 'wordflow.authUsername.v1';
 const APP_BASE_URL = new URL('./', window.location.href);
 const speech = createSpeechController();
 
@@ -46,10 +47,16 @@ const state = {
   libraryModule: 'all',
   libraryQuery: '',
   editingItem: null,
-  pendingActivateId: null
+  pendingActivateId: null,
+  authEnabled: false,
+  started: false
 };
 
 const els = {
+  boot: document.querySelector('#boot-screen'),
+  login: document.querySelector('#login-screen'),
+  loginForm: document.querySelector('#login-form'),
+  appShell: document.querySelector('#app-shell'),
   today: document.querySelector('#today-view'),
   library: document.querySelector('#library-view'),
   progress: document.querySelector('#progress-view'),
@@ -86,12 +93,84 @@ async function api(path, options = {}) {
     headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
     ...options
   });
+  if (response.status === 401) {
+    showLogin('登录状态已过期，请重新登录');
+    const error = new Error('请重新登录');
+    error.code = 'AUTH_REQUIRED';
+    throw error;
+  }
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
     throw new Error(body.error || `请求失败 (${response.status})`);
   }
   if (response.status === 204) return null;
   return response.json();
+}
+
+async function authRequest(path, options = {}) {
+  const response = await fetch(appUrl(path), {
+    headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
+    ...options
+  });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(body.error || `请求失败 (${response.status})`);
+  return body;
+}
+
+function showLogin(message = '') {
+  speech.cancel();
+  els.boot.hidden = true;
+  els.appShell.hidden = true;
+  els.login.hidden = false;
+  document.body.classList.remove('is-booting');
+  document.body.classList.add('is-authenticating');
+  const error = document.querySelector('#login-error');
+  error.textContent = message;
+  error.hidden = !message;
+  document.querySelector('#login-username').value = localStorage.getItem(AUTH_USERNAME_KEY) || '';
+  document.querySelector('#login-password').value = '';
+  icons(els.login);
+  setTimeout(() => {
+    const username = document.querySelector('#login-username');
+    const password = document.querySelector('#login-password');
+    (username.value ? password : username).focus();
+  }, 80);
+}
+
+function showApp() {
+  els.boot.hidden = true;
+  els.login.hidden = true;
+  els.appShell.hidden = false;
+  document.body.classList.remove('is-booting', 'is-authenticating');
+}
+
+async function enterApp() {
+  showApp();
+  document.querySelector('#account-row').hidden = !state.authEnabled;
+  if (!state.started) {
+    state.started = true;
+    await loadToday();
+    switchView(initialView);
+    return;
+  }
+  await loadToday();
+  switchView(state.view);
+}
+
+async function bootstrapAuth() {
+  icons();
+  try {
+    const session = await authRequest('/api/auth/session');
+    state.authEnabled = session.authEnabled;
+    if (!session.authenticated) {
+      showLogin();
+      return;
+    }
+    await enterApp();
+  } catch (error) {
+    showLogin('暂时无法连接，请稍后重试');
+    console.error(error);
+  }
 }
 
 let toastTimer;
@@ -103,6 +182,7 @@ function toast(message) {
 }
 
 function showError(error) {
+  if (error.code === 'AUTH_REQUIRED') return;
   console.error(error);
   toast(error.message || '操作失败');
 }
@@ -723,6 +803,58 @@ function closeAudioDialog() {
   els.audioDialog.close();
 }
 
+async function submitLogin(event) {
+  event.preventDefault();
+  const submit = document.querySelector('#login-submit');
+  const error = document.querySelector('#login-error');
+  const username = document.querySelector('#login-username').value.trim();
+  const password = document.querySelector('#login-password').value;
+  submit.disabled = true;
+  error.hidden = true;
+  try {
+    const result = await authRequest('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password })
+    });
+    localStorage.setItem(AUTH_USERNAME_KEY, username);
+    state.authEnabled = result.authEnabled;
+    document.querySelector('#login-password').value = '';
+    await enterApp();
+  } catch (loginError) {
+    error.textContent = loginError.message;
+    error.hidden = false;
+    document.querySelector('#login-password').select();
+  } finally {
+    submit.disabled = false;
+  }
+}
+
+async function logout() {
+  const button = document.querySelector('#logout-button');
+  button.disabled = true;
+  try {
+    await authRequest('/api/auth/logout', { method: 'POST', body: '{}' });
+    closeAudioDialog();
+    showLogin();
+  } catch (error) {
+    showError(error);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+function togglePasswordVisibility() {
+  const input = document.querySelector('#login-password');
+  const button = document.querySelector('#password-toggle');
+  const visible = input.type === 'text';
+  input.type = visible ? 'password' : 'text';
+  button.setAttribute('aria-label', visible ? '显示密码' : '隐藏密码');
+  button.setAttribute('title', visible ? '显示密码' : '隐藏密码');
+  button.innerHTML = `<i data-lucide="${visible ? 'eye' : 'eye-off'}"></i>`;
+  icons(button);
+  input.focus();
+}
+
 document.querySelectorAll('.nav-item').forEach((button) => {
   button.addEventListener('click', () => switchView(button.dataset.view));
 });
@@ -766,17 +898,13 @@ document.querySelector('#speech-preview').addEventListener('click', () => {
 els.audioDialog.addEventListener('click', (event) => {
   if (event.target === els.audioDialog) closeAudioDialog();
 });
+els.loginForm.addEventListener('submit', submitLogin);
+document.querySelector('#password-toggle').addEventListener('click', togglePasswordVisibility);
+document.querySelector('#logout-button').addEventListener('click', logout);
 
 const initialView = ['today', 'library', 'progress'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'today';
-icons();
-loadToday()
-  .then(() => switchView(initialView))
-  .catch((error) => {
-    showError(error);
-    els.today.innerHTML = `<div class="empty-state"><div class="completion-mark error-mark"><i data-lucide="triangle-alert"></i></div><h2>无法载入</h2><p>${escapeHtml(error.message)}</p></div>`;
-    icons(els.today);
-  });
+bootstrapAuth();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(appUrl('/service-worker.js'), { scope: APP_BASE_URL.pathname }).catch(console.error);
+  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.4.2'), { scope: APP_BASE_URL.pathname }).catch(console.error);
 }

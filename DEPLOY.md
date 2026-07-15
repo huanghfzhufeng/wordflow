@@ -7,7 +7,7 @@ Current production target:
 - App process: PM2 `wordflow`, listening on `127.0.0.1:4317`
 - Database: `/var/lib/wordflow/wordflow.db`
 - Reverse proxy: Nginx on port 80
-- Access control: Nginx Basic Auth, generated from the existing ledger owner account on the server
+- Access control: signed application session cookie with a 90-day lifetime
 
 The existing ledger remains available at `http://1.15.122.48`. Nginx proxies it to
 `127.0.0.1:3000` and routes `/wordflow/` to port `4317` after removing the path prefix.
@@ -51,5 +51,6 @@ ssh root@1.15.122.48 'pm2 status && nginx -t'
 curl -I http://1.15.122.48/wordflow/
 ```
 
-An unauthenticated request must return `401`. After signing in with the existing
-ledger owner account, `/wordflow/api/health` must return `{ "ok": true }`.
+The HTML shell and `/wordflow/api/auth/session` are public. An unauthenticated
+request to `/wordflow/api/progress` must return `401`; after signing in once,
+the session cookie must keep the installed iOS app authenticated across launches.

@@ -2,17 +2,65 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f2f2f7">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#faf9f8">
   <meta name="description" content="词流英语学习记录与复习工具">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="词流">
+  <meta name="format-detection" content="telephone=no">
   <title>词流</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=1.4.2">
 </head>
-<body>
-  <div class="app-shell">
+<body class="is-booting">
+  <div class="boot-screen" id="boot-screen" aria-label="正在打开词流">
+    <div class="boot-lockup">
+      <span class="boot-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      <strong>词流</strong>
+      <small>wordflow</small>
+    </div>
+  </div>
+
+  <section class="login-screen" id="login-screen" aria-labelledby="login-title" hidden>
+    <header class="login-brand">
+      <strong>词流</strong>
+      <small>wordflow</small>
+    </header>
+    <div class="login-content">
+      <div class="login-heading">
+        <p>WELCOME BACK</p>
+        <h1 id="login-title">继续学习</h1>
+        <span>回到你的词流。</span>
+      </div>
+      <form class="login-form" id="login-form">
+        <label class="login-field">
+          <i data-lucide="user-round"></i>
+          <span class="sr-only">账号</span>
+          <input id="login-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="账号" required>
+        </label>
+        <label class="login-field">
+          <i data-lucide="lock-keyhole"></i>
+          <span class="sr-only">密码</span>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="密码" required>
+          <button class="password-toggle" id="password-toggle" type="button" aria-label="显示密码" title="显示密码">
+            <i data-lucide="eye"></i>
+          </button>
+        </label>
+        <p class="login-error" id="login-error" role="alert" hidden></p>
+        <button class="login-submit" id="login-submit" type="submit">
+          <span>进入词流</span>
+          <i data-lucide="arrow-right"></i>
+        </button>
+      </form>
+    </div>
+    <p class="login-footer">WORD BY WORD · DAY BY DAY</p>
+  </section>
+
+  <div class="app-shell" id="app-shell" hidden>
     <header class="topbar">
       <a class="brand" href="#today" aria-label="词流首页">
         <span class="brand-mark" aria-hidden="true"><i data-lucide="audio-lines"></i></span>
@@ -166,6 +214,14 @@
         <input id="speech-autoplay" type="checkbox" role="switch">
       </label>
 
+      <div class="account-row" id="account-row" hidden>
+        <span class="account-state"><i data-lucide="shield-check"></i><strong>已登录</strong></span>
+        <button class="logout-button" id="logout-button" type="button">
+          <i data-lucide="log-out"></i>
+          退出登录
+        </button>
+      </div>
+
       <div class="dialog-actions audio-dialog-actions">
         <button class="text-button listen-preview-button" id="speech-preview" type="button">
           <i data-lucide="volume-2"></i>
@@ -179,6 +235,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="./vendor/lucide/lucide.min.js"></script>
-  <script type="module" src="./app.js"></script>
+  <script type="module" src="./app.js?v=1.4.2"></script>
 </body>
 </html>

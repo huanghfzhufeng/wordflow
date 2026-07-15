@@ -2,11 +2,14 @@
   "name": "词流",
   "short_name": "词流",
   "description": "基于学习证据的英语复习工具",
+  "id": "./",
   "start_url": "./#today",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f2f2f7",
-  "theme_color": "#f2f2f7",
+  "orientation": "portrait",
+  "lang": "zh-CN",
+  "background_color": "#faf9f8",
+  "theme_color": "#faf9f8",
   "icons": [
     {
       "src": "./icon-192.png",

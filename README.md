@@ -3,6 +3,7 @@
 面向真实阅读目标的单用户英语复习 PWA。它把词句收集、系统发音、听辨练习和证据进度放在一个安静的学习流中，用 SQLite 保存每次复习结果。
 
 <p>
+  <img src="docs/screenshots/login.png" width="250" alt="应用登录">
   <img src="docs/screenshots/today.png" width="250" alt="今日认读">
   <img src="docs/screenshots/listening.png" width="250" alt="听辨模式">
   <img src="docs/screenshots/progress.png" width="250" alt="学习进度">
@@ -41,7 +42,7 @@ npm start
 ## 线上访问
 
 - 地址：`http://1.15.122.48/wordflow/`
-- 使用记账系统的老板账号进入；入口认证位于服务器 Nginx，不在仓库保存密码。
+- 首次使用记账系统的老板账号登录；应用使用 90 天签名 Cookie 保持登录，不保存密码。
 - 生产数据：`/var/lib/wordflow/wordflow.db`，每天自动备份并保留 14 天。
 - 更新和回滚步骤见 [DEPLOY.md](DEPLOY.md)。
 
@@ -65,7 +66,7 @@ npm run sync
 npm test
 ```
 
-测试覆盖复习升级、数据库持久化、工作区档案合并、独立种子回退、语音文本规范化和发音偏好。
+测试覆盖持久登录、复习升级、数据库持久化、工作区档案合并、独立种子回退、语音文本规范化和发音偏好。
 
 ## License
 

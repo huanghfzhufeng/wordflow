@@ -1,4 +1,4 @@
-const CACHE = 'wordflow-shell-v6';
+const CACHE = 'wordflow-shell-v7';
 const BASE_URL = new URL('./', self.location.href);
 const API_PATH = new URL('api/', BASE_URL).pathname;
 const SHELL = [
