@@ -27,11 +27,29 @@ const STATUS_LABELS = {
   S3: '真实稳定'
 };
 
+const COMPONENT_ROLE_LABELS = {
+  word: '单词',
+  prefix: '前缀',
+  root: '词根',
+  suffix: '后缀'
+};
+
 const LIBRARY_PAGE_SIZE = 80;
 const REVIEW_MODE_KEY = 'wordflow.reviewMode.v1';
 const AUTH_USERNAME_KEY = 'wordflow.authUsername.v1';
 const APP_BASE_URL = new URL('./', window.location.href);
 const speech = createSpeechController();
+
+function emptyWritingState() {
+  return {
+    active: false,
+    compared: false,
+    strokes: [],
+    startedAt: null,
+    result: null,
+    durationMs: null
+  };
+}
 
 const state = {
   view: 'today',
@@ -46,6 +64,7 @@ const state = {
   libraryModule: 'all',
   libraryQuery: '',
   editingItem: null,
+  writing: emptyWritingState(),
   authEnabled: false,
   started: false
 };
@@ -266,6 +285,7 @@ function renderToday() {
   bindTodayEvents();
   bindSpeechButtons(els.today);
   icons(els.today);
+  initializeWritingCanvas();
 }
 
 function longTermStats() {
@@ -293,6 +313,7 @@ function longTermStats() {
 }
 
 function reviewCard(item) {
+  if (state.writing.active) return writingCard(item);
   const listeningPrompt = state.reviewMode === 'listening' && !state.revealed;
   return `
     <article class="review-card ${listeningPrompt ? 'listening-card' : ''}" data-item-id="${item.id}">
@@ -332,13 +353,90 @@ function reviewCard(item) {
   `;
 }
 
+function writingCard(item) {
+  const comparison = state.writing.compared ? `
+    <div class="writing-answer" aria-live="polite">
+      <span>正确拼写</span>
+      <strong>${escapeHtml(item.term)}</strong>
+    </div>
+    <div class="writing-outcomes" aria-label="书写结果">
+      <button class="writing-outcome writing-incorrect" type="button" data-writing-result="incorrect">
+        <i data-lucide="x"></i><span>有错</span>
+      </button>
+      <button class="writing-outcome writing-correct" type="button" data-writing-result="correct">
+        <i data-lucide="check"></i><span>写对了</span>
+      </button>
+    </div>
+  ` : `
+    <button class="writing-compare-button" id="compare-writing" type="button">
+      <i data-lucide="scan-text"></i><span>对照拼写</span>
+    </button>
+  `;
+  return `
+    <article class="review-card writing-card" data-item-id="${item.id}">
+      <div class="writing-header">
+        <div>
+          <p class="answer-label">手写巩固</p>
+          <p class="writing-prompt">${escapeHtml(item.meaning)}</p>
+        </div>
+        <div class="writing-header-actions">
+          ${speakerButton(item, 'writing-speaker')}
+          <button class="icon-button writing-close" id="close-writing" type="button" aria-label="退出手写" title="退出手写">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+      </div>
+      <div class="writing-surface">
+        <canvas id="writing-canvas" aria-label="手写区域"></canvas>
+        ${state.writing.strokes.length ? '' : '<span class="writing-placeholder">在这里写出英文</span>'}
+      </div>
+      <div class="writing-tools ${state.writing.compared ? 'is-compared' : ''}">
+        <button class="icon-button" id="undo-writing" type="button" aria-label="撤销一笔" title="撤销一笔" ${state.writing.strokes.length ? '' : 'disabled'}>
+          <i data-lucide="undo-2"></i>
+        </button>
+        <button class="icon-button" id="clear-writing" type="button" aria-label="清空笔迹" title="清空笔迹" ${state.writing.strokes.length ? '' : 'disabled'}>
+          <i data-lucide="eraser"></i>
+        </button>
+        <span></span>
+        ${comparison}
+      </div>
+    </article>
+  `;
+}
+
+function componentBreakdown(item) {
+  if (!item.components?.length) return '';
+  return `
+    <div class="component-breakdown">
+      <p class="answer-label">构词拆解</p>
+      <div class="component-flow">
+        ${item.components.map((component, index) => `
+          ${index ? '<span class="component-plus">+</span>' : ''}
+          <span class="component-unit">
+            <small>${escapeHtml(COMPONENT_ROLE_LABELS[component.role] || '片段')}</small>
+            <strong>${escapeHtml(component.text)}</strong>
+            <em>${escapeHtml(component.meaning)}</em>
+          </span>
+        `).join('')}
+      </div>
+      <p class="component-result"><i data-lucide="arrow-right"></i>${escapeHtml(item.meaning)}</p>
+    </div>
+  `;
+}
+
 function answerPanel(item) {
+  const writingLabel = state.writing.result === 'correct'
+    ? '已写对'
+    : state.writing.result === 'incorrect' ? '有错，再写一次' : '写一下';
   return `
     <div class="answer-panel">
       <p class="answer-label">中文核心义</p>
       <p class="answer-meaning">${escapeHtml(item.meaning)}</p>
       ${item.example ? `<p class="answer-detail"><span>上下文</span>${escapeHtml(item.example)}</p>` : ''}
-      ${item.note ? `<p class="answer-detail note-detail"><span>易错点</span>${escapeHtml(item.note)}</p>` : ''}
+      ${componentBreakdown(item)}
+      <button class="write-practice-button writing-result-${state.writing.result || 'none'}" id="start-writing" type="button">
+        <i data-lucide="pen-line"></i><span>${writingLabel}</span>
+      </button>
     </div>
     <div class="review-actions" aria-label="复习结果">
       <button class="rating-button rating-again" data-rating="again" type="button">
@@ -370,6 +468,104 @@ function emptyToday() {
   `;
 }
 
+function startWritingPractice() {
+  state.writing = { ...emptyWritingState(), active: true, startedAt: Date.now() };
+  renderToday();
+}
+
+function closeWritingPractice() {
+  state.writing = emptyWritingState();
+  renderToday();
+}
+
+function compareWriting() {
+  if (!state.writing.strokes.length) {
+    toast('先写一遍，再对照拼写');
+    return;
+  }
+  state.writing.compared = true;
+  renderToday();
+}
+
+function recordWritingResult(result) {
+  const durationMs = Math.min(600_000, Math.max(0, Date.now() - (state.writing.startedAt || Date.now())));
+  state.writing = {
+    ...emptyWritingState(),
+    result,
+    durationMs
+  };
+  renderToday();
+}
+
+function drawWritingCanvas(canvas) {
+  if (!canvas) return;
+  const rect = canvas.getBoundingClientRect();
+  const ratio = Math.min(window.devicePixelRatio || 1, 3);
+  canvas.width = Math.max(1, Math.round(rect.width * ratio));
+  canvas.height = Math.max(1, Math.round(rect.height * ratio));
+  const context = canvas.getContext('2d');
+  context.setTransform(ratio, 0, 0, ratio, 0, 0);
+  context.clearRect(0, 0, rect.width, rect.height);
+  context.strokeStyle = '#29262f';
+  context.lineWidth = 4.2;
+  context.lineCap = 'round';
+  context.lineJoin = 'round';
+  for (const stroke of state.writing.strokes) {
+    if (!stroke.length) continue;
+    context.beginPath();
+    stroke.forEach((point, index) => {
+      const x = point.x * rect.width;
+      const y = point.y * rect.height;
+      if (index === 0) context.moveTo(x, y);
+      else context.lineTo(x, y);
+    });
+    if (stroke.length === 1) {
+      const point = stroke[0];
+      context.lineTo(point.x * rect.width + .1, point.y * rect.height + .1);
+    }
+    context.stroke();
+  }
+}
+
+function initializeWritingCanvas() {
+  const canvas = document.querySelector('#writing-canvas');
+  if (!canvas) return;
+  drawWritingCanvas(canvas);
+  if (state.writing.compared) return;
+
+  const pointFromEvent = (event) => {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width)),
+      y: Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height))
+    };
+  };
+  let activeStroke = null;
+  canvas.addEventListener('pointerdown', (event) => {
+    event.preventDefault();
+    canvas.setPointerCapture?.(event.pointerId);
+    activeStroke = [pointFromEvent(event)];
+    state.writing.strokes.push(activeStroke);
+    document.querySelector('.writing-placeholder')?.remove();
+    document.querySelector('#undo-writing').disabled = false;
+    document.querySelector('#clear-writing').disabled = false;
+    drawWritingCanvas(canvas);
+  });
+  canvas.addEventListener('pointermove', (event) => {
+    if (!activeStroke) return;
+    event.preventDefault();
+    activeStroke.push(pointFromEvent(event));
+    drawWritingCanvas(canvas);
+  });
+  const finishStroke = (event) => {
+    if (!activeStroke) return;
+    event.preventDefault();
+    activeStroke = null;
+  };
+  canvas.addEventListener('pointerup', finishStroke);
+  canvas.addEventListener('pointercancel', finishStroke);
+}
+
 function bindTodayEvents() {
   document.querySelector('#reveal-answer')?.addEventListener('click', () => {
     state.revealed = true;
@@ -382,10 +578,26 @@ function bindTodayEvents() {
     button.addEventListener('click', () => {
       state.reviewMode = button.dataset.reviewMode;
       state.revealed = false;
+      state.writing = emptyWritingState();
       localStorage.setItem(REVIEW_MODE_KEY, state.reviewMode);
       renderToday();
       if (state.reviewMode === 'listening') speakItem(state.today[0]);
     });
+  });
+  document.querySelector('#start-writing')?.addEventListener('click', startWritingPractice);
+  document.querySelector('#close-writing')?.addEventListener('click', closeWritingPractice);
+  document.querySelector('#compare-writing')?.addEventListener('click', compareWriting);
+  document.querySelector('#undo-writing')?.addEventListener('click', () => {
+    state.writing.strokes.pop();
+    renderToday();
+  });
+  document.querySelector('#clear-writing')?.addEventListener('click', () => {
+    state.writing.strokes = [];
+    state.writing.compared = false;
+    renderToday();
+  });
+  document.querySelectorAll('[data-writing-result]').forEach((button) => {
+    button.addEventListener('click', () => recordWritingResult(button.dataset.writingResult));
   });
   document.querySelector('#open-library')?.addEventListener('click', () => switchView('library'));
 }
@@ -414,7 +626,11 @@ async function submitRating(rating) {
   try {
     const result = await api(`/api/items/${item.id}/reviews`, {
       method: 'POST',
-      body: JSON.stringify({ rating })
+      body: JSON.stringify({
+        rating,
+        writingResult: state.writing.result,
+        writingDurationMs: state.writing.durationMs
+      })
     });
     const transition = result.transition;
     const changed = transition.previousStatus !== transition.nextStatus;
@@ -440,6 +656,7 @@ async function loadToday() {
   const data = await api('/api/today?limit=10');
   state.today = data.items;
   state.progress = data.progress;
+  state.writing = emptyWritingState();
   renderToday();
 }
 
@@ -636,6 +853,70 @@ function switchView(view) {
   els.main.focus({ preventScroll: true });
 }
 
+function componentRoleOptions(selected = 'word') {
+  return Object.entries(COMPONENT_ROLE_LABELS).map(([value, label]) => `
+    <option value="${value}" ${value === selected ? 'selected' : ''}>${label}</option>
+  `).join('');
+}
+
+function componentRow(component = {}, index = 0) {
+  return `
+    <div class="component-editor-row" data-component-row>
+      <label>
+        <span class="sr-only">片段</span>
+        <input data-component-text maxlength="60" value="${escapeHtml(component.text || '')}" placeholder="例如 dis-">
+      </label>
+      <label>
+        <span class="sr-only">片段中文义</span>
+        <input data-component-meaning maxlength="120" value="${escapeHtml(component.meaning || '')}" placeholder="不；相反">
+      </label>
+      <label>
+        <span class="sr-only">片段类型</span>
+        <select data-component-role>${componentRoleOptions(component.role)}</select>
+      </label>
+      <button class="icon-button component-remove" type="button" data-remove-component="${index}" aria-label="删除构词片段" title="删除构词片段">
+        <i data-lucide="trash-2"></i>
+      </button>
+    </div>
+  `;
+}
+
+function readComponentRows() {
+  return [...document.querySelectorAll('[data-component-row]')].map((row) => ({
+    text: row.querySelector('[data-component-text]').value.trim(),
+    meaning: row.querySelector('[data-component-meaning]').value.trim(),
+    role: row.querySelector('[data-component-role]').value
+  })).filter((component) => component.text || component.meaning);
+}
+
+function renderComponentEditor(components = []) {
+  const details = document.querySelector('#component-editor');
+  const rows = document.querySelector('#component-editor-rows');
+  rows.innerHTML = components.map(componentRow).join('');
+  details.open = components.length > 0;
+  rows.querySelectorAll('[data-remove-component]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const values = readComponentRows();
+      values.splice(Number(button.dataset.removeComponent), 1);
+      renderComponentEditor(values);
+    });
+  });
+  icons(rows);
+}
+
+function addComponentRow() {
+  const components = readComponentRows();
+  if (components.length >= 8) {
+    toast('每条内容最多拆成 8 个片段');
+    return;
+  }
+  components.push({ text: '', meaning: '', role: 'word' });
+  renderComponentEditor(components);
+  document.querySelector('#component-editor').open = true;
+  const inputs = document.querySelectorAll('[data-component-text]');
+  inputs[inputs.length - 1]?.focus();
+}
+
 function openAddDialog() {
   state.editingItem = null;
   els.itemForm.reset();
@@ -643,6 +924,7 @@ function openAddDialog() {
   document.querySelector('#dialog-eyebrow').textContent = '新内容';
   document.querySelector('#dialog-title').textContent = '添加词句';
   document.querySelector('#delete-item').classList.add('hidden');
+  renderComponentEditor([]);
   els.itemDialog.showModal();
   document.querySelector('#item-term').focus();
 }
@@ -658,8 +940,8 @@ function openEditDialog(id) {
   document.querySelector('#item-kind').value = item.kind;
   document.querySelector('#item-module').value = item.module in MODULE_LABELS ? item.module : 'custom';
   document.querySelector('#item-example').value = item.example || '';
-  document.querySelector('#item-note').value = item.note || '';
   document.querySelector('#item-source').value = item.source || '';
+  renderComponentEditor(item.components || []);
   document.querySelector('#dialog-eyebrow').textContent = `${item.status} · ${STATUS_LABELS[item.status]}`;
   document.querySelector('#dialog-title').textContent = '编辑词句';
   document.querySelector('#delete-item').classList.remove('hidden');
@@ -680,8 +962,8 @@ async function saveItem(event) {
     kind: document.querySelector('#item-kind').value,
     module: document.querySelector('#item-module').value,
     example: document.querySelector('#item-example').value,
-    note: document.querySelector('#item-note').value,
-    source: document.querySelector('#item-source').value
+    source: document.querySelector('#item-source').value,
+    components: readComponentRows()
   };
   try {
     await api(id ? `/api/items/${id}` : '/api/items', {
@@ -812,6 +1094,7 @@ document.querySelector('#audio-settings-button').addEventListener('click', openA
 document.querySelector('#close-dialog').addEventListener('click', closeItemDialog);
 document.querySelector('#cancel-dialog').addEventListener('click', closeItemDialog);
 document.querySelector('#delete-item').addEventListener('click', deleteItem);
+document.querySelector('#add-component').addEventListener('click', addComponentRow);
 els.itemForm.addEventListener('submit', saveItem);
 els.itemDialog.addEventListener('click', (event) => {
   if (event.target === els.itemDialog) closeItemDialog();
@@ -846,6 +1129,7 @@ els.audioDialog.addEventListener('click', (event) => {
 els.loginForm.addEventListener('submit', submitLogin);
 document.querySelector('#password-toggle').addEventListener('click', togglePasswordVisibility);
 document.querySelector('#logout-button').addEventListener('click', logout);
+window.addEventListener('resize', () => drawWritingCanvas(document.querySelector('#writing-canvas')));
 
 function isEditableTarget(target) {
   return target instanceof Element && Boolean(target.closest('input, textarea, [contenteditable="true"]'));
@@ -865,5 +1149,5 @@ const initialView = ['today', 'library', 'progress'].includes(location.hash.slic
 bootstrapAuth();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.4.4'), { scope: APP_BASE_URL.pathname }).catch(console.error);
+  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.5.0'), { scope: APP_BASE_URL.pathname }).catch(console.error);
 }

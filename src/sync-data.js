@@ -36,6 +36,9 @@ const PHONETICS = new Map([
 const CORE_MEANINGS = new Map(Object.entries(JSON.parse(
   fs.readFileSync(new URL('../seed/core-meanings.zh-CN.json', import.meta.url), 'utf8')
 )).map(([term, meaning]) => [normalizeTerm(term), meaning]));
+const WORD_COMPONENTS = new Map(Object.entries(JSON.parse(
+  fs.readFileSync(new URL('../seed/word-components.zh-CN.json', import.meta.url), 'utf8')
+)).map(([term, components]) => [normalizeTerm(term), validatedComponents(term, components)]));
 
 function readRequired(memoryRoot, filename) {
   return fs.readFileSync(path.join(memoryRoot, filename), 'utf8');
@@ -62,6 +65,22 @@ function parseMarkdownTable(markdownSection) {
 
 function normalizeTerm(term) {
   return term.toLocaleLowerCase('en-US').replace(/\s+/g, ' ').trim();
+}
+
+function validatedComponents(term, components) {
+  const roles = new Set(['word', 'prefix', 'root', 'suffix']);
+  if (!Array.isArray(components) || components.length < 2 || components.length > 8) {
+    throw new Error(`构词拆解数量无效: ${term}`);
+  }
+  return components.map((component) => {
+    const text = String(component?.text || '').trim();
+    const meaning = String(component?.meaning || '').trim();
+    const role = String(component?.role || 'word');
+    if (!text || text.length > 60 || !meaning || meaning.length > 120 || !roles.has(role)) {
+      throw new Error(`构词拆解内容无效: ${term}`);
+    }
+    return { text, role, meaning };
+  });
 }
 
 function normalizedStatus(status) {
@@ -203,7 +222,10 @@ export function buildSeedData(memoryRoot) {
 
   return {
     generatedAt: new Date().toISOString(),
-    items: [...map.values()],
+    items: [...map.values()].map((item) => ({
+      ...item,
+      components: WORD_COMPONENTS.get(normalizeTerm(item.term)) || []
+    })),
     tracks: parseProgressTracks(progress)
   };
 }

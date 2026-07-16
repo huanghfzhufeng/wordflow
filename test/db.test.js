@@ -43,17 +43,32 @@ test('repository persists additions and applies delayed evidence transitions', (
     meaning: '重试',
     phonetic: '/traɪ əˈɡen/',
     kind: 'phrase',
-    module: 'iphone-p1'
+    module: 'iphone-p1',
+    components: [
+      { text: 'try', meaning: '尝试', role: 'word' },
+      { text: 'again', meaning: '再次', role: 'word' }
+    ]
   });
   assert.equal(added.status, 'S0');
   assert.equal(added.phonetic, '/traɪ əˈɡen/');
+  assert.equal(added.components.length, 2);
   assert.throws(() => repository.createItem({
     term: 'invalid',
     meaning: '无效',
     phonetic: 'x'.repeat(121)
   }), /音标过长/);
+  assert.throws(() => repository.createItem({
+    term: 'invalid parts',
+    meaning: '无效拆解',
+    components: [{ text: 'invalid', meaning: '', role: 'root' }]
+  }), /片段中文义不能为空/);
 
-  const first = repository.reviewItem(added.id, 'good', new Date('2026-07-14T01:00:00.000Z'));
+  const first = repository.reviewItem(
+    added.id,
+    'good',
+    new Date('2026-07-14T01:00:00.000Z'),
+    { result: 'correct', durationMs: 4200 }
+  );
   assert.equal(first.item.status, 'S1');
   const sameDay = repository.reviewItem(added.id, 'good', new Date('2026-07-14T10:00:00.000Z'));
   assert.equal(sameDay.item.status, 'S1');
@@ -61,6 +76,16 @@ test('repository persists additions and applies delayed evidence transitions', (
   assert.equal(delayed.item.status, 'S2');
   assert.equal(delayed.item.reviewCount, 3);
   assert.equal(repository.progress().totalReviews, 3);
+  assert.deepEqual(repository.progress().writing, { attempted: 1, correct: 1, incorrect: 0 });
+  const writingEvent = repository.exportData().reviewEvents.find((event) => event.writing_result);
+  assert.equal(writingEvent.writing_result, 'correct');
+  assert.equal(writingEvent.writing_duration_ms, 4200);
+  assert.throws(() => repository.reviewItem(
+    added.id,
+    'good',
+    new Date('2026-07-16T01:00:00.000Z'),
+    { result: 'guessed', durationMs: 100 }
+  ), /书写结果无效/);
 });
 
 test('seed sync promotes legacy pending rows into formal S0 content', (t) => {
@@ -79,7 +104,11 @@ test('seed sync promotes legacy pending rows into formal S0 content', (t) => {
   const result = syncSeedData(db, {
     items: [{
       seedKey: 'fixture:formal', term: 'formal', meaning: '正式的', kind: 'word',
-      module: 'foundation', source: 'test', status: 'S0', priority: 25
+      module: 'foundation', source: 'test', status: 'S0', priority: 25,
+      components: [
+        { text: 'form', meaning: '形式', role: 'root' },
+        { text: '-al', meaning: '构成形容词', role: 'suffix' }
+      ]
     }],
     tracks: []
   });
@@ -87,5 +116,6 @@ test('seed sync promotes legacy pending rows into formal S0 content', (t) => {
   assert.equal(result.migrated, 1);
   assert.equal(item.status, 'S0');
   assert.equal(item.meaning, '正式的');
+  assert.equal(item.components.length, 2);
   assert.ok(item.nextReviewAt);
 });

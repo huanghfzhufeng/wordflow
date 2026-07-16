@@ -46,7 +46,10 @@ export function createApp({ config, db, repository }) {
     res.status(204).end();
   });
   app.post('/api/items/:id/reviews', (req, res) => {
-    const result = repository.reviewItem(req.params.id, req.body?.rating);
+    const result = repository.reviewItem(req.params.id, req.body?.rating, new Date(), {
+      result: req.body?.writingResult,
+      durationMs: req.body?.writingDurationMs
+    });
     if (!result) return res.status(404).json({ error: '没有找到这条内容' });
     res.json({ ...result, progress: repository.progress() });
   });

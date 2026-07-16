@@ -8,6 +8,8 @@ const VALID_MODULES = new Set([
   'foundation', 'learning-ledger', 'iphone-p0', 'iphone-p1', 'iphone-p2',
   'iphone-path', 'reddit-x', 'tech', 'daily', 'basketball', 'custom'
 ]);
+const VALID_COMPONENT_ROLES = new Set(['word', 'prefix', 'root', 'suffix']);
+const VALID_WRITING_RESULTS = new Set(['correct', 'incorrect']);
 const HIGH_RISK_TERMS = new Set(['Delete', 'Remove', 'Erase', 'Reset', 'Restore', 'Sign Out']);
 
 function nowIso() {
@@ -25,6 +27,37 @@ function optionalText(value, label, maxLength) {
   const text = typeof value === 'string' ? value.trim() : '';
   if (text.length > maxLength) throw new Error(`${label}过长`);
   return text;
+}
+
+function normalizeComponents(value) {
+  if (value === undefined || value === null) return [];
+  if (!Array.isArray(value) || value.length > 8) throw new Error('构词拆解格式无效');
+  return value.map((component) => {
+    const text = requireText(component?.text, '构词片段', 60);
+    const meaning = requireText(component?.meaning, '片段中文义', 120);
+    const role = VALID_COMPONENT_ROLES.has(component?.role) ? component.role : 'word';
+    return { text, meaning, role };
+  });
+}
+
+function parseComponents(value) {
+  try {
+    return normalizeComponents(JSON.parse(value || '[]'));
+  } catch {
+    return [];
+  }
+}
+
+function normalizeWritingAttempt(value) {
+  if (!value || value.result === undefined || value.result === null) {
+    return { result: null, durationMs: null };
+  }
+  if (!VALID_WRITING_RESULTS.has(value.result)) throw new Error('书写结果无效');
+  const durationMs = Number(value.durationMs);
+  if (!Number.isInteger(durationMs) || durationMs < 0 || durationMs > 600_000) {
+    throw new Error('书写时长无效');
+  }
+  return { result: value.result, durationMs };
 }
 
 export function openDatabase(dbPath) {
@@ -45,6 +78,7 @@ export function openDatabase(dbPath) {
       source_url TEXT,
       example TEXT NOT NULL DEFAULT '',
       note TEXT NOT NULL DEFAULT '',
+      components_json TEXT NOT NULL DEFAULT '[]',
       status TEXT NOT NULL DEFAULT 'S0',
       priority REAL NOT NULL DEFAULT 10,
       order_index INTEGER,
@@ -65,6 +99,8 @@ export function openDatabase(dbPath) {
       rating TEXT NOT NULL,
       previous_status TEXT NOT NULL,
       next_status TEXT NOT NULL,
+      writing_result TEXT,
+      writing_duration_ms INTEGER,
       reviewed_at TEXT NOT NULL
     );
 
@@ -85,6 +121,16 @@ export function openDatabase(dbPath) {
   if (!itemColumns.has('phonetic')) {
     db.exec("ALTER TABLE learning_items ADD COLUMN phonetic TEXT NOT NULL DEFAULT ''");
   }
+  if (!itemColumns.has('components_json')) {
+    db.exec("ALTER TABLE learning_items ADD COLUMN components_json TEXT NOT NULL DEFAULT '[]'");
+  }
+  const reviewColumns = new Set(db.prepare('PRAGMA table_info(review_events)').all().map((column) => column.name));
+  if (!reviewColumns.has('writing_result')) {
+    db.exec('ALTER TABLE review_events ADD COLUMN writing_result TEXT');
+  }
+  if (!reviewColumns.has('writing_duration_ms')) {
+    db.exec('ALTER TABLE review_events ADD COLUMN writing_duration_ms INTEGER');
+  }
   return db;
 }
 
@@ -93,13 +139,13 @@ export function syncSeedData(db, seedData) {
   const insert = db.prepare(`
     INSERT INTO learning_items (
       seed_key, term, meaning, phonetic, kind, module, source, source_url, example, note,
-      status, priority, order_index, last_reviewed_at, next_review_at, created_at, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      components_json, status, priority, order_index, last_reviewed_at, next_review_at, created_at, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
   const update = db.prepare(`
     UPDATE learning_items SET
       term = ?, meaning = ?, phonetic = ?, kind = ?, module = ?, source = ?, example = ?, note = ?,
-      priority = ?, order_index = ?, status = ?, last_reviewed_at = COALESCE(last_reviewed_at, ?),
+      components_json = ?, priority = ?, order_index = ?, status = ?, last_reviewed_at = COALESCE(last_reviewed_at, ?),
       updated_at = ?
     WHERE id = ?
   `);
@@ -127,11 +173,12 @@ export function syncSeedData(db, seedData) {
     for (const item of seedData.items) {
       if (!/^S[0-3]$/.test(item.status)) throw new Error(`学习内容状态无效: ${item.term}`);
       if (!item.meaning?.trim()) throw new Error(`学习内容缺少中文核心义: ${item.term}`);
+      const componentsJson = JSON.stringify(normalizeComponents(item.components));
       const existing = find.get(item.seedKey);
       if (!existing) {
         insert.run(
           item.seedKey, item.term, item.meaning || '', item.phonetic || '', item.kind, item.module, item.source,
-          item.sourceUrl || null, item.example || '', item.note || '', item.status,
+          item.sourceUrl || null, item.example || '', item.note || '', componentsJson, item.status,
           item.priority || 10, item.orderIndex || null, item.lastReviewedAt || null,
           now, now, now
         );
@@ -144,7 +191,7 @@ export function syncSeedData(db, seedData) {
         : existing.status;
       update.run(
         item.term, item.meaning || existing.meaning, item.phonetic || existing.phonetic || '', item.kind, item.module, item.source,
-        item.example || '', item.note || '', item.priority || 10, item.orderIndex || null,
+        item.example || '', item.note || '', componentsJson, item.priority || 10, item.orderIndex || null,
         mergedStatus, item.lastReviewedAt || null, now, existing.id
       );
       updated += 1;
@@ -171,6 +218,7 @@ function publicItem(row) {
     sourceUrl: row.source_url,
     example: row.example,
     note: row.note,
+    components: parseComponents(row.components_json),
     status: row.status,
     priority: row.priority,
     lastReviewedAt: row.last_reviewed_at,
@@ -242,15 +290,16 @@ export function createRepository(db, { timeZone }) {
     const meaning = requireText(input.meaning, '中文意思', 500);
     const kind = VALID_KINDS.has(input.kind) ? input.kind : 'word';
     const module = VALID_MODULES.has(input.module) ? input.module : 'custom';
+    const components = normalizeComponents(input.components);
     const now = nowIso();
     const info = db.prepare(`
       INSERT INTO learning_items (
-        term, meaning, phonetic, kind, module, source, source_url, example, note, status,
-        priority, next_review_at, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'S0', 70, ?, ?, ?)
+        term, meaning, phonetic, kind, module, source, source_url, example, note, components_json,
+        status, priority, next_review_at, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'S0', 70, ?, ?, ?)
     `).run(
       term, meaning, optionalText(input.phonetic, '音标', 120), kind, module, input.source?.trim() || '手动添加',
-      input.sourceUrl?.trim() || null, input.example?.trim() || '', input.note?.trim() || '',
+      input.sourceUrl?.trim() || null, input.example?.trim() || '', input.note?.trim() || '', JSON.stringify(components),
       now, now, now
     );
     return getItem(info.lastInsertRowid);
@@ -263,10 +312,11 @@ export function createRepository(db, { timeZone }) {
     const meaning = input.meaning === undefined ? current.meaning : requireText(input.meaning, '中文意思', 500);
     const kind = VALID_KINDS.has(input.kind) ? input.kind : current.kind;
     const module = VALID_MODULES.has(input.module) ? input.module : current.module;
+    const components = input.components === undefined ? parseComponents(current.components_json) : normalizeComponents(input.components);
     db.prepare(`
       UPDATE learning_items SET
         term = ?, meaning = ?, phonetic = ?, kind = ?, module = ?, source = ?, source_url = ?,
-        example = ?, note = ?, updated_at = ?
+        example = ?, note = ?, components_json = ?, updated_at = ?
       WHERE id = ?
     `).run(
       term, meaning, input.phonetic === undefined ? current.phonetic : optionalText(input.phonetic, '音标', 120), kind, module,
@@ -274,7 +324,7 @@ export function createRepository(db, { timeZone }) {
       input.sourceUrl === undefined ? current.source_url : input.sourceUrl.trim() || null,
       input.example === undefined ? current.example : input.example.trim(),
       input.note === undefined ? current.note : input.note.trim(),
-      nowIso(), Number(id)
+      JSON.stringify(components), nowIso(), Number(id)
     );
     return getItem(id);
   }
@@ -285,10 +335,11 @@ export function createRepository(db, { timeZone }) {
     return info.changes > 0;
   }
 
-  function reviewItem(id, rating, reviewedAt = new Date()) {
+  function reviewItem(id, rating, reviewedAt = new Date(), writingInput = null) {
     const row = getItemRow.get(Number(id));
     if (!row) return null;
     const reviewedIso = reviewedAt instanceof Date ? reviewedAt.toISOString() : new Date(reviewedAt).toISOString();
+    const writing = normalizeWritingAttempt(writingInput);
     const realDaysRows = db.prepare(`
       SELECT reviewed_at FROM review_events WHERE item_id = ? AND rating = 'real'
     `).all(row.id);
@@ -316,9 +367,13 @@ export function createRepository(db, { timeZone }) {
         rating === 'again' ? 1 : 0, rating === 'real' ? 1 : 0, reviewedIso, row.id
       );
       db.prepare(`
-        INSERT INTO review_events (item_id, rating, previous_status, next_status, reviewed_at)
-        VALUES (?, ?, ?, ?, ?)
-      `).run(row.id, rating, result.previousStatus, result.nextStatus, reviewedIso);
+        INSERT INTO review_events (
+          item_id, rating, previous_status, next_status, writing_result, writing_duration_ms, reviewed_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+      `).run(
+        row.id, rating, result.previousStatus, result.nextStatus,
+        writing.result, writing.durationMs, reviewedIso
+      );
     })();
 
     return { item: getItem(id), transition: result };
@@ -335,6 +390,13 @@ export function createRepository(db, { timeZone }) {
     const events = db.prepare('SELECT reviewed_at, rating FROM review_events').all();
     const todayEvents = events.filter((event) => localDay(event.reviewed_at, timeZone) === today);
     const reviewDays = new Set(events.map((event) => localDay(event.reviewed_at, timeZone)));
+    const writingRow = db.prepare(`
+      SELECT
+        COUNT(writing_result) AS attempted,
+        SUM(CASE WHEN writing_result = 'correct' THEN 1 ELSE 0 END) AS correct,
+        SUM(CASE WHEN writing_result = 'incorrect' THEN 1 ELSE 0 END) AS incorrect
+      FROM review_events
+    `).get();
 
     const iphoneRows = db.prepare(`
       SELECT seed_key, term, module, status FROM learning_items
@@ -376,6 +438,11 @@ export function createRepository(db, { timeZone }) {
       },
       totalReviews: events.length,
       totalReviewDays: reviewDays.size,
+      writing: {
+        attempted: writingRow.attempted || 0,
+        correct: writingRow.correct || 0,
+        incorrect: writingRow.incorrect || 0
+      },
       tracks,
       e0Goals
     };

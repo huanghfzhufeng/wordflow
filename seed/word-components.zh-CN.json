@@ -1,0 +1,263 @@
+{
+  "add language": [
+    { "text": "add", "role": "word", "meaning": "添加" },
+    { "text": "language", "role": "word", "meaning": "语言" }
+  ],
+  "agree with": [
+    { "text": "agree", "role": "word", "meaning": "同意" },
+    { "text": "with", "role": "word", "meaning": "与；对" }
+  ],
+  "airplane mode": [
+    { "text": "airplane", "role": "word", "meaning": "飞机" },
+    { "text": "mode", "role": "word", "meaning": "模式" }
+  ],
+  "apple account": [
+    { "text": "Apple", "role": "word", "meaning": "苹果公司" },
+    { "text": "account", "role": "word", "meaning": "账户" }
+  ],
+  "ask next time": [
+    { "text": "ask", "role": "word", "meaning": "询问" },
+    { "text": "next time", "role": "word", "meaning": "下次" }
+  ],
+  "build ai agents": [
+    { "text": "build", "role": "word", "meaning": "构建" },
+    { "text": "AI", "role": "word", "meaning": "人工智能" },
+    { "text": "agents", "role": "word", "meaning": "智能体" }
+  ],
+  "building": [
+    { "text": "build", "role": "root", "meaning": "构建" },
+    { "text": "-ing", "role": "suffix", "meaning": "正在进行；句中形式" }
+  ],
+  "climate change": [
+    { "text": "climate", "role": "word", "meaning": "气候" },
+    { "text": "change", "role": "word", "meaning": "变化" }
+  ],
+  "connected": [
+    { "text": "connect", "role": "root", "meaning": "连接" },
+    { "text": "-ed", "role": "suffix", "meaning": "已经处于某状态" }
+  ],
+  "contacts": [
+    { "text": "contact", "role": "root", "meaning": "联系人；联系" },
+    { "text": "-s", "role": "suffix", "meaning": "复数" }
+  ],
+  "context window": [
+    { "text": "context", "role": "word", "meaning": "上下文" },
+    { "text": "window", "role": "word", "meaning": "窗口" }
+  ],
+  "cost of living": [
+    { "text": "cost", "role": "word", "meaning": "成本" },
+    { "text": "of", "role": "word", "meaning": "……的" },
+    { "text": "living", "role": "word", "meaning": "生活" }
+  ],
+  "disagree": [
+    { "text": "dis-", "role": "prefix", "meaning": "不；相反" },
+    { "text": "agree", "role": "root", "meaning": "同意" }
+  ],
+  "disagree with": [
+    { "text": "disagree", "role": "word", "meaning": "不同意" },
+    { "text": "with", "role": "word", "meaning": "与；对" }
+  ],
+  "don't allow": [
+    { "text": "don't", "role": "word", "meaning": "不要；不" },
+    { "text": "allow", "role": "word", "meaning": "允许" }
+  ],
+  "framework": [
+    { "text": "frame", "role": "word", "meaning": "框架；结构" },
+    { "text": "work", "role": "word", "meaning": "工作；体系" }
+  ],
+  "framework for building multi-agent workflows": [
+    { "text": "framework", "role": "word", "meaning": "框架" },
+    { "text": "for building", "role": "word", "meaning": "用于构建" },
+    { "text": "multi-agent workflows", "role": "word", "meaning": "多智能体工作流" }
+  ],
+  "free throw": [
+    { "text": "free", "role": "word", "meaning": "自由的；不受阻挡的" },
+    { "text": "throw", "role": "word", "meaning": "投；掷" }
+  ],
+  "full access": [
+    { "text": "full", "role": "word", "meaning": "完全的" },
+    { "text": "access", "role": "word", "meaning": "访问权限" }
+  ],
+  "get information": [
+    { "text": "get", "role": "word", "meaning": "获取" },
+    { "text": "information", "role": "word", "meaning": "信息" }
+  ],
+  "information": [
+    { "text": "inform", "role": "root", "meaning": "告知" },
+    { "text": "-ation", "role": "suffix", "meaning": "构成名词：过程或结果" }
+  ],
+  "language & region": [
+    { "text": "language", "role": "word", "meaning": "语言" },
+    { "text": "region", "role": "word", "meaning": "地区" }
+  ],
+  "lightweight": [
+    { "text": "light", "role": "word", "meaning": "轻的" },
+    { "text": "weight", "role": "word", "meaning": "重量" }
+  ],
+  "lightweight yet powerful": [
+    { "text": "lightweight", "role": "word", "meaning": "轻量的" },
+    { "text": "yet", "role": "word", "meaning": "但是；却" },
+    { "text": "powerful", "role": "word", "meaning": "强大的" }
+  ],
+  "limited access": [
+    { "text": "limited", "role": "word", "meaning": "有限的" },
+    { "text": "access", "role": "word", "meaning": "访问权限" }
+  ],
+  "location services": [
+    { "text": "location", "role": "word", "meaning": "位置；定位" },
+    { "text": "services", "role": "word", "meaning": "服务" }
+  ],
+  "low power mode": [
+    { "text": "low power", "role": "word", "meaning": "低电量；低功耗" },
+    { "text": "mode", "role": "word", "meaning": "模式" }
+  ],
+  "memory store": [
+    { "text": "memory", "role": "word", "meaning": "记忆" },
+    { "text": "store", "role": "word", "meaning": "存储；存储区" }
+  ],
+  "mental health": [
+    { "text": "mental", "role": "word", "meaning": "心理的；精神的" },
+    { "text": "health", "role": "word", "meaning": "健康" }
+  ],
+  "microphone": [
+    { "text": "micro-", "role": "prefix", "meaning": "微小的" },
+    { "text": "-phone", "role": "root", "meaning": "声音；发声装置" }
+  ],
+  "mobile data": [
+    { "text": "mobile", "role": "word", "meaning": "移动的" },
+    { "text": "data", "role": "word", "meaning": "数据" }
+  ],
+  "multi-agent": [
+    { "text": "multi-", "role": "prefix", "meaning": "多个；多重" },
+    { "text": "agent", "role": "root", "meaning": "智能体" }
+  ],
+  "passcode": [
+    { "text": "pass", "role": "word", "meaning": "通过；通行" },
+    { "text": "code", "role": "word", "meaning": "代码；密码" }
+  ],
+  "password": [
+    { "text": "pass", "role": "word", "meaning": "通过；通行" },
+    { "text": "word", "role": "word", "meaning": "词；口令" }
+  ],
+  "personal experience": [
+    { "text": "personal", "role": "word", "meaning": "个人的" },
+    { "text": "experience", "role": "word", "meaning": "经历；经验" }
+  ],
+  "personal hotspot": [
+    { "text": "personal", "role": "word", "meaning": "个人的" },
+    { "text": "hotspot", "role": "word", "meaning": "热点" }
+  ],
+  "point guard": [
+    { "text": "point", "role": "word", "meaning": "得分；位置" },
+    { "text": "guard", "role": "word", "meaning": "后卫" }
+  ],
+  "point of view": [
+    { "text": "point", "role": "word", "meaning": "点；角度" },
+    { "text": "of", "role": "word", "meaning": "……的" },
+    { "text": "view", "role": "word", "meaning": "看法；视角" }
+  ],
+  "power forward": [
+    { "text": "power", "role": "word", "meaning": "力量" },
+    { "text": "forward", "role": "word", "meaning": "前锋" }
+  ],
+  "powerful": [
+    { "text": "power", "role": "root", "meaning": "力量" },
+    { "text": "-ful", "role": "suffix", "meaning": "充满……的" }
+  ],
+  "primary language": [
+    { "text": "primary", "role": "word", "meaning": "主要的" },
+    { "text": "language", "role": "word", "meaning": "语言" }
+  ],
+  "privacy & security": [
+    { "text": "privacy", "role": "word", "meaning": "隐私" },
+    { "text": "security", "role": "word", "meaning": "安全性" }
+  ],
+  "provide tools": [
+    { "text": "provide", "role": "word", "meaning": "提供" },
+    { "text": "tools", "role": "word", "meaning": "工具" }
+  ],
+  "public policy": [
+    { "text": "public", "role": "word", "meaning": "公共的" },
+    { "text": "policy", "role": "word", "meaning": "政策" }
+  ],
+  "receive a response": [
+    { "text": "receive", "role": "word", "meaning": "接收；收到" },
+    { "text": "response", "role": "word", "meaning": "响应；回复" }
+  ],
+  "relationship advice": [
+    { "text": "relationship", "role": "word", "meaning": "关系；感情关系" },
+    { "text": "advice", "role": "word", "meaning": "建议" }
+  ],
+  "search for information": [
+    { "text": "search for", "role": "word", "meaning": "搜索；寻找" },
+    { "text": "information", "role": "word", "meaning": "信息" }
+  ],
+  "send a request": [
+    { "text": "send", "role": "word", "meaning": "发送" },
+    { "text": "request", "role": "word", "meaning": "请求" }
+  ],
+  "settings": [
+    { "text": "set", "role": "root", "meaning": "设置" },
+    { "text": "-ing", "role": "suffix", "meaning": "构成名词" },
+    { "text": "-s", "role": "suffix", "meaning": "复数" }
+  ],
+  "shooting guard": [
+    { "text": "shooting", "role": "word", "meaning": "投篮；得分" },
+    { "text": "guard", "role": "word", "meaning": "后卫" }
+  ],
+  "simplified chinese": [
+    { "text": "simplify", "role": "root", "meaning": "简化" },
+    { "text": "-ed", "role": "suffix", "meaning": "已经被……的" },
+    { "text": "Chinese", "role": "word", "meaning": "中文" }
+  ],
+  "small forward": [
+    { "text": "small", "role": "word", "meaning": "小的" },
+    { "text": "forward", "role": "word", "meaning": "前锋" }
+  ],
+  "social media": [
+    { "text": "social", "role": "word", "meaning": "社交的" },
+    { "text": "media", "role": "word", "meaning": "媒体" }
+  ],
+  "something": [
+    { "text": "some", "role": "word", "meaning": "某个；一些" },
+    { "text": "thing", "role": "word", "meaning": "事情；东西" }
+  ],
+  "source link": [
+    { "text": "source", "role": "word", "meaning": "来源" },
+    { "text": "link", "role": "word", "meaning": "链接" }
+  ],
+  "supporting evidence": [
+    { "text": "support", "role": "root", "meaning": "支持" },
+    { "text": "-ing", "role": "suffix", "meaning": "正在起作用的；用于……的" },
+    { "text": "evidence", "role": "word", "meaning": "证据" }
+  ],
+  "three-pointer": [
+    { "text": "three", "role": "word", "meaning": "三" },
+    { "text": "point", "role": "root", "meaning": "分" },
+    { "text": "-er", "role": "suffix", "meaning": "表示事物或动作" }
+  ],
+  "tool call": [
+    { "text": "tool", "role": "word", "meaning": "工具" },
+    { "text": "call", "role": "word", "meaning": "调用" }
+  ],
+  "trade deadline": [
+    { "text": "trade", "role": "word", "meaning": "交易" },
+    { "text": "deadline", "role": "word", "meaning": "截止时间" }
+  ],
+  "transfer": [
+    { "text": "trans-", "role": "prefix", "meaning": "跨越；从一处到另一处" },
+    { "text": "-fer", "role": "root", "meaning": "携带；带去" }
+  ],
+  "verification code": [
+    { "text": "verification", "role": "word", "meaning": "验证" },
+    { "text": "code", "role": "word", "meaning": "代码；验证码" }
+  ],
+  "workflow": [
+    { "text": "work", "role": "word", "meaning": "工作" },
+    { "text": "flow", "role": "word", "meaning": "流程；流动" }
+  ],
+  "workflow / workflows": [
+    { "text": "workflow", "role": "root", "meaning": "工作流" },
+    { "text": "-s", "role": "suffix", "meaning": "复数" }
+  ]
+}

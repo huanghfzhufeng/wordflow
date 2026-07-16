@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T10:16:24.513Z",
+  "generatedAt": "2026-07-16T05:21:48.256Z",
   "items": [
     {
       "term": "the",
@@ -14,7 +14,8 @@
       "orderIndex": 1,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:the",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "be",
@@ -28,7 +29,8 @@
       "priority": 25,
       "orderIndex": 2,
       "lastReviewedAt": null,
-      "seedKey": "item:be"
+      "seedKey": "item:be",
+      "components": []
     },
     {
       "term": "I'm",
@@ -42,7 +44,8 @@
       "priority": 25,
       "orderIndex": 3,
       "lastReviewedAt": null,
-      "seedKey": "item:i'm"
+      "seedKey": "item:i'm",
+      "components": []
     },
     {
       "term": "and",
@@ -57,7 +60,8 @@
       "orderIndex": 4,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:and",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "IMO",
@@ -71,7 +75,8 @@
       "priority": 25,
       "orderIndex": 5,
       "lastReviewedAt": null,
-      "seedKey": "item:imo"
+      "seedKey": "item:imo",
+      "components": []
     },
     {
       "term": "of",
@@ -85,7 +90,8 @@
       "priority": 25,
       "orderIndex": 6,
       "lastReviewedAt": null,
-      "seedKey": "item:of"
+      "seedKey": "item:of",
+      "components": []
     },
     {
       "term": "you're",
@@ -99,7 +105,8 @@
       "priority": 25,
       "orderIndex": 7,
       "lastReviewedAt": null,
-      "seedKey": "item:you're"
+      "seedKey": "item:you're",
+      "components": []
     },
     {
       "term": "to",
@@ -114,7 +121,8 @@
       "orderIndex": 8,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:to",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "agent",
@@ -128,7 +136,8 @@
       "priority": 25,
       "orderIndex": 9,
       "lastReviewedAt": null,
-      "seedKey": "item:agent"
+      "seedKey": "item:agent",
+      "components": []
     },
     {
       "term": "a",
@@ -142,7 +151,8 @@
       "priority": 25,
       "orderIndex": 10,
       "lastReviewedAt": null,
-      "seedKey": "item:a"
+      "seedKey": "item:a",
+      "components": []
     },
     {
       "term": "in",
@@ -157,7 +167,8 @@
       "orderIndex": 11,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:in",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "have",
@@ -172,7 +183,8 @@
       "orderIndex": 12,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:have",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "he's",
@@ -186,7 +198,8 @@
       "priority": 25,
       "orderIndex": 13,
       "lastReviewedAt": null,
-      "seedKey": "item:he's"
+      "seedKey": "item:he's",
+      "components": []
     },
     {
       "term": "it",
@@ -201,7 +214,8 @@
       "orderIndex": 14,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:it",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "IMHO",
@@ -215,7 +229,8 @@
       "priority": 25,
       "orderIndex": 15,
       "lastReviewedAt": null,
-      "seedKey": "item:imho"
+      "seedKey": "item:imho",
+      "components": []
     },
     {
       "term": "you",
@@ -230,7 +245,8 @@
       "orderIndex": 16,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:you",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "she's",
@@ -244,7 +260,8 @@
       "priority": 25,
       "orderIndex": 17,
       "lastReviewedAt": null,
-      "seedKey": "item:she's"
+      "seedKey": "item:she's",
+      "components": []
     },
     {
       "term": "he",
@@ -259,7 +276,8 @@
       "orderIndex": 18,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:he",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "prompt",
@@ -273,7 +291,8 @@
       "priority": 25,
       "orderIndex": 19,
       "lastReviewedAt": null,
-      "seedKey": "item:prompt"
+      "seedKey": "item:prompt",
+      "components": []
     },
     {
       "term": "for",
@@ -288,7 +307,8 @@
       "orderIndex": 20,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:for",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "they",
@@ -303,7 +323,8 @@
       "orderIndex": 21,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:they",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "not",
@@ -318,7 +339,8 @@
       "orderIndex": 22,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:not",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "it's",
@@ -332,7 +354,8 @@
       "priority": 25,
       "orderIndex": 23,
       "lastReviewedAt": null,
-      "seedKey": "item:it's"
+      "seedKey": "item:it's",
+      "components": []
     },
     {
       "term": "that",
@@ -347,7 +370,8 @@
       "orderIndex": 24,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:that",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "TBH",
@@ -361,7 +385,8 @@
       "priority": 25,
       "orderIndex": 25,
       "lastReviewedAt": null,
-      "seedKey": "item:tbh"
+      "seedKey": "item:tbh",
+      "components": []
     },
     {
       "term": "we",
@@ -376,7 +401,8 @@
       "orderIndex": 26,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:we",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "we're",
@@ -390,7 +416,8 @@
       "priority": 25,
       "orderIndex": 27,
       "lastReviewedAt": null,
-      "seedKey": "item:we're"
+      "seedKey": "item:we're",
+      "components": []
     },
     {
       "term": "on",
@@ -404,7 +431,8 @@
       "priority": 25,
       "orderIndex": 28,
       "lastReviewedAt": null,
-      "seedKey": "item:on"
+      "seedKey": "item:on",
+      "components": []
     },
     {
       "term": "token",
@@ -418,7 +446,8 @@
       "priority": 25,
       "orderIndex": 29,
       "lastReviewedAt": null,
-      "seedKey": "item:token"
+      "seedKey": "item:token",
+      "components": []
     },
     {
       "term": "with",
@@ -433,7 +462,8 @@
       "orderIndex": 30,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:with",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "this",
@@ -448,7 +478,8 @@
       "orderIndex": 31,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:this",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "I",
@@ -463,7 +494,8 @@
       "orderIndex": 32,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:i",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "they're",
@@ -477,7 +509,8 @@
       "priority": 25,
       "orderIndex": 33,
       "lastReviewedAt": null,
-      "seedKey": "item:they're"
+      "seedKey": "item:they're",
+      "components": []
     },
     {
       "term": "do",
@@ -492,7 +525,8 @@
       "orderIndex": 34,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:do",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "NGL",
@@ -506,7 +540,8 @@
       "priority": 25,
       "orderIndex": 35,
       "lastReviewedAt": null,
-      "seedKey": "item:ngl"
+      "seedKey": "item:ngl",
+      "components": []
     },
     {
       "term": "as",
@@ -520,7 +555,8 @@
       "priority": 25,
       "orderIndex": 36,
       "lastReviewedAt": null,
-      "seedKey": "item:as"
+      "seedKey": "item:as",
+      "components": []
     },
     {
       "term": "I've",
@@ -534,7 +570,8 @@
       "priority": 25,
       "orderIndex": 37,
       "lastReviewedAt": null,
-      "seedKey": "item:i've"
+      "seedKey": "item:i've",
+      "components": []
     },
     {
       "term": "at",
@@ -548,7 +585,8 @@
       "priority": 25,
       "orderIndex": 38,
       "lastReviewedAt": null,
-      "seedKey": "item:at"
+      "seedKey": "item:at",
+      "components": []
     },
     {
       "term": "context window",
@@ -562,7 +600,19 @@
       "priority": 25,
       "orderIndex": 39,
       "lastReviewedAt": null,
-      "seedKey": "item:context window"
+      "seedKey": "item:context window",
+      "components": [
+        {
+          "text": "context",
+          "role": "word",
+          "meaning": "上下文"
+        },
+        {
+          "text": "window",
+          "role": "word",
+          "meaning": "窗口"
+        }
+      ]
     },
     {
       "term": "she",
@@ -577,7 +627,8 @@
       "orderIndex": 40,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:she",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "but",
@@ -592,7 +643,8 @@
       "orderIndex": 41,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:but",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "from",
@@ -606,7 +658,8 @@
       "priority": 25,
       "orderIndex": 42,
       "lastReviewedAt": null,
-      "seedKey": "item:from"
+      "seedKey": "item:from",
+      "components": []
     },
     {
       "term": "you've",
@@ -620,7 +673,8 @@
       "priority": 25,
       "orderIndex": 43,
       "lastReviewedAt": null,
-      "seedKey": "item:you've"
+      "seedKey": "item:you've",
+      "components": []
     },
     {
       "term": "by",
@@ -634,7 +688,8 @@
       "priority": 25,
       "orderIndex": 44,
       "lastReviewedAt": null,
-      "seedKey": "item:by"
+      "seedKey": "item:by",
+      "components": []
     },
     {
       "term": "BTW",
@@ -648,7 +703,8 @@
       "priority": 25,
       "orderIndex": 45,
       "lastReviewedAt": null,
-      "seedKey": "item:btw"
+      "seedKey": "item:btw",
+      "components": []
     },
     {
       "term": "will",
@@ -662,7 +718,8 @@
       "priority": 25,
       "orderIndex": 46,
       "lastReviewedAt": null,
-      "seedKey": "item:will"
+      "seedKey": "item:will",
+      "components": []
     },
     {
       "term": "we've",
@@ -676,7 +733,8 @@
       "priority": 25,
       "orderIndex": 47,
       "lastReviewedAt": null,
-      "seedKey": "item:we've"
+      "seedKey": "item:we've",
+      "components": []
     },
     {
       "term": "or",
@@ -690,7 +748,8 @@
       "priority": 25,
       "orderIndex": 48,
       "lastReviewedAt": null,
-      "seedKey": "item:or"
+      "seedKey": "item:or",
+      "components": []
     },
     {
       "term": "memory store",
@@ -704,7 +763,19 @@
       "priority": 25,
       "orderIndex": 49,
       "lastReviewedAt": null,
-      "seedKey": "item:memory store"
+      "seedKey": "item:memory store",
+      "components": [
+        {
+          "text": "memory",
+          "role": "word",
+          "meaning": "记忆"
+        },
+        {
+          "text": "store",
+          "role": "word",
+          "meaning": "存储；存储区"
+        }
+      ]
     },
     {
       "term": "say",
@@ -719,7 +790,8 @@
       "orderIndex": 50,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:say",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "go",
@@ -733,7 +805,8 @@
       "priority": 25,
       "orderIndex": 51,
       "lastReviewedAt": null,
-      "seedKey": "item:go"
+      "seedKey": "item:go",
+      "components": []
     },
     {
       "term": "so",
@@ -747,7 +820,8 @@
       "priority": 25,
       "orderIndex": 52,
       "lastReviewedAt": null,
-      "seedKey": "item:so"
+      "seedKey": "item:so",
+      "components": []
     },
     {
       "term": "they've",
@@ -761,7 +835,8 @@
       "priority": 25,
       "orderIndex": 53,
       "lastReviewedAt": null,
-      "seedKey": "item:they've"
+      "seedKey": "item:they've",
+      "components": []
     },
     {
       "term": "all",
@@ -775,7 +850,8 @@
       "priority": 25,
       "orderIndex": 54,
       "lastReviewedAt": null,
-      "seedKey": "item:all"
+      "seedKey": "item:all",
+      "components": []
     },
     {
       "term": "IDK",
@@ -789,7 +865,8 @@
       "priority": 25,
       "orderIndex": 55,
       "lastReviewedAt": null,
-      "seedKey": "item:idk"
+      "seedKey": "item:idk",
+      "components": []
     },
     {
       "term": "if",
@@ -803,7 +880,8 @@
       "priority": 25,
       "orderIndex": 56,
       "lastReviewedAt": null,
-      "seedKey": "item:if"
+      "seedKey": "item:if",
+      "components": []
     },
     {
       "term": "I'd",
@@ -817,7 +895,8 @@
       "priority": 25,
       "orderIndex": 57,
       "lastReviewedAt": null,
-      "seedKey": "item:i'd"
+      "seedKey": "item:i'd",
+      "components": []
     },
     {
       "term": "one",
@@ -831,7 +910,8 @@
       "priority": 25,
       "orderIndex": 58,
       "lastReviewedAt": null,
-      "seedKey": "item:one"
+      "seedKey": "item:one",
+      "components": []
     },
     {
       "term": "tool call",
@@ -845,7 +925,19 @@
       "priority": 25,
       "orderIndex": 59,
       "lastReviewedAt": null,
-      "seedKey": "item:tool call"
+      "seedKey": "item:tool call",
+      "components": [
+        {
+          "text": "tool",
+          "role": "word",
+          "meaning": "工具"
+        },
+        {
+          "text": "call",
+          "role": "word",
+          "meaning": "调用"
+        }
+      ]
     },
     {
       "term": "would",
@@ -859,7 +951,8 @@
       "priority": 25,
       "orderIndex": 60,
       "lastReviewedAt": null,
-      "seedKey": "item:would"
+      "seedKey": "item:would",
+      "components": []
     },
     {
       "term": "about",
@@ -873,7 +966,8 @@
       "priority": 25,
       "orderIndex": 61,
       "lastReviewedAt": null,
-      "seedKey": "item:about"
+      "seedKey": "item:about",
+      "components": []
     },
     {
       "term": "can",
@@ -888,7 +982,8 @@
       "orderIndex": 62,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:can",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "you'd",
@@ -902,7 +997,8 @@
       "priority": 25,
       "orderIndex": 63,
       "lastReviewedAt": null,
-      "seedKey": "item:you'd"
+      "seedKey": "item:you'd",
+      "components": []
     },
     {
       "term": "which",
@@ -916,7 +1012,8 @@
       "priority": 25,
       "orderIndex": 64,
       "lastReviewedAt": null,
-      "seedKey": "item:which"
+      "seedKey": "item:which",
+      "components": []
     },
     {
       "term": "AFAIK",
@@ -930,7 +1027,8 @@
       "priority": 25,
       "orderIndex": 65,
       "lastReviewedAt": null,
-      "seedKey": "item:afaik"
+      "seedKey": "item:afaik",
+      "components": []
     },
     {
       "term": "there",
@@ -944,7 +1042,8 @@
       "priority": 25,
       "orderIndex": 66,
       "lastReviewedAt": null,
-      "seedKey": "item:there"
+      "seedKey": "item:there",
+      "components": []
     },
     {
       "term": "he'd",
@@ -958,7 +1057,8 @@
       "priority": 25,
       "orderIndex": 67,
       "lastReviewedAt": null,
-      "seedKey": "item:he'd"
+      "seedKey": "item:he'd",
+      "components": []
     },
     {
       "term": "know",
@@ -973,7 +1073,8 @@
       "orderIndex": 68,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:know",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "workflow",
@@ -987,7 +1088,19 @@
       "priority": 25,
       "orderIndex": 69,
       "lastReviewedAt": null,
-      "seedKey": "item:workflow"
+      "seedKey": "item:workflow",
+      "components": [
+        {
+          "text": "work",
+          "role": "word",
+          "meaning": "工作"
+        },
+        {
+          "text": "flow",
+          "role": "word",
+          "meaning": "流程；流动"
+        }
+      ]
     },
     {
       "term": "more",
@@ -1001,7 +1114,8 @@
       "priority": 25,
       "orderIndex": 70,
       "lastReviewedAt": null,
-      "seedKey": "item:more"
+      "seedKey": "item:more",
+      "components": []
     },
     {
       "term": "get",
@@ -1016,7 +1130,8 @@
       "orderIndex": 71,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:get",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "who",
@@ -1030,7 +1145,8 @@
       "priority": 25,
       "orderIndex": 72,
       "lastReviewedAt": null,
-      "seedKey": "item:who"
+      "seedKey": "item:who",
+      "components": []
     },
     {
       "term": "she'd",
@@ -1044,7 +1160,8 @@
       "priority": 25,
       "orderIndex": 73,
       "lastReviewedAt": null,
-      "seedKey": "item:she'd"
+      "seedKey": "item:she'd",
+      "components": []
     },
     {
       "term": "like",
@@ -1059,7 +1176,8 @@
       "orderIndex": 74,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:like",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "FWIW",
@@ -1073,7 +1191,8 @@
       "priority": 25,
       "orderIndex": 75,
       "lastReviewedAt": null,
-      "seedKey": "item:fwiw"
+      "seedKey": "item:fwiw",
+      "components": []
     },
     {
       "term": "when",
@@ -1087,7 +1206,8 @@
       "priority": 25,
       "orderIndex": 76,
       "lastReviewedAt": null,
-      "seedKey": "item:when"
+      "seedKey": "item:when",
+      "components": []
     },
     {
       "term": "we'd",
@@ -1101,7 +1221,8 @@
       "priority": 25,
       "orderIndex": 77,
       "lastReviewedAt": null,
-      "seedKey": "item:we'd"
+      "seedKey": "item:we'd",
+      "components": []
     },
     {
       "term": "think",
@@ -1116,7 +1237,8 @@
       "orderIndex": 78,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:think",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "request",
@@ -1131,7 +1253,8 @@
       "orderIndex": 79,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:request",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "make",
@@ -1145,7 +1268,8 @@
       "priority": 25,
       "orderIndex": 80,
       "lastReviewedAt": null,
-      "seedKey": "item:make"
+      "seedKey": "item:make",
+      "components": []
     },
     {
       "term": "time",
@@ -1159,7 +1283,8 @@
       "priority": 25,
       "orderIndex": 81,
       "lastReviewedAt": null,
-      "seedKey": "item:time"
+      "seedKey": "item:time",
+      "components": []
     },
     {
       "term": "see",
@@ -1174,7 +1299,8 @@
       "orderIndex": 82,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:see",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "they'd",
@@ -1188,7 +1314,8 @@
       "priority": 25,
       "orderIndex": 83,
       "lastReviewedAt": null,
-      "seedKey": "item:they'd"
+      "seedKey": "item:they'd",
+      "components": []
     },
     {
       "term": "what",
@@ -1203,7 +1330,8 @@
       "orderIndex": 84,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:what",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "TL;DR",
@@ -1217,7 +1345,8 @@
       "priority": 25,
       "orderIndex": 85,
       "lastReviewedAt": null,
-      "seedKey": "item:tl;dr"
+      "seedKey": "item:tl;dr",
+      "components": []
     },
     {
       "term": "up",
@@ -1231,7 +1360,8 @@
       "priority": 25,
       "orderIndex": 86,
       "lastReviewedAt": null,
-      "seedKey": "item:up"
+      "seedKey": "item:up",
+      "components": []
     },
     {
       "term": "I'll",
@@ -1245,7 +1375,8 @@
       "priority": 25,
       "orderIndex": 87,
       "lastReviewedAt": null,
-      "seedKey": "item:i'll"
+      "seedKey": "item:i'll",
+      "components": []
     },
     {
       "term": "some",
@@ -1259,7 +1390,8 @@
       "priority": 25,
       "orderIndex": 88,
       "lastReviewedAt": null,
-      "seedKey": "item:some"
+      "seedKey": "item:some",
+      "components": []
     },
     {
       "term": "response",
@@ -1274,7 +1406,8 @@
       "orderIndex": 89,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:response",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "other",
@@ -1288,7 +1421,8 @@
       "priority": 25,
       "orderIndex": 90,
       "lastReviewedAt": null,
-      "seedKey": "item:other"
+      "seedKey": "item:other",
+      "components": []
     },
     {
       "term": "out",
@@ -1302,7 +1436,8 @@
       "priority": 25,
       "orderIndex": 91,
       "lastReviewedAt": null,
-      "seedKey": "item:out"
+      "seedKey": "item:out",
+      "components": []
     },
     {
       "term": "good",
@@ -1317,7 +1452,8 @@
       "orderIndex": 92,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:good",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "you'll",
@@ -1331,7 +1467,8 @@
       "priority": 25,
       "orderIndex": 93,
       "lastReviewedAt": null,
-      "seedKey": "item:you'll"
+      "seedKey": "item:you'll",
+      "components": []
     },
     {
       "term": "people",
@@ -1346,7 +1483,8 @@
       "orderIndex": 94,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:people",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "OP",
@@ -1360,7 +1498,8 @@
       "priority": 25,
       "orderIndex": 95,
       "lastReviewedAt": null,
-      "seedKey": "item:op"
+      "seedKey": "item:op",
+      "components": []
     },
     {
       "term": "year",
@@ -1374,7 +1513,8 @@
       "priority": 25,
       "orderIndex": 96,
       "lastReviewedAt": null,
-      "seedKey": "item:year"
+      "seedKey": "item:year",
+      "components": []
     },
     {
       "term": "he'll",
@@ -1388,7 +1528,8 @@
       "priority": 25,
       "orderIndex": 97,
       "lastReviewedAt": null,
-      "seedKey": "item:he'll"
+      "seedKey": "item:he'll",
+      "components": []
     },
     {
       "term": "take",
@@ -1402,7 +1543,8 @@
       "priority": 25,
       "orderIndex": 98,
       "lastReviewedAt": null,
-      "seedKey": "item:take"
+      "seedKey": "item:take",
+      "components": []
     },
     {
       "term": "framework",
@@ -1417,7 +1559,19 @@
       "orderIndex": 99,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:framework",
-      "phonetic": ""
+      "phonetic": "",
+      "components": [
+        {
+          "text": "frame",
+          "role": "word",
+          "meaning": "框架；结构"
+        },
+        {
+          "text": "work",
+          "role": "word",
+          "meaning": "工作；体系"
+        }
+      ]
     },
     {
       "term": "no",
@@ -1432,7 +1586,8 @@
       "orderIndex": 100,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:no",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "well",
@@ -1446,7 +1601,8 @@
       "priority": 25,
       "orderIndex": 101,
       "lastReviewedAt": null,
-      "seedKey": "item:well"
+      "seedKey": "item:well",
+      "components": []
     },
     {
       "term": "because",
@@ -1461,7 +1617,8 @@
       "orderIndex": 102,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:because",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "she'll",
@@ -1475,7 +1632,8 @@
       "priority": 25,
       "orderIndex": 103,
       "lastReviewedAt": null,
-      "seedKey": "item:she'll"
+      "seedKey": "item:she'll",
+      "components": []
     },
     {
       "term": "very",
@@ -1489,7 +1647,8 @@
       "priority": 25,
       "orderIndex": 104,
       "lastReviewedAt": null,
-      "seedKey": "item:very"
+      "seedKey": "item:very",
+      "components": []
     },
     {
       "term": "FYI",
@@ -1503,7 +1662,8 @@
       "priority": 25,
       "orderIndex": 105,
       "lastReviewedAt": null,
-      "seedKey": "item:fyi"
+      "seedKey": "item:fyi",
+      "components": []
     },
     {
       "term": "just",
@@ -1517,7 +1677,8 @@
       "priority": 25,
       "orderIndex": 106,
       "lastReviewedAt": null,
-      "seedKey": "item:just"
+      "seedKey": "item:just",
+      "components": []
     },
     {
       "term": "we'll",
@@ -1531,7 +1692,8 @@
       "priority": 25,
       "orderIndex": 107,
       "lastReviewedAt": null,
-      "seedKey": "item:we'll"
+      "seedKey": "item:we'll",
+      "components": []
     },
     {
       "term": "come",
@@ -1545,7 +1707,8 @@
       "priority": 25,
       "orderIndex": 108,
       "lastReviewedAt": null,
-      "seedKey": "item:come"
+      "seedKey": "item:come",
+      "components": []
     },
     {
       "term": "public policy",
@@ -1559,7 +1722,19 @@
       "priority": 25,
       "orderIndex": 109,
       "lastReviewedAt": null,
-      "seedKey": "item:public policy"
+      "seedKey": "item:public policy",
+      "components": [
+        {
+          "text": "public",
+          "role": "word",
+          "meaning": "公共的"
+        },
+        {
+          "text": "policy",
+          "role": "word",
+          "meaning": "政策"
+        }
+      ]
     },
     {
       "term": "could",
@@ -1573,7 +1748,8 @@
       "priority": 25,
       "orderIndex": 110,
       "lastReviewedAt": null,
-      "seedKey": "item:could"
+      "seedKey": "item:could",
+      "components": []
     },
     {
       "term": "work",
@@ -1587,7 +1763,8 @@
       "priority": 25,
       "orderIndex": 111,
       "lastReviewedAt": null,
-      "seedKey": "item:work"
+      "seedKey": "item:work",
+      "components": []
     },
     {
       "term": "use",
@@ -1602,7 +1779,8 @@
       "orderIndex": 112,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:use",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "they'll",
@@ -1616,7 +1794,8 @@
       "priority": 25,
       "orderIndex": 113,
       "lastReviewedAt": null,
-      "seedKey": "item:they'll"
+      "seedKey": "item:they'll",
+      "components": []
     },
     {
       "term": "than",
@@ -1630,7 +1809,8 @@
       "priority": 25,
       "orderIndex": 114,
       "lastReviewedAt": null,
-      "seedKey": "item:than"
+      "seedKey": "item:than",
+      "components": []
     },
     {
       "term": "IRL",
@@ -1644,7 +1824,8 @@
       "priority": 25,
       "orderIndex": 115,
       "lastReviewedAt": null,
-      "seedKey": "item:irl"
+      "seedKey": "item:irl",
+      "components": []
     },
     {
       "term": "now",
@@ -1658,7 +1839,8 @@
       "priority": 25,
       "orderIndex": 116,
       "lastReviewedAt": null,
-      "seedKey": "item:now"
+      "seedKey": "item:now",
+      "components": []
     },
     {
       "term": "isn't",
@@ -1672,7 +1854,8 @@
       "priority": 25,
       "orderIndex": 117,
       "lastReviewedAt": null,
-      "seedKey": "item:isn't"
+      "seedKey": "item:isn't",
+      "components": []
     },
     {
       "term": "then",
@@ -1686,7 +1869,8 @@
       "priority": 25,
       "orderIndex": 118,
       "lastReviewedAt": null,
-      "seedKey": "item:then"
+      "seedKey": "item:then",
+      "components": []
     },
     {
       "term": "mental health",
@@ -1700,7 +1884,19 @@
       "priority": 25,
       "orderIndex": 119,
       "lastReviewedAt": null,
-      "seedKey": "item:mental health"
+      "seedKey": "item:mental health",
+      "components": [
+        {
+          "text": "mental",
+          "role": "word",
+          "meaning": "心理的；精神的"
+        },
+        {
+          "text": "health",
+          "role": "word",
+          "meaning": "健康"
+        }
+      ]
     },
     {
       "term": "also",
@@ -1714,7 +1910,8 @@
       "priority": 25,
       "orderIndex": 120,
       "lastReviewedAt": null,
-      "seedKey": "item:also"
+      "seedKey": "item:also",
+      "components": []
     },
     {
       "term": "into",
@@ -1728,7 +1925,8 @@
       "priority": 25,
       "orderIndex": 121,
       "lastReviewedAt": null,
-      "seedKey": "item:into"
+      "seedKey": "item:into",
+      "components": []
     },
     {
       "term": "only",
@@ -1742,7 +1940,8 @@
       "priority": 25,
       "orderIndex": 122,
       "lastReviewedAt": null,
-      "seedKey": "item:only"
+      "seedKey": "item:only",
+      "components": []
     },
     {
       "term": "aren't",
@@ -1756,7 +1955,8 @@
       "priority": 25,
       "orderIndex": 123,
       "lastReviewedAt": null,
-      "seedKey": "item:aren't"
+      "seedKey": "item:aren't",
+      "components": []
     },
     {
       "term": "look",
@@ -1770,7 +1970,8 @@
       "priority": 25,
       "orderIndex": 124,
       "lastReviewedAt": null,
-      "seedKey": "item:look"
+      "seedKey": "item:look",
+      "components": []
     },
     {
       "term": "IIRC",
@@ -1784,7 +1985,8 @@
       "priority": 25,
       "orderIndex": 125,
       "lastReviewedAt": null,
-      "seedKey": "item:iirc"
+      "seedKey": "item:iirc",
+      "components": []
     },
     {
       "term": "want",
@@ -1799,7 +2001,8 @@
       "orderIndex": 126,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:want",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "wasn't",
@@ -1813,7 +2016,8 @@
       "priority": 25,
       "orderIndex": 127,
       "lastReviewedAt": null,
-      "seedKey": "item:wasn't"
+      "seedKey": "item:wasn't",
+      "components": []
     },
     {
       "term": "give",
@@ -1827,7 +2031,8 @@
       "priority": 25,
       "orderIndex": 128,
       "lastReviewedAt": null,
-      "seedKey": "item:give"
+      "seedKey": "item:give",
+      "components": []
     },
     {
       "term": "cost of living",
@@ -1841,7 +2046,24 @@
       "priority": 25,
       "orderIndex": 129,
       "lastReviewedAt": null,
-      "seedKey": "item:cost of living"
+      "seedKey": "item:cost of living",
+      "components": [
+        {
+          "text": "cost",
+          "role": "word",
+          "meaning": "成本"
+        },
+        {
+          "text": "of",
+          "role": "word",
+          "meaning": "……的"
+        },
+        {
+          "text": "living",
+          "role": "word",
+          "meaning": "生活"
+        }
+      ]
     },
     {
       "term": "first",
@@ -1855,7 +2077,8 @@
       "priority": 25,
       "orderIndex": 130,
       "lastReviewedAt": null,
-      "seedKey": "item:first"
+      "seedKey": "item:first",
+      "components": []
     },
     {
       "term": "new",
@@ -1869,7 +2092,8 @@
       "priority": 25,
       "orderIndex": 131,
       "lastReviewedAt": null,
-      "seedKey": "item:new"
+      "seedKey": "item:new",
+      "components": []
     },
     {
       "term": "way",
@@ -1883,7 +2107,8 @@
       "priority": 25,
       "orderIndex": 132,
       "lastReviewedAt": null,
-      "seedKey": "item:way"
+      "seedKey": "item:way",
+      "components": []
     },
     {
       "term": "weren't",
@@ -1897,7 +2122,8 @@
       "priority": 25,
       "orderIndex": 133,
       "lastReviewedAt": null,
-      "seedKey": "item:weren't"
+      "seedKey": "item:weren't",
+      "components": []
     },
     {
       "term": "find",
@@ -1911,7 +2137,8 @@
       "priority": 25,
       "orderIndex": 134,
       "lastReviewedAt": null,
-      "seedKey": "item:find"
+      "seedKey": "item:find",
+      "components": []
     },
     {
       "term": "TIL",
@@ -1925,7 +2152,8 @@
       "priority": 25,
       "orderIndex": 135,
       "lastReviewedAt": null,
-      "seedKey": "item:til"
+      "seedKey": "item:til",
+      "components": []
     },
     {
       "term": "over",
@@ -1939,7 +2167,8 @@
       "priority": 25,
       "orderIndex": 136,
       "lastReviewedAt": null,
-      "seedKey": "item:over"
+      "seedKey": "item:over",
+      "components": []
     },
     {
       "term": "don't",
@@ -1954,7 +2183,8 @@
       "orderIndex": 137,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:don't",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "any",
@@ -1968,7 +2198,8 @@
       "priority": 25,
       "orderIndex": 138,
       "lastReviewedAt": null,
-      "seedKey": "item:any"
+      "seedKey": "item:any",
+      "components": []
     },
     {
       "term": "social media",
@@ -1982,7 +2213,19 @@
       "priority": 25,
       "orderIndex": 139,
       "lastReviewedAt": null,
-      "seedKey": "item:social media"
+      "seedKey": "item:social media",
+      "components": [
+        {
+          "text": "social",
+          "role": "word",
+          "meaning": "社交的"
+        },
+        {
+          "text": "media",
+          "role": "word",
+          "meaning": "媒体"
+        }
+      ]
     },
     {
       "term": "after",
@@ -1996,7 +2239,8 @@
       "priority": 25,
       "orderIndex": 140,
       "lastReviewedAt": null,
-      "seedKey": "item:after"
+      "seedKey": "item:after",
+      "components": []
     },
     {
       "term": "day",
@@ -2010,7 +2254,8 @@
       "priority": 25,
       "orderIndex": 141,
       "lastReviewedAt": null,
-      "seedKey": "item:day"
+      "seedKey": "item:day",
+      "components": []
     },
     {
       "term": "where",
@@ -2024,7 +2269,8 @@
       "priority": 25,
       "orderIndex": 142,
       "lastReviewedAt": null,
-      "seedKey": "item:where"
+      "seedKey": "item:where",
+      "components": []
     },
     {
       "term": "doesn't",
@@ -2038,7 +2284,8 @@
       "priority": 25,
       "orderIndex": 143,
       "lastReviewedAt": null,
-      "seedKey": "item:doesn't"
+      "seedKey": "item:doesn't",
+      "components": []
     },
     {
       "term": "thing",
@@ -2052,7 +2299,8 @@
       "priority": 25,
       "orderIndex": 144,
       "lastReviewedAt": null,
-      "seedKey": "item:thing"
+      "seedKey": "item:thing",
+      "components": []
     },
     {
       "term": "AMA",
@@ -2066,7 +2314,8 @@
       "priority": 25,
       "orderIndex": 145,
       "lastReviewedAt": null,
-      "seedKey": "item:ama"
+      "seedKey": "item:ama",
+      "components": []
     },
     {
       "term": "most",
@@ -2080,7 +2329,8 @@
       "priority": 25,
       "orderIndex": 146,
       "lastReviewedAt": null,
-      "seedKey": "item:most"
+      "seedKey": "item:most",
+      "components": []
     },
     {
       "term": "didn't",
@@ -2094,7 +2344,8 @@
       "priority": 25,
       "orderIndex": 147,
       "lastReviewedAt": null,
-      "seedKey": "item:didn't"
+      "seedKey": "item:didn't",
+      "components": []
     },
     {
       "term": "should",
@@ -2108,7 +2359,8 @@
       "priority": 25,
       "orderIndex": 148,
       "lastReviewedAt": null,
-      "seedKey": "item:should"
+      "seedKey": "item:should",
+      "components": []
     },
     {
       "term": "climate change",
@@ -2122,7 +2374,19 @@
       "priority": 25,
       "orderIndex": 149,
       "lastReviewedAt": null,
-      "seedKey": "item:climate change"
+      "seedKey": "item:climate change",
+      "components": [
+        {
+          "text": "climate",
+          "role": "word",
+          "meaning": "气候"
+        },
+        {
+          "text": "change",
+          "role": "word",
+          "meaning": "变化"
+        }
+      ]
     },
     {
       "term": "need",
@@ -2136,7 +2400,8 @@
       "priority": 25,
       "orderIndex": 150,
       "lastReviewedAt": null,
-      "seedKey": "item:need"
+      "seedKey": "item:need",
+      "components": []
     },
     {
       "term": "much",
@@ -2150,7 +2415,8 @@
       "priority": 25,
       "orderIndex": 151,
       "lastReviewedAt": null,
-      "seedKey": "item:much"
+      "seedKey": "item:much",
+      "components": []
     },
     {
       "term": "right",
@@ -2165,7 +2431,8 @@
       "orderIndex": 152,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:right",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "can't",
@@ -2180,7 +2447,8 @@
       "orderIndex": 153,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:can't",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "how",
@@ -2194,7 +2462,8 @@
       "priority": 25,
       "orderIndex": 154,
       "lastReviewedAt": null,
-      "seedKey": "item:how"
+      "seedKey": "item:how",
+      "components": []
     },
     {
       "term": "ELI5",
@@ -2208,7 +2477,8 @@
       "priority": 25,
       "orderIndex": 155,
       "lastReviewedAt": null,
-      "seedKey": "item:eli5"
+      "seedKey": "item:eli5",
+      "components": []
     },
     {
       "term": "Back",
@@ -2223,7 +2493,8 @@
       "orderIndex": 156,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:back",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "couldn't",
@@ -2237,7 +2508,8 @@
       "priority": 25,
       "orderIndex": 157,
       "lastReviewedAt": null,
-      "seedKey": "item:couldn't"
+      "seedKey": "item:couldn't",
+      "components": []
     },
     {
       "term": "mean",
@@ -2252,7 +2524,8 @@
       "orderIndex": 158,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:mean",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "personal experience",
@@ -2266,7 +2539,19 @@
       "priority": 25,
       "orderIndex": 159,
       "lastReviewedAt": null,
-      "seedKey": "item:personal experience"
+      "seedKey": "item:personal experience",
+      "components": [
+        {
+          "text": "personal",
+          "role": "word",
+          "meaning": "个人的"
+        },
+        {
+          "text": "experience",
+          "role": "word",
+          "meaning": "经历；经验"
+        }
+      ]
     },
     {
       "term": "even",
@@ -2280,7 +2565,8 @@
       "priority": 25,
       "orderIndex": 160,
       "lastReviewedAt": null,
-      "seedKey": "item:even"
+      "seedKey": "item:even",
+      "components": []
     },
     {
       "term": "may",
@@ -2294,7 +2580,8 @@
       "priority": 25,
       "orderIndex": 161,
       "lastReviewedAt": null,
-      "seedKey": "item:may"
+      "seedKey": "item:may",
+      "components": []
     },
     {
       "term": "here",
@@ -2308,7 +2595,8 @@
       "priority": 25,
       "orderIndex": 162,
       "lastReviewedAt": null,
-      "seedKey": "item:here"
+      "seedKey": "item:here",
+      "components": []
     },
     {
       "term": "won't",
@@ -2322,7 +2610,8 @@
       "priority": 25,
       "orderIndex": 163,
       "lastReviewedAt": null,
-      "seedKey": "item:won't"
+      "seedKey": "item:won't",
+      "components": []
     },
     {
       "term": "many",
@@ -2336,7 +2625,8 @@
       "priority": 25,
       "orderIndex": 164,
       "lastReviewedAt": null,
-      "seedKey": "item:many"
+      "seedKey": "item:many",
+      "components": []
     },
     {
       "term": "CMV",
@@ -2350,7 +2640,8 @@
       "priority": 25,
       "orderIndex": 165,
       "lastReviewedAt": null,
-      "seedKey": "item:cmv"
+      "seedKey": "item:cmv",
+      "components": []
     },
     {
       "term": "such",
@@ -2364,7 +2655,8 @@
       "priority": 25,
       "orderIndex": 166,
       "lastReviewedAt": null,
-      "seedKey": "item:such"
+      "seedKey": "item:such",
+      "components": []
     },
     {
       "term": "wouldn't",
@@ -2378,7 +2670,8 @@
       "priority": 25,
       "orderIndex": 167,
       "lastReviewedAt": null,
-      "seedKey": "item:wouldn't"
+      "seedKey": "item:wouldn't",
+      "components": []
     },
     {
       "term": "last",
@@ -2392,7 +2685,8 @@
       "priority": 25,
       "orderIndex": 168,
       "lastReviewedAt": null,
-      "seedKey": "item:last"
+      "seedKey": "item:last",
+      "components": []
     },
     {
       "term": "relationship advice",
@@ -2406,7 +2700,19 @@
       "priority": 25,
       "orderIndex": 169,
       "lastReviewedAt": null,
-      "seedKey": "item:relationship advice"
+      "seedKey": "item:relationship advice",
+      "components": [
+        {
+          "text": "relationship",
+          "role": "word",
+          "meaning": "关系；感情关系"
+        },
+        {
+          "text": "advice",
+          "role": "word",
+          "meaning": "建议"
+        }
+      ]
     },
     {
       "term": "child",
@@ -2420,7 +2726,8 @@
       "priority": 25,
       "orderIndex": 170,
       "lastReviewedAt": null,
-      "seedKey": "item:child"
+      "seedKey": "item:child",
+      "components": []
     },
     {
       "term": "tell",
@@ -2434,7 +2741,8 @@
       "priority": 25,
       "orderIndex": 171,
       "lastReviewedAt": null,
-      "seedKey": "item:tell"
+      "seedKey": "item:tell",
+      "components": []
     },
     {
       "term": "really",
@@ -2449,7 +2757,8 @@
       "orderIndex": 172,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:really",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "shouldn't",
@@ -2463,7 +2772,8 @@
       "priority": 25,
       "orderIndex": 173,
       "lastReviewedAt": null,
-      "seedKey": "item:shouldn't"
+      "seedKey": "item:shouldn't",
+      "components": []
     },
     {
       "term": "call",
@@ -2477,7 +2787,8 @@
       "priority": 25,
       "orderIndex": 174,
       "lastReviewedAt": null,
-      "seedKey": "item:call"
+      "seedKey": "item:call",
+      "components": []
     },
     {
       "term": "DM",
@@ -2491,7 +2802,8 @@
       "priority": 25,
       "orderIndex": 175,
       "lastReviewedAt": null,
-      "seedKey": "item:dm"
+      "seedKey": "item:dm",
+      "components": []
     },
     {
       "term": "before",
@@ -2505,7 +2817,8 @@
       "priority": 25,
       "orderIndex": 176,
       "lastReviewedAt": null,
-      "seedKey": "item:before"
+      "seedKey": "item:before",
+      "components": []
     },
     {
       "term": "haven't",
@@ -2519,7 +2832,8 @@
       "priority": 25,
       "orderIndex": 177,
       "lastReviewedAt": null,
-      "seedKey": "item:haven't"
+      "seedKey": "item:haven't",
+      "components": []
     },
     {
       "term": "company",
@@ -2533,7 +2847,8 @@
       "priority": 25,
       "orderIndex": 178,
       "lastReviewedAt": null,
-      "seedKey": "item:company"
+      "seedKey": "item:company",
+      "components": []
     },
     {
       "term": "point of view",
@@ -2547,7 +2862,24 @@
       "priority": 25,
       "orderIndex": 179,
       "lastReviewedAt": null,
-      "seedKey": "item:point of view"
+      "seedKey": "item:point of view",
+      "components": [
+        {
+          "text": "point",
+          "role": "word",
+          "meaning": "点；角度"
+        },
+        {
+          "text": "of",
+          "role": "word",
+          "meaning": "……的"
+        },
+        {
+          "text": "view",
+          "role": "word",
+          "meaning": "看法；视角"
+        }
+      ]
     },
     {
       "term": "through",
@@ -2561,7 +2893,8 @@
       "priority": 25,
       "orderIndex": 180,
       "lastReviewedAt": null,
-      "seedKey": "item:through"
+      "seedKey": "item:through",
+      "components": []
     },
     {
       "term": "down",
@@ -2575,7 +2908,8 @@
       "priority": 25,
       "orderIndex": 181,
       "lastReviewedAt": null,
-      "seedKey": "item:down"
+      "seedKey": "item:down",
+      "components": []
     },
     {
       "term": "show",
@@ -2589,7 +2923,8 @@
       "priority": 25,
       "orderIndex": 182,
       "lastReviewedAt": null,
-      "seedKey": "item:show"
+      "seedKey": "item:show",
+      "components": []
     },
     {
       "term": "hasn't",
@@ -2603,7 +2938,8 @@
       "priority": 25,
       "orderIndex": 183,
       "lastReviewedAt": null,
-      "seedKey": "item:hasn't"
+      "seedKey": "item:hasn't",
+      "components": []
     },
     {
       "term": "life",
@@ -2617,7 +2953,8 @@
       "priority": 25,
       "orderIndex": 184,
       "lastReviewedAt": null,
-      "seedKey": "item:life"
+      "seedKey": "item:life",
+      "components": []
     },
     {
       "term": "PM",
@@ -2631,7 +2968,8 @@
       "priority": 25,
       "orderIndex": 185,
       "lastReviewedAt": null,
-      "seedKey": "item:pm"
+      "seedKey": "item:pm",
+      "components": []
     },
     {
       "term": "man",
@@ -2645,7 +2983,8 @@
       "priority": 25,
       "orderIndex": 186,
       "lastReviewedAt": null,
-      "seedKey": "item:man"
+      "seedKey": "item:man",
+      "components": []
     },
     {
       "term": "hadn't",
@@ -2659,7 +2998,8 @@
       "priority": 25,
       "orderIndex": 187,
       "lastReviewedAt": null,
-      "seedKey": "item:hadn't"
+      "seedKey": "item:hadn't",
+      "components": []
     },
     {
       "term": "change",
@@ -2673,7 +3013,8 @@
       "priority": 25,
       "orderIndex": 188,
       "lastReviewedAt": null,
-      "seedKey": "item:change"
+      "seedKey": "item:change",
+      "components": []
     },
     {
       "term": "supporting evidence",
@@ -2687,7 +3028,24 @@
       "priority": 25,
       "orderIndex": 189,
       "lastReviewedAt": null,
-      "seedKey": "item:supporting evidence"
+      "seedKey": "item:supporting evidence",
+      "components": [
+        {
+          "text": "support",
+          "role": "root",
+          "meaning": "支持"
+        },
+        {
+          "text": "-ing",
+          "role": "suffix",
+          "meaning": "正在起作用的；用于……的"
+        },
+        {
+          "text": "evidence",
+          "role": "word",
+          "meaning": "证据"
+        }
+      ]
     },
     {
       "term": "place",
@@ -2701,7 +3059,8 @@
       "priority": 25,
       "orderIndex": 190,
       "lastReviewedAt": null,
-      "seedKey": "item:place"
+      "seedKey": "item:place",
+      "components": []
     },
     {
       "term": "long",
@@ -2715,7 +3074,8 @@
       "priority": 25,
       "orderIndex": 191,
       "lastReviewedAt": null,
-      "seedKey": "item:long"
+      "seedKey": "item:long",
+      "components": []
     },
     {
       "term": "between",
@@ -2729,7 +3089,8 @@
       "priority": 25,
       "orderIndex": 192,
       "lastReviewedAt": null,
-      "seedKey": "item:between"
+      "seedKey": "item:between",
+      "components": []
     },
     {
       "term": "I think",
@@ -2743,7 +3104,8 @@
       "priority": 25,
       "orderIndex": 193,
       "lastReviewedAt": null,
-      "seedKey": "item:i think"
+      "seedKey": "item:i think",
+      "components": []
     },
     {
       "term": "feel",
@@ -2757,7 +3119,8 @@
       "priority": 25,
       "orderIndex": 194,
       "lastReviewedAt": null,
-      "seedKey": "item:feel"
+      "seedKey": "item:feel",
+      "components": []
     },
     {
       "term": "NSFW",
@@ -2771,7 +3134,8 @@
       "priority": 25,
       "orderIndex": 195,
       "lastReviewedAt": null,
-      "seedKey": "item:nsfw"
+      "seedKey": "item:nsfw",
+      "components": []
     },
     {
       "term": "too",
@@ -2785,7 +3149,8 @@
       "priority": 25,
       "orderIndex": 196,
       "lastReviewedAt": null,
-      "seedKey": "item:too"
+      "seedKey": "item:too",
+      "components": []
     },
     {
       "term": "I don't know",
@@ -2800,7 +3165,8 @@
       "orderIndex": 197,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:i don't know",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "still",
@@ -2814,7 +3180,8 @@
       "priority": 25,
       "orderIndex": 198,
       "lastReviewedAt": null,
-      "seedKey": "item:still"
+      "seedKey": "item:still",
+      "components": []
     },
     {
       "term": "source link",
@@ -2828,7 +3195,19 @@
       "priority": 25,
       "orderIndex": 199,
       "lastReviewedAt": null,
-      "seedKey": "item:source link"
+      "seedKey": "item:source link",
+      "components": [
+        {
+          "text": "source",
+          "role": "word",
+          "meaning": "来源"
+        },
+        {
+          "text": "link",
+          "role": "word",
+          "meaning": "链接"
+        }
+      ]
     },
     {
       "term": "problem",
@@ -2842,7 +3221,8 @@
       "priority": 25,
       "orderIndex": 200,
       "lastReviewedAt": null,
-      "seedKey": "item:problem"
+      "seedKey": "item:problem",
+      "components": []
     },
     {
       "term": "write",
@@ -2856,7 +3236,8 @@
       "priority": 25,
       "orderIndex": 201,
       "lastReviewedAt": null,
-      "seedKey": "item:write"
+      "seedKey": "item:write",
+      "components": []
     },
     {
       "term": "same",
@@ -2870,7 +3251,8 @@
       "priority": 25,
       "orderIndex": 202,
       "lastReviewedAt": null,
-      "seedKey": "item:same"
+      "seedKey": "item:same",
+      "components": []
     },
     {
       "term": "I mean",
@@ -2884,7 +3266,8 @@
       "priority": 25,
       "orderIndex": 203,
       "lastReviewedAt": null,
-      "seedKey": "item:i mean"
+      "seedKey": "item:i mean",
+      "components": []
     },
     {
       "term": "lot",
@@ -2898,7 +3281,8 @@
       "priority": 25,
       "orderIndex": 204,
       "lastReviewedAt": null,
-      "seedKey": "item:lot"
+      "seedKey": "item:lot",
+      "components": []
     },
     {
       "term": "SFW",
@@ -2912,7 +3296,8 @@
       "priority": 25,
       "orderIndex": 205,
       "lastReviewedAt": null,
-      "seedKey": "item:sfw"
+      "seedKey": "item:sfw",
+      "components": []
     },
     {
       "term": "great",
@@ -2926,7 +3311,8 @@
       "priority": 25,
       "orderIndex": 206,
       "lastReviewedAt": null,
-      "seedKey": "item:great"
+      "seedKey": "item:great",
+      "components": []
     },
     {
       "term": "what do you mean",
@@ -2940,7 +3326,8 @@
       "priority": 25,
       "orderIndex": 207,
       "lastReviewedAt": null,
-      "seedKey": "item:what do you mean"
+      "seedKey": "item:what do you mean",
+      "components": []
     },
     {
       "term": "try",
@@ -2954,7 +3341,8 @@
       "priority": 25,
       "orderIndex": 208,
       "lastReviewedAt": null,
-      "seedKey": "item:try"
+      "seedKey": "item:try",
+      "components": []
     },
     {
       "term": "point guard",
@@ -2968,7 +3356,19 @@
       "priority": 25,
       "orderIndex": 209,
       "lastReviewedAt": null,
-      "seedKey": "item:point guard"
+      "seedKey": "item:point guard",
+      "components": [
+        {
+          "text": "point",
+          "role": "word",
+          "meaning": "得分；位置"
+        },
+        {
+          "text": "guard",
+          "role": "word",
+          "meaning": "后卫"
+        }
+      ]
     },
     {
       "term": "leave",
@@ -2982,7 +3382,8 @@
       "priority": 25,
       "orderIndex": 210,
       "lastReviewedAt": null,
-      "seedKey": "item:leave"
+      "seedKey": "item:leave",
+      "components": []
     },
     {
       "term": "number",
@@ -2996,7 +3397,8 @@
       "priority": 25,
       "orderIndex": 211,
       "lastReviewedAt": null,
-      "seedKey": "item:number"
+      "seedKey": "item:number",
+      "components": []
     },
     {
       "term": "both",
@@ -3010,7 +3412,8 @@
       "priority": 25,
       "orderIndex": 212,
       "lastReviewedAt": null,
-      "seedKey": "item:both"
+      "seedKey": "item:both",
+      "components": []
     },
     {
       "term": "make sense",
@@ -3024,7 +3427,8 @@
       "priority": 25,
       "orderIndex": 213,
       "lastReviewedAt": null,
-      "seedKey": "item:make sense"
+      "seedKey": "item:make sense",
+      "components": []
     },
     {
       "term": "own",
@@ -3038,7 +3442,8 @@
       "priority": 25,
       "orderIndex": 214,
       "lastReviewedAt": null,
-      "seedKey": "item:own"
+      "seedKey": "item:own",
+      "components": []
     },
     {
       "term": "POV",
@@ -3052,7 +3457,8 @@
       "priority": 25,
       "orderIndex": 215,
       "lastReviewedAt": null,
-      "seedKey": "item:pov"
+      "seedKey": "item:pov",
+      "components": []
     },
     {
       "term": "part",
@@ -3066,7 +3472,8 @@
       "priority": 25,
       "orderIndex": 216,
       "lastReviewedAt": null,
-      "seedKey": "item:part"
+      "seedKey": "item:part",
+      "components": []
     },
     {
       "term": "look like",
@@ -3080,7 +3487,8 @@
       "priority": 25,
       "orderIndex": 217,
       "lastReviewedAt": null,
-      "seedKey": "item:look like"
+      "seedKey": "item:look like",
+      "components": []
     },
     {
       "term": "point",
@@ -3094,7 +3502,8 @@
       "priority": 25,
       "orderIndex": 218,
       "lastReviewedAt": null,
-      "seedKey": "item:point"
+      "seedKey": "item:point",
+      "components": []
     },
     {
       "term": "shooting guard",
@@ -3108,7 +3517,19 @@
       "priority": 25,
       "orderIndex": 219,
       "lastReviewedAt": null,
-      "seedKey": "item:shooting guard"
+      "seedKey": "item:shooting guard",
+      "components": [
+        {
+          "text": "shooting",
+          "role": "word",
+          "meaning": "投篮；得分"
+        },
+        {
+          "text": "guard",
+          "role": "word",
+          "meaning": "后卫"
+        }
+      ]
     },
     {
       "term": "little",
@@ -3122,7 +3543,8 @@
       "priority": 25,
       "orderIndex": 220,
       "lastReviewedAt": null,
-      "seedKey": "item:little"
+      "seedKey": "item:little",
+      "components": []
     },
     {
       "term": "help",
@@ -3136,7 +3558,8 @@
       "priority": 25,
       "orderIndex": 221,
       "lastReviewedAt": null,
-      "seedKey": "item:help"
+      "seedKey": "item:help",
+      "components": []
     },
     {
       "term": "ask",
@@ -3150,7 +3573,8 @@
       "priority": 25,
       "orderIndex": 222,
       "lastReviewedAt": null,
-      "seedKey": "item:ask"
+      "seedKey": "item:ask",
+      "components": []
     },
     {
       "term": "sound like",
@@ -3164,7 +3588,8 @@
       "priority": 25,
       "orderIndex": 223,
       "lastReviewedAt": null,
-      "seedKey": "item:sound like"
+      "seedKey": "item:sound like",
+      "components": []
     },
     {
       "term": "meet",
@@ -3178,7 +3603,8 @@
       "priority": 25,
       "orderIndex": 224,
       "lastReviewedAt": null,
-      "seedKey": "item:meet"
+      "seedKey": "item:meet",
+      "components": []
     },
     {
       "term": "LOL",
@@ -3192,7 +3618,8 @@
       "priority": 25,
       "orderIndex": 225,
       "lastReviewedAt": null,
-      "seedKey": "item:lol"
+      "seedKey": "item:lol",
+      "components": []
     },
     {
       "term": "start",
@@ -3207,7 +3634,8 @@
       "orderIndex": 226,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:start",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "feel like",
@@ -3221,7 +3649,8 @@
       "priority": 25,
       "orderIndex": 227,
       "lastReviewedAt": null,
-      "seedKey": "item:feel like"
+      "seedKey": "item:feel like",
+      "components": []
     },
     {
       "term": "talk",
@@ -3235,7 +3664,8 @@
       "priority": 25,
       "orderIndex": 228,
       "lastReviewedAt": null,
-      "seedKey": "item:talk"
+      "seedKey": "item:talk",
+      "components": []
     },
     {
       "term": "small forward",
@@ -3249,7 +3679,19 @@
       "priority": 25,
       "orderIndex": 229,
       "lastReviewedAt": null,
-      "seedKey": "item:small forward"
+      "seedKey": "item:small forward",
+      "components": [
+        {
+          "text": "small",
+          "role": "word",
+          "meaning": "小的"
+        },
+        {
+          "text": "forward",
+          "role": "word",
+          "meaning": "前锋"
+        }
+      ]
     },
     {
       "term": "something",
@@ -3263,7 +3705,19 @@
       "priority": 25,
       "orderIndex": 230,
       "lastReviewedAt": null,
-      "seedKey": "item:something"
+      "seedKey": "item:something",
+      "components": [
+        {
+          "text": "some",
+          "role": "word",
+          "meaning": "某个；一些"
+        },
+        {
+          "text": "thing",
+          "role": "word",
+          "meaning": "事情；东西"
+        }
+      ]
     },
     {
       "term": "put",
@@ -3277,7 +3731,8 @@
       "priority": 25,
       "orderIndex": 231,
       "lastReviewedAt": null,
-      "seedKey": "item:put"
+      "seedKey": "item:put",
+      "components": []
     },
     {
       "term": "another",
@@ -3291,7 +3746,8 @@
       "priority": 25,
       "orderIndex": 232,
       "lastReviewedAt": null,
-      "seedKey": "item:another"
+      "seedKey": "item:another",
+      "components": []
     },
     {
       "term": "find out",
@@ -3305,7 +3761,8 @@
       "priority": 25,
       "orderIndex": 233,
       "lastReviewedAt": null,
-      "seedKey": "item:find out"
+      "seedKey": "item:find out",
+      "components": []
     },
     {
       "term": "become",
@@ -3319,7 +3776,8 @@
       "priority": 25,
       "orderIndex": 234,
       "lastReviewedAt": null,
-      "seedKey": "item:become"
+      "seedKey": "item:become",
+      "components": []
     },
     {
       "term": "LMAO",
@@ -3333,7 +3791,8 @@
       "priority": 25,
       "orderIndex": 235,
       "lastReviewedAt": null,
-      "seedKey": "item:lmao"
+      "seedKey": "item:lmao",
+      "components": []
     },
     {
       "term": "interest",
@@ -3347,7 +3806,8 @@
       "priority": 25,
       "orderIndex": 236,
       "lastReviewedAt": null,
-      "seedKey": "item:interest"
+      "seedKey": "item:interest",
+      "components": []
     },
     {
       "term": "work out",
@@ -3361,7 +3821,8 @@
       "priority": 25,
       "orderIndex": 237,
       "lastReviewedAt": null,
-      "seedKey": "item:work out"
+      "seedKey": "item:work out",
+      "components": []
     },
     {
       "term": "country",
@@ -3375,7 +3836,8 @@
       "priority": 25,
       "orderIndex": 238,
       "lastReviewedAt": null,
-      "seedKey": "item:country"
+      "seedKey": "item:country",
+      "components": []
     },
     {
       "term": "power forward",
@@ -3389,7 +3851,19 @@
       "priority": 25,
       "orderIndex": 239,
       "lastReviewedAt": null,
-      "seedKey": "item:power forward"
+      "seedKey": "item:power forward",
+      "components": [
+        {
+          "text": "power",
+          "role": "word",
+          "meaning": "力量"
+        },
+        {
+          "text": "forward",
+          "role": "word",
+          "meaning": "前锋"
+        }
+      ]
     },
     {
       "term": "old",
@@ -3403,7 +3877,8 @@
       "priority": 25,
       "orderIndex": 240,
       "lastReviewedAt": null,
-      "seedKey": "item:old"
+      "seedKey": "item:old",
+      "components": []
     },
     {
       "term": "each",
@@ -3417,7 +3892,8 @@
       "priority": 25,
       "orderIndex": 241,
       "lastReviewedAt": null,
-      "seedKey": "item:each"
+      "seedKey": "item:each",
+      "components": []
     },
     {
       "term": "school",
@@ -3431,7 +3907,8 @@
       "priority": 25,
       "orderIndex": 242,
       "lastReviewedAt": null,
-      "seedKey": "item:school"
+      "seedKey": "item:school",
+      "components": []
     },
     {
       "term": "end up",
@@ -3445,7 +3922,8 @@
       "priority": 25,
       "orderIndex": 243,
       "lastReviewedAt": null,
-      "seedKey": "item:end up"
+      "seedKey": "item:end up",
+      "components": []
     },
     {
       "term": "late",
@@ -3459,7 +3937,8 @@
       "priority": 25,
       "orderIndex": 244,
       "lastReviewedAt": null,
-      "seedKey": "item:late"
+      "seedKey": "item:late",
+      "components": []
     },
     {
       "term": "WTF",
@@ -3473,7 +3952,8 @@
       "priority": 25,
       "orderIndex": 245,
       "lastReviewedAt": null,
-      "seedKey": "item:wtf"
+      "seedKey": "item:wtf",
+      "components": []
     },
     {
       "term": "high",
@@ -3487,7 +3967,8 @@
       "priority": 25,
       "orderIndex": 246,
       "lastReviewedAt": null,
-      "seedKey": "item:high"
+      "seedKey": "item:high",
+      "components": []
     },
     {
       "term": "turn out",
@@ -3501,7 +3982,8 @@
       "priority": 25,
       "orderIndex": 247,
       "lastReviewedAt": null,
-      "seedKey": "item:turn out"
+      "seedKey": "item:turn out",
+      "components": []
     },
     {
       "term": "different",
@@ -3515,7 +3997,8 @@
       "priority": 25,
       "orderIndex": 248,
       "lastReviewedAt": null,
-      "seedKey": "item:different"
+      "seedKey": "item:different",
+      "components": []
     },
     {
       "term": "free throw",
@@ -3529,7 +4012,19 @@
       "priority": 25,
       "orderIndex": 249,
       "lastReviewedAt": null,
-      "seedKey": "item:free throw"
+      "seedKey": "item:free throw",
+      "components": [
+        {
+          "text": "free",
+          "role": "word",
+          "meaning": "自由的；不受阻挡的"
+        },
+        {
+          "text": "throw",
+          "role": "word",
+          "meaning": "投；掷"
+        }
+      ]
     },
     {
       "term": "off",
@@ -3543,7 +4038,8 @@
       "priority": 25,
       "orderIndex": 250,
       "lastReviewedAt": null,
-      "seedKey": "item:off"
+      "seedKey": "item:off",
+      "components": []
     },
     {
       "term": "next",
@@ -3557,7 +4053,8 @@
       "priority": 25,
       "orderIndex": 251,
       "lastReviewedAt": null,
-      "seedKey": "item:next"
+      "seedKey": "item:next",
+      "components": []
     },
     {
       "term": "end",
@@ -3571,7 +4068,8 @@
       "priority": 25,
       "orderIndex": 252,
       "lastReviewedAt": null,
-      "seedKey": "item:end"
+      "seedKey": "item:end",
+      "components": []
     },
     {
       "term": "based on",
@@ -3585,7 +4083,8 @@
       "priority": 25,
       "orderIndex": 253,
       "lastReviewedAt": null,
-      "seedKey": "item:based on"
+      "seedKey": "item:based on",
+      "components": []
     },
     {
       "term": "live",
@@ -3599,7 +4098,8 @@
       "priority": 25,
       "orderIndex": 254,
       "lastReviewedAt": null,
-      "seedKey": "item:live"
+      "seedKey": "item:live",
+      "components": []
     },
     {
       "term": "W",
@@ -3613,7 +4113,8 @@
       "priority": 25,
       "orderIndex": 255,
       "lastReviewedAt": null,
-      "seedKey": "item:w"
+      "seedKey": "item:w",
+      "components": []
     },
     {
       "term": "why",
@@ -3628,7 +4129,8 @@
       "orderIndex": 256,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:why",
-      "phonetic": ""
+      "phonetic": "",
+      "components": []
     },
     {
       "term": "according to",
@@ -3642,7 +4144,8 @@
       "priority": 25,
       "orderIndex": 257,
       "lastReviewedAt": null,
-      "seedKey": "item:according to"
+      "seedKey": "item:according to",
+      "components": []
     },
     {
       "term": "while",
@@ -3656,7 +4159,8 @@
       "priority": 25,
       "orderIndex": 258,
       "lastReviewedAt": null,
-      "seedKey": "item:while"
+      "seedKey": "item:while",
+      "components": []
     },
     {
       "term": "three-pointer",
@@ -3670,7 +4174,24 @@
       "priority": 25,
       "orderIndex": 259,
       "lastReviewedAt": null,
-      "seedKey": "item:three-pointer"
+      "seedKey": "item:three-pointer",
+      "components": [
+        {
+          "text": "three",
+          "role": "word",
+          "meaning": "三"
+        },
+        {
+          "text": "point",
+          "role": "root",
+          "meaning": "分"
+        },
+        {
+          "text": "-er",
+          "role": "suffix",
+          "meaning": "表示事物或动作"
+        }
+      ]
     },
     {
       "term": "world",
@@ -3684,7 +4205,8 @@
       "priority": 25,
       "orderIndex": 260,
       "lastReviewedAt": null,
-      "seedKey": "item:world"
+      "seedKey": "item:world",
+      "components": []
     },
     {
       "term": "week",
@@ -3698,7 +4220,8 @@
       "priority": 25,
       "orderIndex": 261,
       "lastReviewedAt": null,
-      "seedKey": "item:week"
+      "seedKey": "item:week",
+      "components": []
     },
     {
       "term": "play",
@@ -3712,7 +4235,8 @@
       "priority": 25,
       "orderIndex": 262,
       "lastReviewedAt": null,
-      "seedKey": "item:play"
+      "seedKey": "item:play",
+      "components": []
     },
     {
       "term": "agree with",
@@ -3727,7 +4251,19 @@
       "orderIndex": 263,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
       "seedKey": "item:agree with",
-      "phonetic": ""
+      "phonetic": "",
+      "components": [
+        {
+          "text": "agree",
+          "role": "word",
+          "meaning": "同意"
+        },
+        {
+          "text": "with",
+          "role": "word",
+          "meaning": "与；对"
+        }
+      ]
     },
     {
       "term": "might",
@@ -3741,7 +4277,8 @@
       "priority": 25,
       "orderIndex": 264,
       "lastReviewedAt": null,
-      "seedKey": "item:might"
+      "seedKey": "item:might",
+      "components": []
     },
     {
       "term": "L",
@@ -3755,7 +4292,8 @@
       "priority": 25,
       "orderIndex": 265,
       "lastReviewedAt": null,
-      "seedKey": "item:l"
+      "seedKey": "item:l",
+      "components": []
     },
     {
       "term": "must",
@@ -3769,7 +4307,8 @@
       "priority": 25,
       "orderIndex": 266,
       "lastReviewedAt": null,
-      "seedKey": "item:must"
+      "seedKey": "item:must",
+      "components": []
     },
     {
       "term": "disagree with",
@@ -3783,7 +4322,19 @@
       "priority": 25,
       "orderIndex": 267,
       "lastReviewedAt": null,
-      "seedKey": "item:disagree with"
+      "seedKey": "item:disagree with",
+      "components": [
+        {
+          "text": "disagree",
+          "role": "word",
+          "meaning": "不同意"
+        },
+        {
+          "text": "with",
+          "role": "word",
+          "meaning": "与；对"
+        }
+      ]
     },
     {
       "term": "home",
@@ -3797,7 +4348,8 @@
       "priority": 25,
       "orderIndex": 268,
       "lastReviewedAt": null,
-      "seedKey": "item:home"
+      "seedKey": "item:home",
+      "components": []
     },
     {
       "term": "rebound",
@@ -3811,7 +4363,8 @@
       "priority": 25,
       "orderIndex": 269,
       "lastReviewedAt": null,
-      "seedKey": "item:rebound"
+      "seedKey": "item:rebound",
+      "components": []
     },
     {
       "term": "never",
@@ -3825,7 +4378,8 @@
       "priority": 25,
       "orderIndex": 270,
       "lastReviewedAt": null,
-      "seedKey": "item:never"
+      "seedKey": "item:never",
+      "components": []
     },
     {
       "term": "include",
@@ -3839,7 +4393,8 @@
       "priority": 25,
       "orderIndex": 271,
       "lastReviewedAt": null,
-      "seedKey": "item:include"
+      "seedKey": "item:include",
+      "components": []
     },
     {
       "term": "course",
@@ -3853,7 +4408,8 @@
       "priority": 25,
       "orderIndex": 272,
       "lastReviewedAt": null,
-      "seedKey": "item:course"
+      "seedKey": "item:course",
+      "components": []
     },
     {
       "term": "because of",
@@ -3867,7 +4423,8 @@
       "priority": 25,
       "orderIndex": 273,
       "lastReviewedAt": null,
-      "seedKey": "item:because of"
+      "seedKey": "item:because of",
+      "components": []
     },
     {
       "term": "house",
@@ -3881,7 +4438,8 @@
       "priority": 25,
       "orderIndex": 274,
       "lastReviewedAt": null,
-      "seedKey": "item:house"
+      "seedKey": "item:house",
+      "components": []
     },
     {
       "term": "sus",
@@ -3895,7 +4453,8 @@
       "priority": 25,
       "orderIndex": 275,
       "lastReviewedAt": null,
-      "seedKey": "item:sus"
+      "seedKey": "item:sus",
+      "components": []
     },
     {
       "term": "report",
@@ -3909,7 +4468,8 @@
       "priority": 25,
       "orderIndex": 276,
       "lastReviewedAt": null,
-      "seedKey": "item:report"
+      "seedKey": "item:report",
+      "components": []
     },
     {
       "term": "even though",
@@ -3923,7 +4483,8 @@
       "priority": 25,
       "orderIndex": 277,
       "lastReviewedAt": null,
-      "seedKey": "item:even though"
+      "seedKey": "item:even though",
+      "components": []
     },
     {
       "term": "group",
@@ -3937,7 +4498,8 @@
       "priority": 25,
       "orderIndex": 278,
       "lastReviewedAt": null,
-      "seedKey": "item:group"
+      "seedKey": "item:group",
+      "components": []
     },
     {
       "term": "assist",
@@ -3951,7 +4513,8 @@
       "priority": 25,
       "orderIndex": 279,
       "lastReviewedAt": null,
-      "seedKey": "item:assist"
+      "seedKey": "item:assist",
+      "components": []
     },
     {
       "term": "case",
@@ -3965,7 +4528,8 @@
       "priority": 25,
       "orderIndex": 280,
       "lastReviewedAt": null,
-      "seedKey": "item:case"
+      "seedKey": "item:case",
+      "components": []
     },
     {
       "term": "woman",
@@ -3979,7 +4543,8 @@
       "priority": 25,
       "orderIndex": 281,
       "lastReviewedAt": null,
-      "seedKey": "item:woman"
+      "seedKey": "item:woman",
+      "components": []
     },
     {
       "term": "around",
@@ -3993,7 +4558,8 @@
       "priority": 25,
       "orderIndex": 282,
       "lastReviewedAt": null,
-      "seedKey": "item:around"
+      "seedKey": "item:around",
+      "components": []
     },
     {
       "term": "as long as",
@@ -4007,7 +4573,8 @@
       "priority": 25,
       "orderIndex": 283,
       "lastReviewedAt": null,
-      "seedKey": "item:as long as"
+      "seedKey": "item:as long as",
+      "components": []
     },
     {
       "term": "book",
@@ -4021,7 +4588,8 @@
       "priority": 25,
       "orderIndex": 284,
       "lastReviewedAt": null,
-      "seedKey": "item:book"
+      "seedKey": "item:book",
+      "components": []
     },
     {
       "term": "legit",
@@ -4035,7 +4603,8 @@
       "priority": 25,
       "orderIndex": 285,
       "lastReviewedAt": null,
-      "seedKey": "item:legit"
+      "seedKey": "item:legit",
+      "components": []
     },
     {
       "term": "family",
@@ -4049,7 +4618,8 @@
       "priority": 25,
       "orderIndex": 286,
       "lastReviewedAt": null,
-      "seedKey": "item:family"
+      "seedKey": "item:family",
+      "components": []
     },
     {
       "term": "at least",
@@ -4063,7 +4633,8 @@
       "priority": 25,
       "orderIndex": 287,
       "lastReviewedAt": null,
-      "seedKey": "item:at least"
+      "seedKey": "item:at least",
+      "components": []
     },
     {
       "term": "seem",
@@ -4077,7 +4648,8 @@
       "priority": 25,
       "orderIndex": 288,
       "lastReviewedAt": null,
-      "seedKey": "item:seem"
+      "seedKey": "item:seem",
+      "components": []
     },
     {
       "term": "turnover",
@@ -4091,7 +4663,8 @@
       "priority": 25,
       "orderIndex": 289,
       "lastReviewedAt": null,
-      "seedKey": "item:turnover"
+      "seedKey": "item:turnover",
+      "components": []
     },
     {
       "term": "let",
@@ -4105,7 +4678,8 @@
       "priority": 25,
       "orderIndex": 290,
       "lastReviewedAt": null,
-      "seedKey": "item:let"
+      "seedKey": "item:let",
+      "components": []
     },
     {
       "term": "again",
@@ -4119,7 +4693,8 @@
       "priority": 25,
       "orderIndex": 291,
       "lastReviewedAt": null,
-      "seedKey": "item:again"
+      "seedKey": "item:again",
+      "components": []
     },
     {
       "term": "kind",
@@ -4133,7 +4708,8 @@
       "priority": 25,
       "orderIndex": 292,
       "lastReviewedAt": null,
-      "seedKey": "item:kind"
+      "seedKey": "item:kind",
+      "components": []
     },
     {
       "term": "a lot of",
@@ -4147,7 +4723,8 @@
       "priority": 25,
       "orderIndex": 293,
       "lastReviewedAt": null,
-      "seedKey": "item:a lot of"
+      "seedKey": "item:a lot of",
+      "components": []
     },
     {
       "term": "Keep",
@@ -4161,7 +4738,8 @@
       "priority": 90,
       "orderIndex": 294,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:keep"
+      "seedKey": "item:keep",
+      "components": []
     },
     {
       "term": "rage bait",
@@ -4175,7 +4753,8 @@
       "priority": 25,
       "orderIndex": 295,
       "lastReviewedAt": null,
-      "seedKey": "item:rage bait"
+      "seedKey": "item:rage bait",
+      "components": []
     },
     {
       "term": "hear",
@@ -4189,7 +4768,8 @@
       "priority": 25,
       "orderIndex": 296,
       "lastReviewedAt": null,
-      "seedKey": "item:hear"
+      "seedKey": "item:hear",
+      "components": []
     },
     {
       "term": "kind of",
@@ -4203,7 +4783,8 @@
       "priority": 25,
       "orderIndex": 297,
       "lastReviewedAt": null,
-      "seedKey": "item:kind of"
+      "seedKey": "item:kind of",
+      "components": []
     },
     {
       "term": "system",
@@ -4217,7 +4798,8 @@
       "priority": 25,
       "orderIndex": 298,
       "lastReviewedAt": null,
-      "seedKey": "item:system"
+      "seedKey": "item:system",
+      "components": []
     },
     {
       "term": "trade deadline",
@@ -4231,7 +4813,19 @@
       "priority": 25,
       "orderIndex": 299,
       "lastReviewedAt": null,
-      "seedKey": "item:trade deadline"
+      "seedKey": "item:trade deadline",
+      "components": [
+        {
+          "text": "trade",
+          "role": "word",
+          "meaning": "交易"
+        },
+        {
+          "text": "deadline",
+          "role": "word",
+          "meaning": "截止时间"
+        }
+      ]
     },
     {
       "term": "every",
@@ -4245,7 +4839,8 @@
       "priority": 25,
       "orderIndex": 300,
       "lastReviewedAt": null,
-      "seedKey": "item:every"
+      "seedKey": "item:every",
+      "components": []
     },
     {
       "term": "is",
@@ -4258,7 +4853,8 @@
       "note": "肯定、否定句中理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:is"
+      "seedKey": "item:is",
+      "components": []
     },
     {
       "term": "understand",
@@ -4271,7 +4867,8 @@
       "note": "与 `what ... mean` 连用时需复测",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:understand"
+      "seedKey": "item:understand",
+      "components": []
     },
     {
       "term": "true",
@@ -4284,7 +4881,8 @@
       "note": "延迟复习中理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:true"
+      "seedKey": "item:true",
+      "components": []
     },
     {
       "term": "wrong",
@@ -4297,7 +4895,8 @@
       "note": "即时理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:wrong"
+      "seedKey": "item:wrong",
+      "components": []
     },
     {
       "term": "agree",
@@ -4310,7 +4909,8 @@
       "note": "即时理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:agree"
+      "seedKey": "item:agree",
+      "components": []
     },
     {
       "term": "disagree",
@@ -4323,7 +4923,19 @@
       "note": "延迟复习中理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:disagree"
+      "seedKey": "item:disagree",
+      "components": [
+        {
+          "text": "dis-",
+          "role": "prefix",
+          "meaning": "不；相反"
+        },
+        {
+          "text": "agree",
+          "role": "root",
+          "meaning": "同意"
+        }
+      ]
     },
     {
       "term": "maybe",
@@ -4336,7 +4948,8 @@
       "note": "即时理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:maybe"
+      "seedKey": "item:maybe",
+      "components": []
     },
     {
       "term": "yes",
@@ -4349,7 +4962,8 @@
       "note": "已出现",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:yes"
+      "seedKey": "item:yes",
+      "components": []
     },
     {
       "term": "them",
@@ -4362,7 +4976,8 @@
       "note": "延迟复习误写成单数“他”，需复测",
       "priority": 80,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:them"
+      "seedKey": "item:them",
+      "components": []
     },
     {
       "term": "are",
@@ -4375,7 +4990,8 @@
       "note": "能用于 `we / they",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:are"
+      "seedKey": "item:are",
+      "components": []
     },
     {
       "term": "has",
@@ -4388,7 +5004,8 @@
       "note": "能用于 `he / she",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:has"
+      "seedKey": "item:has",
+      "components": []
     },
     {
       "term": "ready",
@@ -4401,7 +5018,8 @@
       "note": "ESPN 篮球标题中依靠选项猜对，自述不认识",
       "priority": 80,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:ready"
+      "seedKey": "item:ready",
+      "components": []
     },
     {
       "term": "fresh",
@@ -4414,7 +5032,8 @@
       "note": "ESPN 篮球标题中依靠固定表达猜对，自述不认识",
       "priority": 80,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:fresh"
+      "seedKey": "item:fresh",
+      "components": []
     },
     {
       "term": "a / an",
@@ -4427,7 +5046,8 @@
       "note": "能理解 `an agent`、`a task",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:a / an"
+      "seedKey": "item:a / an",
+      "components": []
     },
     {
       "term": "agent / agents",
@@ -4440,7 +5060,8 @@
       "note": "领域已知，句中主角识别稳定",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:agent / agents"
+      "seedKey": "item:agent / agents",
+      "components": []
     },
     {
       "term": "tool / tools",
@@ -4453,7 +5074,8 @@
       "note": "延迟句子中理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:tool / tools"
+      "seedKey": "item:tool / tools",
+      "components": []
     },
     {
       "term": "complete",
@@ -4466,7 +5088,8 @@
       "note": "无提示填空正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:complete"
+      "seedKey": "item:complete",
+      "components": []
     },
     {
       "term": "task",
@@ -4479,7 +5102,8 @@
       "note": "能识别动作目的",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:task"
+      "seedKey": "item:task",
+      "components": []
     },
     {
       "term": "information",
@@ -4492,7 +5116,19 @@
       "note": "无提示填空正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:information"
+      "seedKey": "item:information",
+      "components": [
+        {
+          "text": "inform",
+          "role": "root",
+          "meaning": "告知"
+        },
+        {
+          "text": "-ation",
+          "role": "suffix",
+          "meaning": "构成名词：过程或结果"
+        }
+      ]
     },
     {
       "term": "memory",
@@ -4505,7 +5141,8 @@
       "note": "能识别为信息或响应的存储位置",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:memory"
+      "seedKey": "item:memory",
+      "components": []
     },
     {
       "term": "store / stores",
@@ -4518,7 +5155,8 @@
       "note": "曾误猜为“搜索”，对比后即时修复",
       "priority": 80,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:store / stores"
+      "seedKey": "item:store / stores",
+      "components": []
     },
     {
       "term": "later",
@@ -4531,7 +5169,8 @@
       "note": "即时理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:later"
+      "seedKey": "item:later",
+      "components": []
     },
     {
       "term": "Search",
@@ -4544,7 +5183,8 @@
       "note": "能与 `store` 区分；常见搭配是 `search for...",
       "priority": 95,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:search"
+      "seedKey": "item:search",
+      "components": []
     },
     {
       "term": "Settings",
@@ -4557,7 +5197,24 @@
       "note": "iPhone P0 首次无提示识别正确",
       "priority": 95,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:settings"
+      "seedKey": "item:settings",
+      "components": [
+        {
+          "text": "set",
+          "role": "root",
+          "meaning": "设置"
+        },
+        {
+          "text": "-ing",
+          "role": "suffix",
+          "meaning": "构成名词"
+        },
+        {
+          "text": "-s",
+          "role": "suffix",
+          "meaning": "复数"
+        }
+      ]
     },
     {
       "term": "General",
@@ -4570,7 +5227,8 @@
       "note": "两次答错后经路径填空即时修复；待延迟复测",
       "priority": 95,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:general"
+      "seedKey": "item:general",
+      "components": []
     },
     {
       "term": "Language & Region",
@@ -4583,7 +5241,19 @@
       "note": "即时复测正确",
       "priority": 95,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:language & region"
+      "seedKey": "item:language & region",
+      "components": [
+        {
+          "text": "language",
+          "role": "word",
+          "meaning": "语言"
+        },
+        {
+          "text": "region",
+          "role": "word",
+          "meaning": "地区"
+        }
+      ]
     },
     {
       "term": "Add Language",
@@ -4596,7 +5266,19 @@
       "note": "即时复测正确",
       "priority": 95,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:add language"
+      "seedKey": "item:add language",
+      "components": [
+        {
+          "text": "add",
+          "role": "word",
+          "meaning": "添加"
+        },
+        {
+          "text": "language",
+          "role": "word",
+          "meaning": "语言"
+        }
+      ]
     },
     {
       "term": "English",
@@ -4609,7 +5291,8 @@
       "note": "iPhone P0 首次无提示识别正确",
       "priority": 95,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:english"
+      "seedKey": "item:english",
+      "components": []
     },
     {
       "term": "Simplified Chinese",
@@ -4622,7 +5305,24 @@
       "note": "能在恢复语言选项中正确选择",
       "priority": 95,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:simplified chinese"
+      "seedKey": "item:simplified chinese",
+      "components": [
+        {
+          "text": "simplify",
+          "role": "root",
+          "meaning": "简化"
+        },
+        {
+          "text": "-ed",
+          "role": "suffix",
+          "meaning": "已经被……的"
+        },
+        {
+          "text": "Chinese",
+          "role": "word",
+          "meaning": "中文"
+        }
+      ]
     },
     {
       "term": "Primary Language",
@@ -4635,7 +5335,19 @@
       "note": "即时复测正确",
       "priority": 95,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:primary language"
+      "seedKey": "item:primary language",
+      "components": [
+        {
+          "text": "primary",
+          "role": "word",
+          "meaning": "主要的"
+        },
+        {
+          "text": "language",
+          "role": "word",
+          "meaning": "语言"
+        }
+      ]
     },
     {
       "term": "Done",
@@ -4648,7 +5360,8 @@
       "note": "能与 Continue 区分，即时复测正确",
       "priority": 95,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:done"
+      "seedKey": "item:done",
+      "components": []
     },
     {
       "term": "Cancel",
@@ -4661,7 +5374,8 @@
       "note": "即时复测正确",
       "priority": 95,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:cancel"
+      "seedKey": "item:cancel",
+      "components": []
     },
     {
       "term": "Continue",
@@ -4674,7 +5388,8 @@
       "note": "即时复测正确",
       "priority": 95,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:continue"
+      "seedKey": "item:continue",
+      "components": []
     },
     {
       "term": "Delete",
@@ -4687,7 +5402,8 @@
       "note": "高风险操作词，必须能在场景中准确区分。",
       "priority": 112,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:delete"
+      "seedKey": "item:delete",
+      "components": []
     },
     {
       "term": "Remove",
@@ -4700,7 +5416,8 @@
       "note": "高风险操作词，必须能在场景中准确区分。",
       "priority": 120,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:remove"
+      "seedKey": "item:remove",
+      "components": []
     },
     {
       "term": "Erase",
@@ -4713,7 +5430,8 @@
       "note": "高风险操作词，必须能在场景中准确区分。",
       "priority": 130,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:erase"
+      "seedKey": "item:erase",
+      "components": []
     },
     {
       "term": "Reset",
@@ -4726,7 +5444,8 @@
       "note": "高风险操作词，必须能在场景中准确区分。",
       "priority": 123,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:reset"
+      "seedKey": "item:reset",
+      "components": []
     },
     {
       "term": "Restore",
@@ -4739,7 +5458,8 @@
       "note": "高风险操作词，必须能在场景中准确区分。",
       "priority": 126,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:restore"
+      "seedKey": "item:restore",
+      "components": []
     },
     {
       "term": "Sign Out",
@@ -4752,7 +5472,8 @@
       "note": "高风险操作词，必须能在场景中准确区分。",
       "priority": 116,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:sign out"
+      "seedKey": "item:sign out",
+      "components": []
     },
     {
       "term": "project",
@@ -4765,7 +5486,8 @@
       "note": "延迟句子中理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:project"
+      "seedKey": "item:project",
+      "components": []
     },
     {
       "term": "provide / provides",
@@ -4778,7 +5500,8 @@
       "note": "无提示填空正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:provide / provides"
+      "seedKey": "item:provide / provides",
+      "components": []
     },
     {
       "term": "build",
@@ -4791,7 +5514,8 @@
       "note": "即时上下文中理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:build"
+      "seedKey": "item:build",
+      "components": []
     },
     {
       "term": "building",
@@ -4804,7 +5528,19 @@
       "note": "能理解 `for building multi-agent workflows",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:building"
+      "seedKey": "item:building",
+      "components": [
+        {
+          "text": "build",
+          "role": "root",
+          "meaning": "构建"
+        },
+        {
+          "text": "-ing",
+          "role": "suffix",
+          "meaning": "正在进行；句中形式"
+        }
+      ]
     },
     {
       "term": "lightweight",
@@ -4817,7 +5553,19 @@
       "note": "能理解 SDK 的特点",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:lightweight"
+      "seedKey": "item:lightweight",
+      "components": [
+        {
+          "text": "light",
+          "role": "word",
+          "meaning": "轻的"
+        },
+        {
+          "text": "weight",
+          "role": "word",
+          "meaning": "重量"
+        }
+      ]
     },
     {
       "term": "yet",
@@ -4830,7 +5578,8 @@
       "note": "能理解 `lightweight yet powerful` 的对比",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:yet"
+      "seedKey": "item:yet",
+      "components": []
     },
     {
       "term": "powerful",
@@ -4843,7 +5592,19 @@
       "note": "能理解 SDK 的特点",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:powerful"
+      "seedKey": "item:powerful",
+      "components": [
+        {
+          "text": "power",
+          "role": "root",
+          "meaning": "力量"
+        },
+        {
+          "text": "-ful",
+          "role": "suffix",
+          "meaning": "充满……的"
+        }
+      ]
     },
     {
       "term": "workflow / workflows",
@@ -4856,7 +5617,19 @@
       "note": "用户首次真实句阅读时已认识",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:workflow / workflows"
+      "seedKey": "item:workflow / workflows",
+      "components": [
+        {
+          "text": "workflow",
+          "role": "root",
+          "meaning": "工作流"
+        },
+        {
+          "text": "-s",
+          "role": "suffix",
+          "meaning": "复数"
+        }
+      ]
     },
     {
       "term": "multi-agent",
@@ -4869,7 +5642,19 @@
       "note": "能正确识别 `multi-agent workflows",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:multi-agent"
+      "seedKey": "item:multi-agent",
+      "components": [
+        {
+          "text": "multi-",
+          "role": "prefix",
+          "meaning": "多个；多重"
+        },
+        {
+          "text": "agent",
+          "role": "root",
+          "meaning": "智能体"
+        }
+      ]
     },
     {
       "term": "send / sends",
@@ -4882,7 +5667,8 @@
       "note": "延迟复习失败；请求/响应链路经即时纠错后打乱顺序 4/4",
       "priority": 80,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:send / sends"
+      "seedKey": "item:send / sends",
+      "components": []
     },
     {
       "term": "seed",
@@ -4895,7 +5681,8 @@
       "note": "延迟复习正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:seed"
+      "seedKey": "item:seed",
+      "components": []
     },
     {
       "term": "model",
@@ -4908,7 +5695,8 @@
       "note": "领域已知，句中主角识别正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:model"
+      "seedKey": "item:model",
+      "components": []
     },
     {
       "term": "receive / receives",
@@ -4921,7 +5709,8 @@
       "note": "延迟复习能回忆中文，但与 `sends` 的句中位置仍需练习",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:receive / receives"
+      "seedKey": "item:receive / receives",
+      "components": []
     },
     {
       "term": "What do you think?",
@@ -4934,7 +5723,8 @@
       "note": "即时理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:what do you think?"
+      "seedKey": "item:what do you think?",
+      "components": []
     },
     {
       "term": "I think...",
@@ -4947,7 +5737,8 @@
       "note": "即时理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:i think..."
+      "seedKey": "item:i think...",
+      "components": []
     },
     {
       "term": "what you mean",
@@ -4960,7 +5751,8 @@
       "note": "延迟复习正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:what you mean"
+      "seedKey": "item:what you mean",
+      "components": []
     },
     {
       "term": "what they mean",
@@ -4973,7 +5765,8 @@
       "note": "延迟复习失败；与 `them` 对比后即时纠正，继续复测",
       "priority": 80,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:what they mean"
+      "seedKey": "item:what they mean",
+      "components": []
     },
     {
       "term": "provide tools",
@@ -4986,7 +5779,19 @@
       "note": "延迟回忆正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:provide tools"
+      "seedKey": "item:provide tools",
+      "components": [
+        {
+          "text": "provide",
+          "role": "word",
+          "meaning": "提供"
+        },
+        {
+          "text": "tools",
+          "role": "word",
+          "meaning": "工具"
+        }
+      ]
     },
     {
       "term": "use tools",
@@ -4999,7 +5804,8 @@
       "note": "延迟回忆正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:use tools"
+      "seedKey": "item:use tools",
+      "components": []
     },
     {
       "term": "to complete a task",
@@ -5012,7 +5818,8 @@
       "note": "能区分主要动作与目的",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:to complete a task"
+      "seedKey": "item:to complete a task",
+      "components": []
     },
     {
       "term": "get information",
@@ -5025,7 +5832,19 @@
       "note": "综合理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:get information"
+      "seedKey": "item:get information",
+      "components": [
+        {
+          "text": "get",
+          "role": "word",
+          "meaning": "获取"
+        },
+        {
+          "text": "information",
+          "role": "word",
+          "meaning": "信息"
+        }
+      ]
     },
     {
       "term": "build AI agents",
@@ -5038,7 +5857,24 @@
       "note": "即时上下文中理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:build ai agents"
+      "seedKey": "item:build ai agents",
+      "components": [
+        {
+          "text": "build",
+          "role": "word",
+          "meaning": "构建"
+        },
+        {
+          "text": "AI",
+          "role": "word",
+          "meaning": "人工智能"
+        },
+        {
+          "text": "agents",
+          "role": "word",
+          "meaning": "智能体"
+        }
+      ]
     },
     {
       "term": "send a request",
@@ -5051,7 +5887,19 @@
       "note": "能判断方向，但 `send` 词义和填空仍错",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:send a request"
+      "seedKey": "item:send a request",
+      "components": [
+        {
+          "text": "send",
+          "role": "word",
+          "meaning": "发送"
+        },
+        {
+          "text": "request",
+          "role": "word",
+          "meaning": "请求"
+        }
+      ]
     },
     {
       "term": "receive a response",
@@ -5064,7 +5912,19 @@
       "note": "能判断方向，仍需与 `send a response` 对比",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:receive a response"
+      "seedKey": "item:receive a response",
+      "components": [
+        {
+          "text": "receive",
+          "role": "word",
+          "meaning": "接收；收到"
+        },
+        {
+          "text": "response",
+          "role": "word",
+          "meaning": "响应；回复"
+        }
+      ]
     },
     {
       "term": "store information in memory",
@@ -5077,7 +5937,8 @@
       "note": "即时结构理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:store information in memory"
+      "seedKey": "item:store information in memory",
+      "components": []
     },
     {
       "term": "store a response in memory",
@@ -5090,7 +5951,8 @@
       "note": "曾把 response 和 memory 混合解释，纠错后答对",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:store a response in memory"
+      "seedKey": "item:store a response in memory",
+      "components": []
     },
     {
       "term": "search for information",
@@ -5103,7 +5965,19 @@
       "note": "已纠正为自然搭配，尚未独立验收",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:search for information"
+      "seedKey": "item:search for information",
+      "components": [
+        {
+          "text": "search for",
+          "role": "word",
+          "meaning": "搜索；寻找"
+        },
+        {
+          "text": "information",
+          "role": "word",
+          "meaning": "信息"
+        }
+      ]
     },
     {
       "term": "lightweight yet powerful",
@@ -5116,7 +5990,24 @@
       "note": "首条真实 README 句中即时理解正确",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:lightweight yet powerful"
+      "seedKey": "item:lightweight yet powerful",
+      "components": [
+        {
+          "text": "lightweight",
+          "role": "word",
+          "meaning": "轻量的"
+        },
+        {
+          "text": "yet",
+          "role": "word",
+          "meaning": "但是；却"
+        },
+        {
+          "text": "powerful",
+          "role": "word",
+          "meaning": "强大的"
+        }
+      ]
     },
     {
       "term": "framework for building multi-agent workflows",
@@ -5129,7 +6020,24 @@
       "note": "for building` 方向曾两次读反，最终即时修复",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:framework for building multi-agent workflows"
+      "seedKey": "item:framework for building multi-agent workflows",
+      "components": [
+        {
+          "text": "framework",
+          "role": "word",
+          "meaning": "框架"
+        },
+        {
+          "text": "for building",
+          "role": "word",
+          "meaning": "用于构建"
+        },
+        {
+          "text": "multi-agent workflows",
+          "role": "word",
+          "meaning": "多智能体工作流"
+        }
+      ]
     },
     {
       "term": "ready to...",
@@ -5142,7 +6050,8 @@
       "note": "ESPN 篮球标题中出现，尚未独立验收",
       "priority": 35,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:ready to..."
+      "seedKey": "item:ready to...",
+      "components": []
     },
     {
       "term": "start fresh",
@@ -5155,7 +6064,8 @@
       "note": "借助选项猜对，但用户自述不认识",
       "priority": 80,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:start fresh"
+      "seedKey": "item:start fresh",
+      "components": []
     },
     {
       "term": "Transfer",
@@ -5167,7 +6077,19 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:transfer"
+      "seedKey": "item:transfer",
+      "components": [
+        {
+          "text": "trans-",
+          "role": "prefix",
+          "meaning": "跨越；从一处到另一处"
+        },
+        {
+          "text": "-fer",
+          "role": "root",
+          "meaning": "携带；带去"
+        }
+      ]
     },
     {
       "term": "Backup",
@@ -5179,7 +6101,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:backup"
+      "seedKey": "item:backup",
+      "components": []
     },
     {
       "term": "Back Up Now",
@@ -5191,7 +6114,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:back up now"
+      "seedKey": "item:back up now",
+      "components": []
     },
     {
       "term": "Merge",
@@ -5203,7 +6127,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:merge"
+      "seedKey": "item:merge",
+      "components": []
     },
     {
       "term": "Replace",
@@ -5215,7 +6140,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:replace"
+      "seedKey": "item:replace",
+      "components": []
     },
     {
       "term": "Sign In",
@@ -5227,7 +6153,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:sign in"
+      "seedKey": "item:sign in",
+      "components": []
     },
     {
       "term": "Password",
@@ -5239,7 +6166,19 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:password"
+      "seedKey": "item:password",
+      "components": [
+        {
+          "text": "pass",
+          "role": "word",
+          "meaning": "通过；通行"
+        },
+        {
+          "text": "word",
+          "role": "word",
+          "meaning": "词；口令"
+        }
+      ]
     },
     {
       "term": "Passcode",
@@ -5251,7 +6190,19 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:passcode"
+      "seedKey": "item:passcode",
+      "components": [
+        {
+          "text": "pass",
+          "role": "word",
+          "meaning": "通过；通行"
+        },
+        {
+          "text": "code",
+          "role": "word",
+          "meaning": "代码；密码"
+        }
+      ]
     },
     {
       "term": "Verification Code",
@@ -5263,7 +6214,19 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:verification code"
+      "seedKey": "item:verification code",
+      "components": [
+        {
+          "text": "verification",
+          "role": "word",
+          "meaning": "验证"
+        },
+        {
+          "text": "code",
+          "role": "word",
+          "meaning": "代码；验证码"
+        }
+      ]
     },
     {
       "term": "Apple Account",
@@ -5275,7 +6238,19 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:apple account"
+      "seedKey": "item:apple account",
+      "components": [
+        {
+          "text": "Apple",
+          "role": "word",
+          "meaning": "苹果公司"
+        },
+        {
+          "text": "account",
+          "role": "word",
+          "meaning": "账户"
+        }
+      ]
     },
     {
       "term": "Find My",
@@ -5287,7 +6262,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:find my"
+      "seedKey": "item:find my",
+      "components": []
     },
     {
       "term": "Turn On",
@@ -5299,7 +6275,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:turn on"
+      "seedKey": "item:turn on",
+      "components": []
     },
     {
       "term": "Turn Off",
@@ -5311,7 +6288,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:turn off"
+      "seedKey": "item:turn off",
+      "components": []
     },
     {
       "term": "Install",
@@ -5323,7 +6301,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:install"
+      "seedKey": "item:install",
+      "components": []
     },
     {
       "term": "Update",
@@ -5335,7 +6314,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:update"
+      "seedKey": "item:update",
+      "components": []
     },
     {
       "term": "Restart",
@@ -5347,7 +6327,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:restart"
+      "seedKey": "item:restart",
+      "components": []
     },
     {
       "term": "Try Again",
@@ -5359,7 +6340,8 @@
       "note": "",
       "priority": 90,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:try again"
+      "seedKey": "item:try again",
+      "components": []
     },
     {
       "term": "Allow",
@@ -5371,7 +6353,8 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:allow"
+      "seedKey": "item:allow",
+      "components": []
     },
     {
       "term": "Don't Allow",
@@ -5383,7 +6366,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:don't allow"
+      "seedKey": "item:don't allow",
+      "components": [
+        {
+          "text": "don't",
+          "role": "word",
+          "meaning": "不要；不"
+        },
+        {
+          "text": "allow",
+          "role": "word",
+          "meaning": "允许"
+        }
+      ]
     },
     {
       "term": "While Using the App",
@@ -5395,7 +6390,8 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:while using the app"
+      "seedKey": "item:while using the app",
+      "components": []
     },
     {
       "term": "Always",
@@ -5407,7 +6403,8 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:always"
+      "seedKey": "item:always",
+      "components": []
     },
     {
       "term": "Ask Next Time",
@@ -5419,7 +6416,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:ask next time"
+      "seedKey": "item:ask next time",
+      "components": [
+        {
+          "text": "ask",
+          "role": "word",
+          "meaning": "询问"
+        },
+        {
+          "text": "next time",
+          "role": "word",
+          "meaning": "下次"
+        }
+      ]
     },
     {
       "term": "Full Access",
@@ -5431,7 +6440,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:full access"
+      "seedKey": "item:full access",
+      "components": [
+        {
+          "text": "full",
+          "role": "word",
+          "meaning": "完全的"
+        },
+        {
+          "text": "access",
+          "role": "word",
+          "meaning": "访问权限"
+        }
+      ]
     },
     {
       "term": "Limited Access",
@@ -5443,7 +6464,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:limited access"
+      "seedKey": "item:limited access",
+      "components": [
+        {
+          "text": "limited",
+          "role": "word",
+          "meaning": "有限的"
+        },
+        {
+          "text": "access",
+          "role": "word",
+          "meaning": "访问权限"
+        }
+      ]
     },
     {
       "term": "Location Services",
@@ -5455,7 +6488,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:location services"
+      "seedKey": "item:location services",
+      "components": [
+        {
+          "text": "location",
+          "role": "word",
+          "meaning": "位置；定位"
+        },
+        {
+          "text": "services",
+          "role": "word",
+          "meaning": "服务"
+        }
+      ]
     },
     {
       "term": "Privacy & Security",
@@ -5467,7 +6512,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:privacy & security"
+      "seedKey": "item:privacy & security",
+      "components": [
+        {
+          "text": "privacy",
+          "role": "word",
+          "meaning": "隐私"
+        },
+        {
+          "text": "security",
+          "role": "word",
+          "meaning": "安全性"
+        }
+      ]
     },
     {
       "term": "Camera",
@@ -5479,7 +6536,8 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:camera"
+      "seedKey": "item:camera",
+      "components": []
     },
     {
       "term": "Microphone",
@@ -5491,7 +6549,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:microphone"
+      "seedKey": "item:microphone",
+      "components": [
+        {
+          "text": "micro-",
+          "role": "prefix",
+          "meaning": "微小的"
+        },
+        {
+          "text": "-phone",
+          "role": "root",
+          "meaning": "声音；发声装置"
+        }
+      ]
     },
     {
       "term": "Photos",
@@ -5503,7 +6573,8 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:photos"
+      "seedKey": "item:photos",
+      "components": []
     },
     {
       "term": "Contacts",
@@ -5515,7 +6586,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:contacts"
+      "seedKey": "item:contacts",
+      "components": [
+        {
+          "text": "contact",
+          "role": "root",
+          "meaning": "联系人；联系"
+        },
+        {
+          "text": "-s",
+          "role": "suffix",
+          "meaning": "复数"
+        }
+      ]
     },
     {
       "term": "Wi-Fi",
@@ -5527,7 +6610,8 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:wi-fi"
+      "seedKey": "item:wi-fi",
+      "components": []
     },
     {
       "term": "Bluetooth",
@@ -5539,7 +6623,8 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:bluetooth"
+      "seedKey": "item:bluetooth",
+      "components": []
     },
     {
       "term": "Cellular",
@@ -5551,7 +6636,8 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:cellular"
+      "seedKey": "item:cellular",
+      "components": []
     },
     {
       "term": "Mobile Data",
@@ -5563,7 +6649,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:mobile data"
+      "seedKey": "item:mobile data",
+      "components": [
+        {
+          "text": "mobile",
+          "role": "word",
+          "meaning": "移动的"
+        },
+        {
+          "text": "data",
+          "role": "word",
+          "meaning": "数据"
+        }
+      ]
     },
     {
       "term": "Personal Hotspot",
@@ -5575,7 +6673,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:personal hotspot"
+      "seedKey": "item:personal hotspot",
+      "components": [
+        {
+          "text": "personal",
+          "role": "word",
+          "meaning": "个人的"
+        },
+        {
+          "text": "hotspot",
+          "role": "word",
+          "meaning": "热点"
+        }
+      ]
     },
     {
       "term": "Airplane Mode",
@@ -5587,7 +6697,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:airplane mode"
+      "seedKey": "item:airplane mode",
+      "components": [
+        {
+          "text": "airplane",
+          "role": "word",
+          "meaning": "飞机"
+        },
+        {
+          "text": "mode",
+          "role": "word",
+          "meaning": "模式"
+        }
+      ]
     },
     {
       "term": "Connected",
@@ -5599,7 +6721,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:connected"
+      "seedKey": "item:connected",
+      "components": [
+        {
+          "text": "connect",
+          "role": "root",
+          "meaning": "连接"
+        },
+        {
+          "text": "-ed",
+          "role": "suffix",
+          "meaning": "已经处于某状态"
+        }
+      ]
     },
     {
       "term": "No Service",
@@ -5611,7 +6745,8 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:no service"
+      "seedKey": "item:no service",
+      "components": []
     },
     {
       "term": "Battery",
@@ -5623,7 +6758,8 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:battery"
+      "seedKey": "item:battery",
+      "components": []
     },
     {
       "term": "Low Power Mode",
@@ -5635,7 +6771,19 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:low power mode"
+      "seedKey": "item:low power mode",
+      "components": [
+        {
+          "text": "low power",
+          "role": "word",
+          "meaning": "低电量；低功耗"
+        },
+        {
+          "text": "mode",
+          "role": "word",
+          "meaning": "模式"
+        }
+      ]
     },
     {
       "term": "Storage",
@@ -5647,7 +6795,8 @@
       "note": "",
       "priority": 55,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:storage"
+      "seedKey": "item:storage",
+      "components": []
     },
     {
       "term": "Settings > General > Language & Region > Add Language > Simplified Chinese",
@@ -5659,7 +6808,8 @@
       "note": "需要在后续学习日无提示说出，才算通过安全切换门槛。",
       "priority": 105,
       "lastReviewedAt": "2026-07-14T11:03:03.898Z",
-      "seedKey": "item:settings > general > language & region > add language > simplified chinese"
+      "seedKey": "item:settings > general > language & region > add language > simplified chinese",
+      "components": []
     }
   ],
   "tracks": [

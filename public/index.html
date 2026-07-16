@@ -14,7 +14,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png">
-  <link rel="stylesheet" href="./styles.css?v=1.4.4">
+  <link rel="stylesheet" href="./styles.css?v=1.5.0">
 </head>
 <body class="is-booting">
   <div class="boot-screen" id="boot-screen" aria-label="正在打开词流">
@@ -152,13 +152,22 @@
         </label>
       </div>
 
+      <details class="component-editor" id="component-editor">
+        <summary>
+          <span>构词拆解（可选）</span>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <p>只记录能可靠解释整体词义的单词、前缀、词根或后缀。</p>
+        <div class="component-editor-rows" id="component-editor-rows"></div>
+        <button class="component-add-button" id="add-component" type="button">
+          <i data-lucide="plus"></i>
+          添加片段
+        </button>
+      </details>
+
       <label class="field">
         <span>例句或上下文</span>
         <textarea id="item-example" rows="2" maxlength="1000" placeholder="可留空"></textarea>
-      </label>
-      <label class="field">
-        <span>易错点</span>
-        <textarea id="item-note" rows="2" maxlength="1000" placeholder="可留空"></textarea>
       </label>
       <label class="field">
         <span>来源</span>
@@ -235,6 +244,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="./vendor/lucide/lucide.min.js"></script>
-  <script type="module" src="./app.js?v=1.4.4"></script>
+  <script type="module" src="./app.js?v=1.5.0"></script>
 </body>
 </html>

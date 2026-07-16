@@ -26,4 +26,8 @@ test('bundled curriculum contains only formal items with Chinese meanings', () =
   const seed = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
   assert.equal(seed.items.filter((item) => !item.meaning.trim()).length, 0);
   assert.equal(seed.items.filter((item) => !/^S[0-3]$/.test(item.status)).length, 0);
+  assert.equal(seed.items.filter((item) => item.components?.length).length, 63);
+  assert.equal(seed.items.filter((item) => (item.components || []).some((component) => (
+    !component.text || !component.meaning || !['word', 'prefix', 'root', 'suffix'].includes(component.role)
+  ))).length, 0);
 });
