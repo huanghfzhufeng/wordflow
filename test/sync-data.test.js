@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { buildSeedData } from '../src/sync-data.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../全局记忆/notes');
+const hasWorkspaceMemory = fs.existsSync(path.join(root, 'english-vocabulary.md'));
 
-test('workspace learning files merge into one evidence-aware seed', () => {
+test('workspace learning files merge into one evidence-aware seed', { skip: !hasWorkspaceMemory }, () => {
   const seed = buildSeedData(root);
   assert.ok(seed.items.length >= 400);
   assert.equal(seed.tracks.length, 6);
