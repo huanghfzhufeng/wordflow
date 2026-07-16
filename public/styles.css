@@ -946,7 +946,18 @@ h2 {
   min-width: 68px;
   gap: 2px;
   padding: 0 2px 6px;
+  border: 0;
   border-bottom: 2px solid #d8d0ea;
+  border-radius: 6px 6px 0 0;
+  color: inherit;
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+}
+
+.component-unit.active {
+  border-bottom-color: #806aa1;
+  background: rgb(238 233 250 / 66%);
 }
 
 .component-unit small {
@@ -966,6 +977,94 @@ h2 {
   font-size: 10px;
   font-style: normal;
   line-height: 1.3;
+}
+
+.component-inspector {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 10px;
+  padding: 9px 0;
+  border-top: 1px solid var(--separator-soft);
+  border-bottom: 1px solid var(--separator-soft);
+}
+
+.component-inspector-copy {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 2px 8px;
+}
+
+.component-inspector-copy small {
+  grid-column: 1 / 3;
+  color: #806aa1;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.component-inspector-copy strong {
+  font-family: ui-rounded, "SF Pro Rounded", "Avenir Next", sans-serif;
+  font-size: 15px;
+}
+
+.component-inspector-copy span {
+  overflow: hidden;
+  color: var(--secondary);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.component-inspector-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+}
+
+.component-speaker {
+  width: 34px;
+  height: 34px;
+  flex-basis: 34px;
+  color: #51417d;
+  background: #eee9fa;
+  box-shadow: none;
+}
+
+.component-speaker svg {
+  width: 15px;
+  height: 15px;
+}
+
+.component-learn-button {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 17px;
+  color: #51417d;
+  background: #eee9fa;
+  font-size: 10px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.component-learn-button svg {
+  width: 14px;
+  height: 14px;
+}
+
+.component-kind-label {
+  color: var(--tertiary);
+  font-size: 10px;
+  font-weight: 650;
 }
 
 .component-result {
@@ -1144,6 +1243,12 @@ h2 {
 .writing-compare-button {
   color: #fff;
   background: #29262f;
+}
+
+.writing-compare-button:disabled,
+.component-learn-button:disabled {
+  opacity: .38;
+  cursor: default;
 }
 
 .writing-compare-button svg,
@@ -1770,6 +1875,59 @@ h2 {
   gap: 10px;
 }
 
+.advanced-editor {
+  margin: 0 0 16px;
+  border-top: 1px solid var(--separator-soft);
+  border-bottom: 1px solid var(--separator-soft);
+}
+
+.advanced-editor > summary {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 10px;
+  color: var(--secondary);
+  font-size: 12px;
+  font-weight: 720;
+  cursor: pointer;
+  list-style: none;
+}
+
+.advanced-editor > summary::-webkit-details-marker {
+  display: none;
+}
+
+.advanced-editor > summary span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.advanced-editor > summary span svg,
+.advanced-editor > summary > svg {
+  width: 16px;
+  height: 16px;
+}
+
+.advanced-editor > summary small {
+  margin-left: auto;
+  color: var(--tertiary);
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.advanced-editor > summary > svg {
+  transition: transform 160ms ease;
+}
+
+.advanced-editor[open] > summary > svg {
+  transform: rotate(180deg);
+}
+
+.advanced-editor-content {
+  padding-top: 4px;
+}
+
 .component-editor {
   margin: 0 0 16px;
   border-top: 1px solid var(--separator-soft);
@@ -2253,6 +2411,35 @@ h2 {
   color: #96959d;
   font-size: 14px;
   font-weight: 600;
+}
+
+.stats-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.stats-heading .stats-title {
+  margin: 0;
+}
+
+.session-summary {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  color: #8f8e97;
+  font-size: 10px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.session-summary svg {
+  width: 13px;
+  height: 13px;
 }
 
 .stats-grid {

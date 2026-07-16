@@ -43,11 +43,22 @@ const speech = createSpeechController();
 function emptyWritingState() {
   return {
     active: false,
+    mode: 'reinforcement',
     compared: false,
     strokes: [],
     startedAt: null,
     result: null,
     durationMs: null
+  };
+}
+
+function writingStateForItem(item) {
+  if (!item?.writingPrompt) return emptyWritingState();
+  return {
+    ...emptyWritingState(),
+    active: true,
+    mode: 'recall',
+    startedAt: Date.now()
   };
 }
 
@@ -64,7 +75,9 @@ const state = {
   libraryModule: 'all',
   libraryQuery: '',
   editingItem: null,
+  componentFocus: null,
   writing: emptyWritingState(),
+  session: { startedAt: null, reviews: 0 },
   authEnabled: false,
   started: false
 };
@@ -136,6 +149,7 @@ async function authRequest(path, options = {}) {
 
 function showLogin(message = '') {
   speech.cancel();
+  state.session = { startedAt: null, reviews: 0 };
   els.boot.hidden = true;
   els.appShell.hidden = true;
   els.login.hidden = false;
@@ -163,6 +177,7 @@ function showApp() {
 
 async function enterApp() {
   showApp();
+  state.session.startedAt ||= Date.now();
   document.querySelector('#account-row').hidden = !state.authEnabled;
   if (!state.started) {
     state.started = true;
@@ -293,7 +308,10 @@ function longTermStats() {
   const remembered = (progress?.counts?.S2 || 0) + (progress?.counts?.S3 || 0);
   return `
     <section class="long-term-stats" aria-labelledby="long-term-stats-title">
-      <p class="stats-title" id="long-term-stats-title">学习数据</p>
+      <div class="stats-heading">
+        <p class="stats-title" id="long-term-stats-title">学习数据</p>
+        <p class="session-summary"><i data-lucide="clock-3"></i><span id="session-summary">${sessionSummaryText()}</span></p>
+      </div>
       <div class="stats-grid">
         <div class="stat-item stat-reviews">
           <span class="stat-icon"><i data-lucide="rotate-cw"></i></span>
@@ -310,6 +328,18 @@ function longTermStats() {
       </div>
     </section>
   `;
+}
+
+function sessionSummaryText() {
+  const elapsedMs = state.session.startedAt ? Date.now() - state.session.startedAt : 0;
+  const minutes = Math.floor(Math.max(0, elapsedMs) / 60_000);
+  const duration = minutes < 1 ? '不到 1 分钟' : `${minutes} 分钟`;
+  return `本次 ${duration} · ${state.session.reviews} 个`;
+}
+
+function updateSessionSummary() {
+  const node = document.querySelector('#session-summary');
+  if (node) node.textContent = sessionSummaryText();
 }
 
 function reviewCard(item) {
@@ -354,6 +384,7 @@ function reviewCard(item) {
 }
 
 function writingCard(item) {
+  const isRecall = state.writing.mode === 'recall';
   const comparison = state.writing.compared ? `
     <div class="writing-answer" aria-live="polite">
       <span>正确拼写</span>
@@ -368,7 +399,7 @@ function writingCard(item) {
       </button>
     </div>
   ` : `
-    <button class="writing-compare-button" id="compare-writing" type="button">
+    <button class="writing-compare-button" id="compare-writing" type="button" ${state.writing.strokes.length ? '' : 'disabled'}>
       <i data-lucide="scan-text"></i><span>对照拼写</span>
     </button>
   `;
@@ -376,12 +407,12 @@ function writingCard(item) {
     <article class="review-card writing-card" data-item-id="${item.id}">
       <div class="writing-header">
         <div>
-          <p class="answer-label">手写巩固</p>
+          <p class="answer-label">${isRecall ? '回忆拼写' : '手写巩固'}</p>
           <p class="writing-prompt">${escapeHtml(item.meaning)}</p>
         </div>
         <div class="writing-header-actions">
           ${speakerButton(item, 'writing-speaker')}
-          <button class="icon-button writing-close" id="close-writing" type="button" aria-label="退出手写" title="退出手写">
+          <button class="icon-button writing-close" id="close-writing" type="button" aria-label="${isRecall ? '跳过手写' : '退出手写'}" title="${isRecall ? '跳过手写' : '退出手写'}">
             <i data-lucide="x"></i>
           </button>
         </div>
@@ -406,22 +437,87 @@ function writingCard(item) {
 
 function componentBreakdown(item) {
   if (!item.components?.length) return '';
+  const focusedIndex = Number.isInteger(state.componentFocus) ? state.componentFocus : -1;
+  const focused = item.components[focusedIndex];
+  const inspector = focused ? `
+    <div class="component-inspector" aria-live="polite">
+      <div class="component-inspector-copy">
+        <small>${escapeHtml(COMPONENT_ROLE_LABELS[focused.role] || '片段')}</small>
+        <strong>${escapeHtml(focused.text)}</strong>
+        <span>${escapeHtml(focused.linkedItem?.meaning || focused.meaning)}</span>
+      </div>
+      <div class="component-inspector-actions">
+        <button class="icon-button component-speaker" type="button" data-speak-component-index="${focusedIndex}"
+          aria-label="播放 ${escapeHtml(focused.text)} 的发音" title="播放发音" ${speech.supported ? '' : 'disabled'}>
+          <i data-lucide="volume-2"></i>
+        </button>
+        ${focused.linkedItem
+          ? statusBadge(focused.linkedItem.status)
+          : focused.role === 'word' ? `
+            <button class="component-learn-button" type="button" data-add-component-index="${focusedIndex}">
+              <i data-lucide="plus"></i><span>加入学习</span>
+            </button>
+          ` : '<span class="component-kind-label">构词片段</span>'}
+      </div>
+    </div>
+  ` : '';
   return `
     <div class="component-breakdown">
       <p class="answer-label">构词拆解</p>
       <div class="component-flow">
         ${item.components.map((component, index) => `
           ${index ? '<span class="component-plus">+</span>' : ''}
-          <span class="component-unit">
+          <button class="component-unit ${focusedIndex === index ? 'active' : ''}" type="button"
+            data-component-index="${index}" aria-pressed="${focusedIndex === index}">
             <small>${escapeHtml(COMPONENT_ROLE_LABELS[component.role] || '片段')}</small>
             <strong>${escapeHtml(component.text)}</strong>
             <em>${escapeHtml(component.meaning)}</em>
-          </span>
+          </button>
         `).join('')}
       </div>
+      ${inspector}
       <p class="component-result"><i data-lucide="arrow-right"></i>${escapeHtml(item.meaning)}</p>
     </div>
   `;
+}
+
+function speakComponent(index, button) {
+  const component = state.today[0]?.components?.[index];
+  if (!component) return;
+  if (!speech.supported) {
+    toast('当前浏览器不支持系统发音');
+    return;
+  }
+  speech.speak(component.text, {
+    onStart: () => button.classList.add('is-speaking'),
+    onEnd: () => button.classList.remove('is-speaking'),
+    onError: () => {
+      button.classList.remove('is-speaking');
+      toast('发音没有成功，请再试一次');
+    }
+  });
+}
+
+async function addComponentToLearning(index) {
+  const parent = state.today[0];
+  const component = parent?.components?.[index];
+  if (!parent || !component || component.linkedItem) return;
+  const button = document.querySelector(`[data-add-component-index="${index}"]`);
+  if (button) button.disabled = true;
+  try {
+    const result = await api(`/api/items/${parent.id}/components/${index}`, { method: 'POST', body: '{}' });
+    component.linkedItem = {
+      id: result.item.id,
+      term: result.item.term,
+      meaning: result.item.meaning,
+      status: result.item.status
+    };
+    toast(result.created ? '已加入学习' : '词库中已有');
+    renderToday();
+  } catch (error) {
+    showError(error);
+    if (button) button.disabled = false;
+  }
 }
 
 function answerPanel(item) {
@@ -469,7 +565,7 @@ function emptyToday() {
 }
 
 function startWritingPractice() {
-  state.writing = { ...emptyWritingState(), active: true, startedAt: Date.now() };
+  state.writing = { ...emptyWritingState(), active: true, mode: 'reinforcement', startedAt: Date.now() };
   renderToday();
 }
 
@@ -494,6 +590,7 @@ function recordWritingResult(result) {
     result,
     durationMs
   };
+  state.revealed = true;
   renderToday();
 }
 
@@ -549,6 +646,7 @@ function initializeWritingCanvas() {
     document.querySelector('.writing-placeholder')?.remove();
     document.querySelector('#undo-writing').disabled = false;
     document.querySelector('#clear-writing').disabled = false;
+    document.querySelector('#compare-writing').disabled = false;
     drawWritingCanvas(canvas);
   });
   canvas.addEventListener('pointermove', (event) => {
@@ -578,7 +676,8 @@ function bindTodayEvents() {
     button.addEventListener('click', () => {
       state.reviewMode = button.dataset.reviewMode;
       state.revealed = false;
-      state.writing = emptyWritingState();
+      state.componentFocus = null;
+      state.writing = writingStateForItem(state.today[0]);
       localStorage.setItem(REVIEW_MODE_KEY, state.reviewMode);
       renderToday();
       if (state.reviewMode === 'listening') speakItem(state.today[0]);
@@ -598,6 +697,19 @@ function bindTodayEvents() {
   });
   document.querySelectorAll('[data-writing-result]').forEach((button) => {
     button.addEventListener('click', () => recordWritingResult(button.dataset.writingResult));
+  });
+  document.querySelectorAll('[data-component-index]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const index = Number(button.dataset.componentIndex);
+      state.componentFocus = state.componentFocus === index ? null : index;
+      renderToday();
+    });
+  });
+  document.querySelectorAll('[data-speak-component-index]').forEach((button) => {
+    button.addEventListener('click', () => speakComponent(Number(button.dataset.speakComponentIndex), button));
+  });
+  document.querySelectorAll('[data-add-component-index]').forEach((button) => {
+    button.addEventListener('click', () => addComponentToLearning(Number(button.dataset.addComponentIndex)));
   });
   document.querySelector('#open-library')?.addEventListener('click', () => switchView('library'));
 }
@@ -640,6 +752,7 @@ async function submitRating(rating) {
       toast('今天记住了；跨天答对才会升 S2');
     }
     state.progress = result.progress;
+    state.session.reviews += 1;
     state.revealed = false;
     await loadToday();
     const preferences = speech.getPreferences();
@@ -656,7 +769,9 @@ async function loadToday() {
   const data = await api('/api/today?limit=10');
   state.today = data.items;
   state.progress = data.progress;
-  state.writing = emptyWritingState();
+  state.revealed = false;
+  state.componentFocus = null;
+  state.writing = writingStateForItem(state.today[0]);
   renderToday();
 }
 
@@ -902,6 +1017,21 @@ function renderComponentEditor(components = []) {
     });
   });
   icons(rows);
+  updateAdvancedSummary();
+}
+
+function updateAdvancedSummary() {
+  const summary = document.querySelector('#item-advanced-summary');
+  if (!summary) return;
+  const componentCount = readComponentRows().length;
+  const hasOptionalValue = Boolean(
+    document.querySelector('#item-phonetic').value.trim()
+    || document.querySelector('#item-example').value.trim()
+    || document.querySelector('#item-source').value.trim()
+    || document.querySelector('#item-kind').value !== 'word'
+    || document.querySelector('#item-module').value !== 'custom'
+  );
+  summary.textContent = componentCount ? `${componentCount} 个片段` : hasOptionalValue ? '已填写' : '可选';
 }
 
 function addComponentRow() {
@@ -912,6 +1042,7 @@ function addComponentRow() {
   }
   components.push({ text: '', meaning: '', role: 'word' });
   renderComponentEditor(components);
+  document.querySelector('#item-advanced').open = true;
   document.querySelector('#component-editor').open = true;
   const inputs = document.querySelectorAll('[data-component-text]');
   inputs[inputs.length - 1]?.focus();
@@ -925,6 +1056,8 @@ function openAddDialog() {
   document.querySelector('#dialog-title').textContent = '添加词句';
   document.querySelector('#delete-item').classList.add('hidden');
   renderComponentEditor([]);
+  document.querySelector('#item-advanced').open = false;
+  updateAdvancedSummary();
   els.itemDialog.showModal();
   document.querySelector('#item-term').focus();
 }
@@ -942,6 +1075,8 @@ function openEditDialog(id) {
   document.querySelector('#item-example').value = item.example || '';
   document.querySelector('#item-source').value = item.source || '';
   renderComponentEditor(item.components || []);
+  document.querySelector('#item-advanced').open = false;
+  updateAdvancedSummary();
   document.querySelector('#dialog-eyebrow').textContent = `${item.status} · ${STATUS_LABELS[item.status]}`;
   document.querySelector('#dialog-title').textContent = '编辑词句';
   document.querySelector('#delete-item').classList.remove('hidden');
@@ -1095,6 +1230,13 @@ document.querySelector('#close-dialog').addEventListener('click', closeItemDialo
 document.querySelector('#cancel-dialog').addEventListener('click', closeItemDialog);
 document.querySelector('#delete-item').addEventListener('click', deleteItem);
 document.querySelector('#add-component').addEventListener('click', addComponentRow);
+document.querySelector('#component-editor-rows').addEventListener('input', updateAdvancedSummary);
+document.querySelector('#component-editor-rows').addEventListener('change', updateAdvancedSummary);
+['#item-phonetic', '#item-kind', '#item-module', '#item-example', '#item-source'].forEach((selector) => {
+  const field = document.querySelector(selector);
+  field.addEventListener('input', updateAdvancedSummary);
+  field.addEventListener('change', updateAdvancedSummary);
+});
 els.itemForm.addEventListener('submit', saveItem);
 els.itemDialog.addEventListener('click', (event) => {
   if (event.target === els.itemDialog) closeItemDialog();
@@ -1130,6 +1272,7 @@ els.loginForm.addEventListener('submit', submitLogin);
 document.querySelector('#password-toggle').addEventListener('click', togglePasswordVisibility);
 document.querySelector('#logout-button').addEventListener('click', logout);
 window.addEventListener('resize', () => drawWritingCanvas(document.querySelector('#writing-canvas')));
+setInterval(updateSessionSummary, 30_000);
 
 function isEditableTarget(target) {
   return target instanceof Element && Boolean(target.closest('input, textarea, [contenteditable="true"]'));
@@ -1149,5 +1292,5 @@ const initialView = ['today', 'library', 'progress'].includes(location.hash.slic
 bootstrapAuth();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.5.0'), { scope: APP_BASE_URL.pathname }).catch(console.error);
+  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.6.0'), { scope: APP_BASE_URL.pathname }).catch(console.error);
 }

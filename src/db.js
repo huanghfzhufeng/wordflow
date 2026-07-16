@@ -35,7 +35,8 @@ function normalizeComponents(value) {
   return value.map((component) => {
     const text = requireText(component?.text, '构词片段', 60);
     const meaning = requireText(component?.meaning, '片段中文义', 120);
-    const role = VALID_COMPONENT_ROLES.has(component?.role) ? component.role : 'word';
+    const role = component?.role || 'word';
+    if (!VALID_COMPONENT_ROLES.has(role)) throw new Error('片段类型无效');
     return { text, meaning, role };
   });
 }
@@ -234,9 +235,43 @@ function publicItem(row) {
 
 export function createRepository(db, { timeZone }) {
   const getItemRow = db.prepare('SELECT * FROM learning_items WHERE id = ? AND archived = 0');
+  const findLinkedItemRow = db.prepare(`
+    SELECT * FROM learning_items
+    WHERE archived = 0 AND lower(trim(term)) = lower(trim(?))
+    ORDER BY id
+    LIMIT 1
+  `);
+  const findRecentWriting = db.prepare(`
+    SELECT writing_result FROM review_events
+    WHERE item_id = ? AND writing_result IS NOT NULL
+    ORDER BY id DESC
+    LIMIT 2
+  `);
+
+  function hydratedItem(row, { includeWritingPrompt = false } = {}) {
+    const item = publicItem(row);
+    if (!item) return null;
+    item.components = item.components.map((component) => {
+      if (component.role !== 'word') return component;
+      const linked = findLinkedItemRow.get(component.text);
+      return {
+        ...component,
+        linkedItem: linked ? {
+          id: linked.id,
+          term: linked.term,
+          meaning: linked.meaning,
+          status: linked.status
+        } : null
+      };
+    });
+    const recentWriting = includeWritingPrompt ? findRecentWriting.all(item.id) : [];
+    item.writingPrompt = recentWriting[0]?.writing_result === 'incorrect'
+      || (recentWriting[0]?.writing_result === 'correct' && recentWriting[1]?.writing_result === 'incorrect');
+    return item;
+  }
 
   function getItem(id) {
-    return publicItem(getItemRow.get(Number(id)));
+    return hydratedItem(getItemRow.get(Number(id)), { includeWritingPrompt: true });
   }
 
   function listItems({ q = '', status = 'all', module = 'all', limit = 300, offset = 0 } = {}) {
@@ -268,7 +303,7 @@ export function createRepository(db, { timeZone }) {
       LIMIT ? OFFSET ?
     `).all(...params, safeLimit, safeOffset);
     const count = db.prepare(`SELECT COUNT(*) AS value FROM learning_items WHERE ${clauses.join(' AND ')}`).get(...params).value;
-    return { items: rows.map(publicItem), total: count };
+    return { items: rows.map((row) => hydratedItem(row)), total: count };
   }
 
   function todayQueue(limit = 10) {
@@ -282,7 +317,7 @@ export function createRepository(db, { timeZone }) {
         priority DESC, lapse_count DESC, COALESCE(next_review_at, created_at), id
       LIMIT ?
     `).all(now, Math.min(Math.max(Number(limit) || 10, 1), 30));
-    return rows.map(publicItem);
+    return rows.map((row) => hydratedItem(row, { includeWritingPrompt: true }));
   }
 
   function createItem(input) {
@@ -327,6 +362,28 @@ export function createRepository(db, { timeZone }) {
       JSON.stringify(components), nowIso(), Number(id)
     );
     return getItem(id);
+  }
+
+  function addComponentAsItem(id, componentIndex) {
+    const parent = getItemRow.get(Number(id));
+    if (!parent) return null;
+    const index = Number(componentIndex);
+    const components = parseComponents(parent.components_json);
+    if (!Number.isInteger(index) || index < 0 || index >= components.length) {
+      throw new Error('构词片段不存在');
+    }
+    const component = components[index];
+    if (component.role !== 'word') throw new Error('只有完整单词片段可以加入学习');
+    const existing = findLinkedItemRow.get(component.text);
+    if (existing) return { item: hydratedItem(existing, { includeWritingPrompt: true }), created: false };
+    const item = createItem({
+      term: component.text,
+      meaning: component.meaning,
+      kind: 'word',
+      module: parent.module,
+      source: `构词拆解：${parent.term}`
+    });
+    return { item, created: true };
   }
 
   function archiveItem(id) {
@@ -463,6 +520,7 @@ export function createRepository(db, { timeZone }) {
     todayQueue,
     createItem,
     updateItem,
+    addComponentAsItem,
     archiveItem,
     reviewItem,
     progress,

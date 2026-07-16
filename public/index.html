@@ -14,7 +14,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png">
-  <link rel="stylesheet" href="./styles.css?v=1.5.0">
+  <link rel="stylesheet" href="./styles.css?v=1.6.0">
 </head>
 <body class="is-booting">
   <div class="boot-screen" id="boot-screen" aria-label="正在打开词流">
@@ -120,59 +120,68 @@
         <textarea id="item-meaning" rows="2" maxlength="500" required placeholder="抹掉所有内容"></textarea>
       </label>
 
-      <label class="field">
-        <span>音标（可选）</span>
-        <input id="item-phonetic" maxlength="120" placeholder="/ɪˈreɪs/">
-      </label>
-
-      <div class="field-grid">
-        <label class="field">
-          <span>类型</span>
-          <select id="item-kind">
-            <option value="word">单词</option>
-            <option value="phrase">短语</option>
-            <option value="sentence">句子</option>
-          </select>
-        </label>
-        <label class="field">
-          <span>范围</span>
-          <select id="item-module">
-            <option value="custom">临时收集</option>
-            <option value="learning-ledger">学习账本</option>
-            <option value="iphone-p0">iPhone 路径</option>
-            <option value="iphone-p1">iPhone 安全</option>
-            <option value="iphone-p2">iPhone 权限</option>
-            <option value="iphone-path">iPhone 恢复路径</option>
-            <option value="reddit-x">Reddit / X</option>
-            <option value="tech">AI / 技术</option>
-            <option value="daily">日常</option>
-            <option value="basketball">篮球</option>
-            <option value="foundation">基础</option>
-          </select>
-        </label>
-      </div>
-
-      <details class="component-editor" id="component-editor">
+      <details class="advanced-editor" id="item-advanced">
         <summary>
-          <span>构词拆解（可选）</span>
+          <span><i data-lucide="sliders-horizontal"></i>更多信息</span>
+          <small id="item-advanced-summary">可选</small>
           <i data-lucide="chevron-down"></i>
         </summary>
-        <p>只记录能可靠解释整体词义的单词、前缀、词根或后缀。</p>
-        <div class="component-editor-rows" id="component-editor-rows"></div>
-        <button class="component-add-button" id="add-component" type="button">
-          <i data-lucide="plus"></i>
-          添加片段
-        </button>
-      </details>
+        <div class="advanced-editor-content">
+          <label class="field">
+            <span>音标（可选）</span>
+            <input id="item-phonetic" maxlength="120" placeholder="/ɪˈreɪs/">
+          </label>
 
-      <label class="field">
-        <span>例句或上下文</span>
-        <textarea id="item-example" rows="2" maxlength="1000" placeholder="可留空"></textarea>
-      </label>
-      <label class="field">
-        <span>来源</span>
-        <input id="item-source" maxlength="200" placeholder="例如：iPhone 设置">
-      </label>
+          <div class="field-grid">
+            <label class="field">
+              <span>类型</span>
+              <select id="item-kind">
+                <option value="word">单词</option>
+                <option value="phrase">短语</option>
+                <option value="sentence">句子</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>范围</span>
+              <select id="item-module">
+                <option value="custom">临时收集</option>
+                <option value="learning-ledger">学习账本</option>
+                <option value="iphone-p0">iPhone 路径</option>
+                <option value="iphone-p1">iPhone 安全</option>
+                <option value="iphone-p2">iPhone 权限</option>
+                <option value="iphone-path">iPhone 恢复路径</option>
+                <option value="reddit-x">Reddit / X</option>
+                <option value="tech">AI / 技术</option>
+                <option value="daily">日常</option>
+                <option value="basketball">篮球</option>
+                <option value="foundation">基础</option>
+              </select>
+            </label>
+          </div>
+
+          <details class="component-editor" id="component-editor">
+            <summary>
+              <span>构词拆解（可选）</span>
+              <i data-lucide="chevron-down"></i>
+            </summary>
+            <p>只记录能可靠解释整体词义的单词、前缀、词根或后缀。</p>
+            <div class="component-editor-rows" id="component-editor-rows"></div>
+            <button class="component-add-button" id="add-component" type="button">
+              <i data-lucide="plus"></i>
+              添加片段
+            </button>
+          </details>
+
+          <label class="field">
+            <span>例句或上下文</span>
+            <textarea id="item-example" rows="2" maxlength="1000" placeholder="可留空"></textarea>
+          </label>
+          <label class="field">
+            <span>来源</span>
+            <input id="item-source" maxlength="200" placeholder="例如：iPhone 设置">
+          </label>
+        </div>
+      </details>
 
       <div class="dialog-actions">
         <button class="text-button danger-button hidden" id="delete-item" type="button">
@@ -244,6 +253,6 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="./vendor/lucide/lucide.min.js"></script>
-  <script type="module" src="./app.js?v=1.5.0"></script>
+  <script type="module" src="./app.js?v=1.6.0"></script>
 </body>
 </html>

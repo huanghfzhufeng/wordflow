@@ -41,6 +41,11 @@ export function createApp({ config, db, repository }) {
     if (!item) return res.status(404).json({ error: '没有找到这条内容' });
     res.json({ item });
   });
+  app.post('/api/items/:id/components/:index', (req, res) => {
+    const result = repository.addComponentAsItem(req.params.id, req.params.index);
+    if (!result) return res.status(404).json({ error: '没有找到这条内容' });
+    res.status(result.created ? 201 : 200).json(result);
+  });
   app.delete('/api/items/:id', (req, res) => {
     if (!repository.archiveItem(req.params.id)) return res.status(404).json({ error: '没有找到这条内容' });
     res.status(204).end();

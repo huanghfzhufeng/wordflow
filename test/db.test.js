@@ -38,6 +38,7 @@ test('repository persists additions and applies delayed evidence transitions', (
   const repository = createRepository(db, { timeZone: 'Asia/Singapore' });
 
   assert.equal(repository.todayQueue(10)[0].term, 'Erase');
+  const tryWord = repository.createItem({ term: 'try', meaning: '尝试' });
   const added = repository.createItem({
     term: 'Try Again',
     meaning: '重试',
@@ -52,6 +53,13 @@ test('repository persists additions and applies delayed evidence transitions', (
   assert.equal(added.status, 'S0');
   assert.equal(added.phonetic, '/traɪ əˈɡen/');
   assert.equal(added.components.length, 2);
+  assert.equal(added.components[0].linkedItem.id, tryWord.id);
+  assert.equal(added.components[1].linkedItem, null);
+  const addedAgain = repository.addComponentAsItem(added.id, 1);
+  assert.equal(addedAgain.created, true);
+  assert.equal(addedAgain.item.term, 'again');
+  assert.equal(repository.getItem(added.id).components[1].linkedItem.id, addedAgain.item.id);
+  assert.equal(repository.addComponentAsItem(added.id, 1).created, false);
   assert.throws(() => repository.createItem({
     term: 'invalid',
     meaning: '无效',
@@ -62,6 +70,11 @@ test('repository persists additions and applies delayed evidence transitions', (
     meaning: '无效拆解',
     components: [{ text: 'invalid', meaning: '', role: 'root' }]
   }), /片段中文义不能为空/);
+  assert.throws(() => repository.createItem({
+    term: 'invalid role',
+    meaning: '无效类型',
+    components: [{ text: 'invalid', meaning: '无效', role: 'guess' }]
+  }), /片段类型无效/);
 
   const first = repository.reviewItem(
     added.id,
@@ -86,6 +99,30 @@ test('repository persists additions and applies delayed evidence transitions', (
     new Date('2026-07-16T01:00:00.000Z'),
     { result: 'guessed', durationMs: 100 }
   ), /书写结果无效/);
+
+  const adaptive = repository.createItem({ term: 'recall', meaning: '回忆' });
+  repository.reviewItem(
+    adaptive.id,
+    'hard',
+    new Date('2026-07-15T02:00:00.000Z'),
+    { result: 'incorrect', durationMs: 1800 }
+  );
+  assert.equal(repository.getItem(adaptive.id).writingPrompt, true);
+  repository.reviewItem(
+    adaptive.id,
+    'good',
+    new Date('2026-07-16T02:00:00.000Z'),
+    { result: 'correct', durationMs: 2100 }
+  );
+  assert.equal(repository.getItem(adaptive.id).writingPrompt, true);
+  repository.reviewItem(
+    adaptive.id,
+    'good',
+    new Date('2026-07-17T02:00:00.000Z'),
+    { result: 'correct', durationMs: 1900 }
+  );
+  assert.equal(repository.getItem(adaptive.id).writingPrompt, false);
+  assert.deepEqual(repository.progress().writing, { attempted: 4, correct: 3, incorrect: 1 });
 });
 
 test('seed sync promotes legacy pending rows into formal S0 content', (t) => {
