@@ -8,6 +8,8 @@ const MODULE_LABELS = {
   'iphone-p2': 'iPhone 权限',
   'iphone-path': '恢复路径',
   'reddit-x': 'Reddit / X',
+  'reddit-core': 'Reddit 核心 3000',
+  'reddit-forms': '变形与缩写',
   tech: 'AI / 技术',
   daily: '日常',
   basketball: '篮球',
@@ -352,7 +354,7 @@ function reviewCard(item) {
           ${moduleBadge(item.module)}
           ${statusBadge(item.status)}
         </div>
-        <span class="queue-position">${escapeHtml(KIND_LABELS[item.kind] || item.kind)}</span>
+        <span class="queue-position">${item.coreOrder ? `第 ${item.coreOrder} / 3000 项` : escapeHtml(KIND_LABELS[item.kind] || item.kind)}</span>
       </div>
 
       <div class="review-stage">
@@ -529,6 +531,7 @@ function answerPanel(item) {
       <p class="answer-label">中文核心义</p>
       <p class="answer-meaning">${escapeHtml(item.meaning)}</p>
       ${item.example ? `<p class="answer-detail"><span>上下文</span>${escapeHtml(item.example)}</p>` : ''}
+      ${item.note && (item.coreOrder || item.module === 'reddit-forms') ? `<p class="answer-detail"><span>补充</span>${escapeHtml(item.note)}</p>` : ''}
       ${componentBreakdown(item)}
       <button class="write-practice-button writing-result-${state.writing.result || 'none'}" id="start-writing" type="button">
         <i data-lucide="pen-line"></i><span>${writingLabel}</span>
@@ -555,8 +558,8 @@ function emptyToday() {
   return `
     <div class="empty-state">
       <div class="completion-mark"><i data-lucide="check"></i></div>
-      <h2>今天完成了</h2>
-      <p>到期内容已经清空。</p>
+      <h2>当前没有到期内容</h2>
+      <p>可继续在词句库查看和练习。</p>
       <button class="text-button primary-button" id="open-library" type="button">
         <i data-lucide="notebook-tabs"></i>打开词句
       </button>
@@ -884,6 +887,7 @@ function renderProgress() {
   const readingTracks = progress.tracks.filter((track) => track.code !== 'E0');
   const remembered = progress.counts.S2 + progress.counts.S3;
   const evidenceTotal = Object.values(progress.counts).reduce((sum, value) => sum + value, 0);
+  const coreSeen = (progress.coreCounts?.S1 || 0) + (progress.coreCounts?.S2 || 0) + (progress.coreCounts?.S3 || 0);
   els.progress.innerHTML = `
     <div class="page-heading">
       <div>
@@ -904,9 +908,13 @@ function renderProgress() {
       <div><strong>${progress.totalReviewDays}</strong><span>应用学习日</span></div>
       <div><strong>${remembered}</strong><span>S2 以上</span></div>
     </div>
+    <section class="progress-section">
+      <div class="section-heading"><div><p class="section-kicker">工作阅读词库</p><h2>Reddit 核心 3000</h2></div><strong>${coreSeen}/3000</strong></div>
+      <p class="answer-detail">已有认读证据 ${coreSeen} 项；S2 以上 ${(progress.coreCounts?.S2 || 0) + (progress.coreCounts?.S3 || 0)} 项。认读数量不代表真实帖文理解率。</p>
+    </section>
     <section class="progress-section iphone-gate">
       <div class="section-heading">
-        <div><p class="section-kicker">当前优先</p><h2>iPhone 英文切换</h2></div>
+        <div><p class="section-kicker">专项复习</p><h2>iPhone 英文切换</h2></div>
         <strong>${e0.current}/${e0.target}</strong>
       </div>
       <div class="goal-list">

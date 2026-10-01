@@ -4,6 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { createRepository, openDatabase, syncSeedData } from '../src/db.js';
+import { mergeRedditCore } from '../src/reddit-core.js';
 
 function fixtureSeed() {
   return {
@@ -26,6 +27,36 @@ function fixtureSeed() {
     ]
   };
 }
+
+test('Reddit core import keeps existing review history and follows numbered learning order', (t) => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wordflow-core-'));
+  const db = openDatabase(path.join(dir, 'test.db'));
+  t.after(() => {
+    db.close();
+    fs.rmSync(dir, { recursive: true, force: true });
+  });
+  const legacy = { items: [{
+    seedKey: 'item:the', term: 'the', meaning: '旧义', kind: 'word', module: 'foundation',
+    source: 'test', status: 'S0', priority: 25
+  }], tracks: [] };
+  syncSeedData(db, legacy);
+  const repository = createRepository(db, { timeZone: 'Asia/Singapore' });
+  const original = repository.listItems({ q: 'the' }).items.find((item) => item.term === 'the');
+  repository.reviewItem(original.id, 'good', new Date());
+  const seed = mergeRedditCore(legacy);
+  syncSeedData(db, seed);
+  syncSeedData(db, seed);
+  const item = repository.getItem(original.id);
+  assert.equal(item.status, 'S1');
+  assert.equal(item.reviewCount, 1);
+  assert.equal(item.orderIndex, 1);
+  assert.equal(item.meaning, '这/那个；定冠词');
+  assert.equal(db.prepare("SELECT COUNT(*) AS n FROM learning_items WHERE module = 'reddit-core'").get().n, 3000);
+  assert.equal(db.prepare("SELECT COUNT(*) AS n FROM learning_items WHERE module = 'reddit-forms'").get().n, 54);
+  assert.equal(repository.listItems({ module: 'reddit-core', limit: 1 }).total, 3000);
+  assert.equal(repository.progress().coreCounts.S1, 1);
+  assert.equal(repository.todayQueue(3)[0].term, 'be');
+});
 
 test('repository persists additions and applies delayed evidence transitions', (t) => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wordflow-test-'));

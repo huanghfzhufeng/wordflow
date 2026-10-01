@@ -6,11 +6,12 @@ import { applyReviewPolicy, localDay, statusRank } from './review-policy.js';
 const VALID_KINDS = new Set(['word', 'phrase', 'sentence']);
 const VALID_MODULES = new Set([
   'foundation', 'learning-ledger', 'iphone-p0', 'iphone-p1', 'iphone-p2',
-  'iphone-path', 'reddit-x', 'tech', 'daily', 'basketball', 'custom'
+  'iphone-path', 'reddit-x', 'reddit-core', 'reddit-forms', 'tech', 'daily', 'basketball', 'custom'
 ]);
 const VALID_COMPONENT_ROLES = new Set(['word', 'prefix', 'root', 'suffix']);
 const VALID_WRITING_RESULTS = new Set(['correct', 'incorrect']);
 const HIGH_RISK_TERMS = new Set(['Delete', 'Remove', 'Erase', 'Reset', 'Restore', 'Sign Out']);
+const CORE_SOURCE = 'Reddit工作英语核心3000_完整总表_v1';
 
 function nowIso() {
   return new Date().toISOString();
@@ -222,6 +223,8 @@ function publicItem(row) {
     components: parseComponents(row.components_json),
     status: row.status,
     priority: row.priority,
+    orderIndex: row.order_index,
+    coreOrder: row.source === CORE_SOURCE ? row.order_index : null,
     lastReviewedAt: row.last_reviewed_at,
     nextReviewAt: row.next_review_at,
     reviewCount: row.review_count,
@@ -289,8 +292,8 @@ export function createRepository(db, { timeZone }) {
       params.push(status);
     }
     if (module !== 'all') {
-      clauses.push('module = ?');
-      params.push(module);
+      clauses.push(module === 'reddit-core' ? 'source = ?' : 'module = ?');
+      params.push(module === 'reddit-core' ? CORE_SOURCE : module);
     }
     const safeLimit = Math.min(Math.max(Number(limit) || 100, 1), 500);
     const safeOffset = Math.max(Number(offset) || 0, 0);
@@ -298,8 +301,10 @@ export function createRepository(db, { timeZone }) {
       SELECT * FROM learning_items
       WHERE ${clauses.join(' AND ')}
       ORDER BY
+        CASE WHEN source = '${CORE_SOURCE}' THEN 0 ELSE 1 END,
+        COALESCE(order_index, 9999),
         CASE status WHEN 'S0' THEN 0 WHEN 'S1' THEN 1 WHEN 'S2' THEN 2 WHEN 'S3' THEN 3 ELSE 4 END,
-        priority DESC, COALESCE(order_index, 9999), term COLLATE NOCASE
+        priority DESC, term COLLATE NOCASE
       LIMIT ? OFFSET ?
     `).all(...params, safeLimit, safeOffset);
     const count = db.prepare(`SELECT COUNT(*) AS value FROM learning_items WHERE ${clauses.join(' AND ')}`).get(...params).value;
@@ -313,7 +318,9 @@ export function createRepository(db, { timeZone }) {
       WHERE archived = 0
         AND (next_review_at IS NULL OR next_review_at <= ?)
       ORDER BY
-        CASE status WHEN 'S0' THEN 0 WHEN 'S1' THEN 1 WHEN 'S2' THEN 2 WHEN 'S3' THEN 3 ELSE 4 END,
+        CASE WHEN status = 'S0' THEN 1 ELSE 0 END,
+        CASE WHEN source = '${CORE_SOURCE}' THEN 0 ELSE 1 END,
+        COALESCE(order_index, 9999),
         priority DESC, lapse_count DESC, COALESCE(next_review_at, created_at), id
       LIMIT ?
     `).all(now, Math.min(Math.max(Number(limit) || 10, 1), 30));
@@ -442,6 +449,12 @@ export function createRepository(db, { timeZone }) {
     `).all();
     const counts = Object.fromEntries(statusRows.map((row) => [row.status, row.value]));
     for (const status of ['S0', 'S1', 'S2', 'S3']) counts[status] ||= 0;
+    const coreRows = db.prepare(`
+      SELECT status, COUNT(*) AS value FROM learning_items
+      WHERE archived = 0 AND source = ? GROUP BY status
+    `).all(CORE_SOURCE);
+    const coreCounts = Object.fromEntries(coreRows.map((row) => [row.status, row.value]));
+    for (const status of ['S0', 'S1', 'S2', 'S3']) coreCounts[status] ||= 0;
 
     const today = localDay(new Date(), timeZone);
     const events = db.prepare('SELECT reviewed_at, rating FROM review_events').all();
@@ -489,6 +502,7 @@ export function createRepository(db, { timeZone }) {
 
     return {
       counts,
+      coreCounts,
       today: {
         reviewed: todayEvents.length,
         remembered: todayEvents.filter((event) => ['good', 'real'].includes(event.rating)).length
