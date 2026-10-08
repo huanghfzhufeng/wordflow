@@ -18,7 +18,12 @@ test('bundled seed keeps a standalone clone runnable without workspace memory', 
 
   const result = loadSeedData({ memoryRoot: path.join(dir, 'missing'), seedPath });
   assert.equal(result.source, 'bundled-seed');
-  assert.deepEqual(result.data, fixture);
+  assert.equal(result.data.items.filter((item) => item.module === 'reddit-core').length, 3000);
+  assert.equal(result.data.items.filter((item) => item.module === 'reddit-forms').length, 54);
+  assert.equal(result.data.items.find((item) => item.term === 'test').orderIndex, 382);
+  assert.equal(result.data.items.find((item) => item.term === 'the').orderIndex, 1);
+  assert.equal(result.data.items.filter((item) => item.source === 'Reddit工作英语核心3000_完整总表_v1').length, 3000);
+  assert.deepEqual(result.data.tracks, fixture.tracks);
 });
 
 test('bundled curriculum contains only formal items with Chinese meanings', () => {
@@ -30,4 +35,10 @@ test('bundled curriculum contains only formal items with Chinese meanings', () =
   assert.equal(seed.items.filter((item) => (item.components || []).some((component) => (
     !component.text || !component.meaning || !['word', 'prefix', 'root', 'suffix'].includes(component.role)
   ))).length, 0);
+});
+
+test('Reddit import preserves existing iPhone safety modules', () => {
+  const result = loadSeedData({ memoryRoot: '/missing', seedPath: path.resolve('seed/learning-seed.json') });
+  assert.equal(result.data.items.filter((item) => item.module === 'iphone-p0').length, 12);
+  assert.equal(result.data.items.filter((item) => item.module === 'iphone-p1').length, 24);
 });
