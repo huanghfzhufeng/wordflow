@@ -1299,7 +1299,7 @@ h2 {
 
 .review-actions {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   margin-top: 8px;
 }
@@ -3300,4 +3300,50 @@ h2 {
     left: 20px;
     height: 68px;
   }
+}
+
+.review-more {
+  margin-top: 12px;
+  color: var(--secondary);
+  font-size: 13px;
+}
+
+.review-more > summary,
+.history-disclosure > summary {
+  min-height: 44px;
+  display: list-item;
+  align-content: center;
+  cursor: pointer;
+}
+
+.review-more p {
+  margin: 8px 0 12px;
+  line-height: 1.6;
+}
+
+.review-more .rating-button {
+  width: 100%;
+  min-height: 44px;
+  flex-direction: row;
+}
+
+.history-disclosure > summary {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.history-disclosure[open] > summary {
+  margin-bottom: 16px;
+}
+
+.module-toggle {
+  margin-top: 10px;
+  min-height: 44px;
+  font-size: 13px;
+}
+
+.progress-section .answer-detail {
+  display: block;
+  color: var(--secondary);
+  line-height: 1.7;
 }

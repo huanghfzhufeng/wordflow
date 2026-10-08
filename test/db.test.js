@@ -138,21 +138,18 @@ test('repository persists additions and applies delayed evidence transitions', (
     new Date('2026-07-15T02:00:00.000Z'),
     { result: 'incorrect', durationMs: 1800 }
   );
-  assert.equal(repository.getItem(adaptive.id).writingPrompt, true);
   repository.reviewItem(
     adaptive.id,
     'good',
     new Date('2026-07-16T02:00:00.000Z'),
     { result: 'correct', durationMs: 2100 }
   );
-  assert.equal(repository.getItem(adaptive.id).writingPrompt, true);
   repository.reviewItem(
     adaptive.id,
     'good',
     new Date('2026-07-17T02:00:00.000Z'),
     { result: 'correct', durationMs: 1900 }
   );
-  assert.equal(repository.getItem(adaptive.id).writingPrompt, false);
   assert.deepEqual(repository.progress().writing, { attempted: 4, correct: 3, incorrect: 1 });
 });
 

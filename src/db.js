@@ -277,14 +277,7 @@ export function createRepository(db, { timeZone }) {
     ORDER BY id
     LIMIT 1
   `);
-  const findRecentWriting = db.prepare(`
-    SELECT writing_result FROM review_events
-    WHERE item_id = ? AND writing_result IS NOT NULL
-    ORDER BY id DESC
-    LIMIT 2
-  `);
-
-  function hydratedItem(row, { includeWritingPrompt = false } = {}) {
+  function hydratedItem(row) {
     const item = publicItem(row);
     if (!item) return null;
     item.components = item.components.map((component) => {
@@ -300,14 +293,11 @@ export function createRepository(db, { timeZone }) {
         } : null
       };
     });
-    const recentWriting = includeWritingPrompt ? findRecentWriting.all(item.id) : [];
-    item.writingPrompt = recentWriting[0]?.writing_result === 'incorrect'
-      || (recentWriting[0]?.writing_result === 'correct' && recentWriting[1]?.writing_result === 'incorrect');
     return item;
   }
 
   function getItem(id) {
-    return hydratedItem(getItemRow.get(Number(id)), { includeWritingPrompt: true });
+    return hydratedItem(getItemRow.get(Number(id)));
   }
 
   function listItems({ q = '', status = 'all', module = 'all', limit = 300, offset = 0 } = {}) {
@@ -367,7 +357,7 @@ export function createRepository(db, { timeZone }) {
         i.priority DESC, i.lapse_count DESC, i.id
       LIMIT ?
     `).all(now, Math.min(Math.max(Number(limit) || 10, 1), 30));
-    return rows.map((row) => hydratedItem(row, { includeWritingPrompt: true }));
+    return rows.map((row) => hydratedItem(row));
   }
 
   function createItem(input) {
@@ -436,7 +426,7 @@ export function createRepository(db, { timeZone }) {
     const component = components[index];
     if (component.role !== 'word') throw new Error('只有完整单词片段可以加入学习');
     const existing = findLinkedItemRow.get(component.text);
-    if (existing) return { item: hydratedItem(existing, { includeWritingPrompt: true }), created: false };
+    if (existing) return { item: hydratedItem(existing), created: false };
     const item = createItem({
       term: component.text,
       meaning: component.meaning,

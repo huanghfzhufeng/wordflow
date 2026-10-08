@@ -1,6 +1,6 @@
 {
   "name": "wordflow",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "private": true,
   "description": "Evidence-based English review and listening PWA",
   "type": "module",

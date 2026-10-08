@@ -15,6 +15,7 @@ const MODULE_LABELS = {
   basketball: '篮球',
   custom: '临时收集'
 };
+const WORK_MODULES = ['reddit-core', 'reddit-forms', 'reddit-x', 'tech', 'custom'];
 
 const KIND_LABELS = {
   word: '单词',
@@ -45,22 +46,11 @@ const speech = createSpeechController();
 function emptyWritingState() {
   return {
     active: false,
-    mode: 'reinforcement',
     compared: false,
     strokes: [],
     startedAt: null,
     result: null,
     durationMs: null
-  };
-}
-
-function writingStateForItem(item) {
-  if (!item?.writingPrompt) return emptyWritingState();
-  return {
-    ...emptyWritingState(),
-    active: true,
-    mode: 'recall',
-    startedAt: Date.now()
   };
 }
 
@@ -75,6 +65,7 @@ const state = {
   libraryTotal: 0,
   libraryStatus: 'all',
   libraryModule: 'all',
+  libraryOtherModules: false,
   libraryQuery: '',
   editingItem: null,
   componentFocus: null,
@@ -386,7 +377,6 @@ function reviewCard(item) {
 }
 
 function writingCard(item) {
-  const isRecall = state.writing.mode === 'recall';
   const comparison = state.writing.compared ? `
     <div class="writing-answer" aria-live="polite">
       <span>正确拼写</span>
@@ -409,12 +399,12 @@ function writingCard(item) {
     <article class="review-card writing-card" data-item-id="${item.id}">
       <div class="writing-header">
         <div>
-          <p class="answer-label">${isRecall ? '回忆拼写' : '手写巩固'}</p>
+          <p class="answer-label">手写巩固</p>
           <p class="writing-prompt">${escapeHtml(item.meaning)}</p>
         </div>
         <div class="writing-header-actions">
           ${speakerButton(item, 'writing-speaker')}
-          <button class="icon-button writing-close" id="close-writing" type="button" aria-label="${isRecall ? '跳过手写' : '退出手写'}" title="${isRecall ? '跳过手写' : '退出手写'}">
+          <button class="icon-button writing-close" id="close-writing" type="button" aria-label="退出手写" title="退出手写">
             <i data-lucide="x"></i>
           </button>
         </div>
@@ -547,10 +537,14 @@ function answerPanel(item) {
       <button class="rating-button rating-good" data-rating="good" type="button">
         <i data-lucide="check"></i><span>记得</span>
       </button>
+    </div>
+    <details class="review-more">
+      <summary>更多操作</summary>
+      <p>仅在实际帖文中无提示理解这个词时，记录真实命中。</p>
       <button class="rating-button rating-real" data-rating="real" type="button">
         <i data-lucide="scan-text"></i><span>真实命中</span>
       </button>
-    </div>
+    </details>
   `;
 }
 
@@ -568,7 +562,7 @@ function emptyToday() {
 }
 
 function startWritingPractice() {
-  state.writing = { ...emptyWritingState(), active: true, mode: 'reinforcement', startedAt: Date.now() };
+  state.writing = { ...emptyWritingState(), active: true, startedAt: Date.now() };
   renderToday();
 }
 
@@ -680,7 +674,7 @@ function bindTodayEvents() {
       state.reviewMode = button.dataset.reviewMode;
       state.revealed = false;
       state.componentFocus = null;
-      state.writing = writingStateForItem(state.today[0]);
+      state.writing = emptyWritingState();
       localStorage.setItem(REVIEW_MODE_KEY, state.reviewMode);
       renderToday();
       if (state.reviewMode === 'listening') speakItem(state.today[0]);
@@ -774,7 +768,7 @@ async function loadToday() {
   state.progress = data.progress;
   state.revealed = false;
   state.componentFocus = null;
-  state.writing = writingStateForItem(state.today[0]);
+  state.writing = emptyWritingState();
   renderToday();
 }
 
@@ -815,9 +809,10 @@ function renderLibrary() {
         ${segmentButton('mastered', '已记住')}
       </div>
       <select id="library-module" aria-label="筛选范围">
-        ${moduleOptions(state.libraryModule)}
+        ${moduleOptions(state.libraryModule, true, state.libraryOtherModules)}
       </select>
     </div>
+    <button class="text-button module-toggle" id="toggle-other-modules" type="button" aria-expanded="${state.libraryOtherModules}">${state.libraryOtherModules ? '收起其他分类' : '其他分类'}</button>
     <p class="result-count">显示 ${state.library.length} / ${state.libraryTotal}</p>
     <div class="library-list">
       ${rows || '<div class="list-empty"><i data-lucide="search-x"></i><p>没有找到</p></div>'}
@@ -829,9 +824,12 @@ function renderLibrary() {
   icons(els.library);
 }
 
-function moduleOptions(selected) {
-  const choices = [['all', '全部范围'], ...Object.entries(MODULE_LABELS)];
-  return choices.map(([value, label]) => `<option value="${value}" ${value === selected ? 'selected' : ''}>${escapeHtml(label)}</option>`).join('');
+function moduleOptions(selected, allowAll = true, includeOther = true) {
+  const option = (value) => `<option value="${value}" ${value === selected ? 'selected' : ''}>${escapeHtml(MODULE_LABELS[value])}</option>`;
+  const other = Object.keys(MODULE_LABELS).filter(value => !WORK_MODULES.includes(value));
+  return `${allowAll ? `<option value="all" ${selected === 'all' ? 'selected' : ''}>全部范围</option>` : ''}
+    <optgroup label="工作词库">${WORK_MODULES.map(option).join('')}</optgroup>
+    ${includeOther ? `<optgroup label="历史与其他分类">${other.map(option).join('')}</optgroup>` : ''}`;
 }
 
 function segmentButton(value, label) {
@@ -840,6 +838,11 @@ function segmentButton(value, label) {
 
 let searchTimer;
 function bindLibraryEvents() {
+  document.querySelector('#toggle-other-modules')?.addEventListener('click', () => {
+    state.libraryOtherModules = !state.libraryOtherModules;
+    if (!state.libraryOtherModules && !WORK_MODULES.includes(state.libraryModule)) state.libraryModule = 'all';
+    loadLibrary(true);
+  });
   const search = document.querySelector('#library-search');
   search?.addEventListener('input', () => {
     clearTimeout(searchTimer);
@@ -912,7 +915,20 @@ function renderProgress() {
       <div class="section-heading"><div><p class="section-kicker">工作阅读词库</p><h2>Reddit 核心 3000</h2></div><strong>${coreSeen}/3000</strong></div>
       <p class="answer-detail">已有认读证据 ${coreSeen} 项；S2 以上 ${(progress.coreCounts?.S2 || 0) + (progress.coreCounts?.S3 || 0)} 项。认读数量不代表真实帖文理解率。</p>
     </section>
-    <section class="progress-section iphone-gate">
+    <section class="progress-section">
+      <div class="section-heading"><div><p class="section-kicker">词汇证据</p><h2>S0–S3 分布</h2></div></div>
+      <div class="evidence-list">
+        ${['S0', 'S1', 'S2', 'S3'].map((status) => `
+          <div class="evidence-row evidence-${status}">
+            <span class="evidence-name"><b>${status}</b>${escapeHtml(STATUS_LABELS[status])}</span>
+            <div class="evidence-track"><span style="width:${formatPercent(progress.counts[status], evidenceTotal)}%"></span></div>
+            <strong>${progress.counts[status]}</strong>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+    <details class="progress-section iphone-gate history-disclosure">
+      <summary>iPhone 专项（历史目标）</summary>
       <div class="section-heading">
         <div><p class="section-kicker">专项复习</p><h2>iPhone 英文切换</h2></div>
         <strong>${e0.current}/${e0.target}</strong>
@@ -926,34 +942,22 @@ function renderProgress() {
           </div>
         `).join('')}
       </div>
-    </section>
-    <section class="progress-section">
-      <div class="section-heading"><div><p class="section-kicker">最终目标</p><h2>独立阅读 Reddit / X</h2></div></div>
+    </details>
+    <details class="progress-section history-disclosure">
+      <summary>历史学习档案</summary>
+      <p class="answer-detail">以下阶段来自历史档案，不随当前词卡复习自动更新。</p>
       <div class="track-list">
         ${readingTracks.map((track) => `
           <div class="track-row">
             <span class="track-code">${escapeHtml(track.code)}</span>
             <div class="track-body">
               <span class="track-label">${escapeHtml(track.label)}</span>
-              <div class="progress-bar"><span class="progress-fill" style="width:${formatPercent(track.current, track.target)}%"></span></div>
             </div>
             <span class="track-value">${track.current}/${track.target}</span>
           </div>
         `).join('')}
       </div>
-    </section>
-    <section class="progress-section">
-      <div class="section-heading"><div><p class="section-kicker">词汇证据</p><h2>S0–S3 分布</h2></div></div>
-      <div class="evidence-list">
-        ${['S0', 'S1', 'S2', 'S3'].map((status) => `
-          <div class="evidence-row evidence-${status}">
-            <span class="evidence-name"><b>${status}</b>${escapeHtml(STATUS_LABELS[status])}</span>
-            <div class="evidence-track"><span style="width:${formatPercent(progress.counts[status], evidenceTotal)}%"></span></div>
-            <strong>${progress.counts[status]}</strong>
-          </div>
-        `).join('')}
-      </div>
-    </section>
+    </details>
   `;
   document.querySelector('#sync-button')?.addEventListener('click', syncMemory);
   icons(els.progress);
@@ -1059,6 +1063,7 @@ function addComponentRow() {
 function openAddDialog() {
   state.editingItem = null;
   els.itemForm.reset();
+  document.querySelector('#item-module').innerHTML = moduleOptions('custom', false);
   document.querySelector('#item-id').value = '';
   document.querySelector('#dialog-eyebrow').textContent = '新内容';
   document.querySelector('#dialog-title').textContent = '添加词句';
@@ -1079,7 +1084,7 @@ function openEditDialog(id) {
   document.querySelector('#item-meaning').value = item.meaning;
   document.querySelector('#item-phonetic').value = item.phonetic || '';
   document.querySelector('#item-kind').value = item.kind;
-  document.querySelector('#item-module').value = item.module in MODULE_LABELS ? item.module : 'custom';
+  document.querySelector('#item-module').innerHTML = moduleOptions(item.module in MODULE_LABELS ? item.module : 'custom', false);
   document.querySelector('#item-example').value = item.example || '';
   document.querySelector('#item-source').value = item.source || '';
   renderComponentEditor(item.components || []);
@@ -1300,5 +1305,5 @@ const initialView = ['today', 'library', 'progress'].includes(location.hash.slic
 bootstrapAuth();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.6.0'), { scope: APP_BASE_URL.pathname }).catch(console.error);
+  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.7.2'), { scope: APP_BASE_URL.pathname }).catch(console.error);
 }
