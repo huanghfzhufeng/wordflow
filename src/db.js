@@ -12,6 +12,18 @@ const VALID_COMPONENT_ROLES = new Set(['word', 'prefix', 'root', 'suffix']);
 const VALID_WRITING_RESULTS = new Set(['correct', 'incorrect']);
 const HIGH_RISK_TERMS = new Set(['Delete', 'Remove', 'Erase', 'Reset', 'Restore', 'Sign Out']);
 const CORE_SOURCE = 'Reddit工作英语核心3000_完整总表_v1';
+const EDITABLE_FIELDS = new Set([
+  'term', 'meaning', 'phonetic', 'kind', 'module', 'source', 'source_url', 'example', 'note', 'components_json'
+]);
+
+function editedFields(value) {
+  try {
+    const fields = JSON.parse(value || '[]');
+    return new Set(Array.isArray(fields) ? fields.filter((field) => EDITABLE_FIELDS.has(field)) : []);
+  } catch {
+    return new Set();
+  }
+}
 
 function nowIso() {
   return new Date().toISOString();
@@ -126,6 +138,13 @@ export function openDatabase(dbPath) {
   if (!itemColumns.has('components_json')) {
     db.exec("ALTER TABLE learning_items ADD COLUMN components_json TEXT NOT NULL DEFAULT '[]'");
   }
+  if (!itemColumns.has('user_edited_fields')) {
+    db.exec('ALTER TABLE learning_items ADD COLUMN user_edited_fields TEXT');
+  }
+  if (!itemColumns.has('core_order_index')) {
+    db.exec('ALTER TABLE learning_items ADD COLUMN core_order_index INTEGER');
+    db.prepare('UPDATE learning_items SET core_order_index = order_index WHERE source = ?').run(CORE_SOURCE);
+  }
   const reviewColumns = new Set(db.prepare('PRAGMA table_info(review_events)').all().map((column) => column.name));
   if (!reviewColumns.has('writing_result')) {
     db.exec('ALTER TABLE review_events ADD COLUMN writing_result TEXT');
@@ -141,14 +160,14 @@ export function syncSeedData(db, seedData) {
   const insert = db.prepare(`
     INSERT INTO learning_items (
       seed_key, term, meaning, phonetic, kind, module, source, source_url, example, note,
-      components_json, status, priority, order_index, last_reviewed_at, next_review_at, created_at, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      components_json, status, priority, order_index, core_order_index, last_reviewed_at, next_review_at, created_at, updated_at, user_edited_fields
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '[]')
   `);
   const update = db.prepare(`
     UPDATE learning_items SET
       term = ?, meaning = ?, phonetic = ?, kind = ?, module = ?, source = ?, example = ?, note = ?,
-      components_json = ?, priority = ?, order_index = ?, status = ?, last_reviewed_at = COALESCE(last_reviewed_at, ?),
-      updated_at = ?
+      components_json = ?, priority = ?, order_index = ?, core_order_index = COALESCE(?, core_order_index),
+      user_edited_fields = ?, updated_at = ?
     WHERE id = ?
   `);
   const upsertTrack = db.prepare(`
@@ -181,20 +200,34 @@ export function syncSeedData(db, seedData) {
         insert.run(
           item.seedKey, item.term, item.meaning || '', item.phonetic || '', item.kind, item.module, item.source,
           item.sourceUrl || null, item.example || '', item.note || '', componentsJson, item.status,
-          item.priority || 10, item.orderIndex || null, item.lastReviewedAt || null,
+          item.priority || 10, item.orderIndex || null, item.source === CORE_SOURCE ? item.orderIndex : null, item.lastReviewedAt || null,
           now, now, now
         );
         inserted += 1;
         continue;
       }
 
-      const mergedStatus = statusRank(item.status) > statusRank(existing.status)
-        ? item.status
-        : existing.status;
+      const edited = editedFields(existing.user_edited_fields);
+      if (existing.user_edited_fields === null) {
+        const incoming = {
+          term: item.term, meaning: item.meaning, phonetic: item.phonetic || existing.phonetic || '',
+          kind: item.kind, module: item.module, source: item.source,
+          example: item.example || '', note: item.note || '', components_json: componentsJson
+        };
+        // Preserve pre-upgrade content differences on the first sync too.
+        for (const [field, value] of Object.entries(incoming)) {
+          if (value !== existing[field] && existing[field] !== ''
+            && !(field === 'components_json' && existing[field] === '[]')) edited.add(field);
+        }
+      }
+      const content = (field, value) => edited.has(field) ? existing[field] : value;
       update.run(
-        item.term, item.meaning || existing.meaning, item.phonetic || existing.phonetic || '', item.kind, item.module, item.source,
-        item.example || '', item.note || '', componentsJson, item.priority || 10, item.orderIndex || null,
-        mergedStatus, item.lastReviewedAt || null, now, existing.id
+        content('term', item.term), content('meaning', item.meaning || existing.meaning),
+        content('phonetic', item.phonetic || existing.phonetic || ''), content('kind', item.kind),
+        content('module', item.module), content('source', item.source), content('example', item.example || ''),
+        content('note', item.note || ''), content('components_json', componentsJson),
+        item.priority || 10, item.orderIndex || null, item.source === CORE_SOURCE ? item.orderIndex : null,
+        JSON.stringify([...edited]), now, existing.id
       );
       updated += 1;
     }
@@ -224,7 +257,7 @@ function publicItem(row) {
     status: row.status,
     priority: row.priority,
     orderIndex: row.order_index,
-    coreOrder: row.source === CORE_SOURCE ? row.order_index : null,
+    coreOrder: row.core_order_index,
     lastReviewedAt: row.last_reviewed_at,
     nextReviewAt: row.next_review_at,
     reviewCount: row.review_count,
@@ -292,8 +325,8 @@ export function createRepository(db, { timeZone }) {
       params.push(status);
     }
     if (module !== 'all') {
-      clauses.push(module === 'reddit-core' ? 'source = ?' : 'module = ?');
-      params.push(module === 'reddit-core' ? CORE_SOURCE : module);
+      clauses.push(module === 'reddit-core' ? 'core_order_index IS NOT NULL' : 'module = ?');
+      if (module !== 'reddit-core') params.push(module);
     }
     const safeLimit = Math.min(Math.max(Number(limit) || 100, 1), 500);
     const safeOffset = Math.max(Number(offset) || 0, 0);
@@ -301,8 +334,8 @@ export function createRepository(db, { timeZone }) {
       SELECT * FROM learning_items
       WHERE ${clauses.join(' AND ')}
       ORDER BY
-        CASE WHEN source = '${CORE_SOURCE}' THEN 0 ELSE 1 END,
-        COALESCE(order_index, 9999),
+        CASE WHEN core_order_index IS NOT NULL THEN 0 ELSE 1 END,
+        COALESCE(core_order_index, order_index, 9999),
         CASE status WHEN 'S0' THEN 0 WHEN 'S1' THEN 1 WHEN 'S2' THEN 2 WHEN 'S3' THEN 3 ELSE 4 END,
         priority DESC, term COLLATE NOCASE
       LIMIT ? OFFSET ?
@@ -314,14 +347,24 @@ export function createRepository(db, { timeZone }) {
   function todayQueue(limit = 10) {
     const now = nowIso();
     const rows = db.prepare(`
-      SELECT * FROM learning_items
-      WHERE archived = 0
-        AND (next_review_at IS NULL OR next_review_at <= ?)
+      SELECT i.* FROM learning_items i
+      LEFT JOIN review_events latest ON latest.id = (
+        SELECT id FROM review_events WHERE item_id = i.id ORDER BY id DESC LIMIT 1
+      )
+      WHERE i.archived = 0
+        AND (i.next_review_at IS NULL OR i.next_review_at <= ?)
       ORDER BY
-        CASE WHEN status = 'S0' THEN 1 ELSE 0 END,
-        CASE WHEN source = '${CORE_SOURCE}' THEN 0 ELSE 1 END,
-        COALESCE(order_index, 9999),
-        priority DESC, lapse_count DESC, COALESCE(next_review_at, created_at), id
+        CASE
+          WHEN latest.rating IN ('again', 'hard') THEN 0
+          WHEN i.seed_key IS NULL AND i.review_count = 0 THEN 1
+          WHEN i.status <> 'S0' THEN 2
+          ELSE 3 END,
+        CASE WHEN latest.rating IN ('again', 'hard') OR i.status <> 'S0'
+          THEN COALESCE(i.next_review_at, i.created_at) END,
+        CASE WHEN i.seed_key IS NULL AND i.review_count = 0 THEN i.created_at END,
+        CASE WHEN i.core_order_index IS NOT NULL THEN 0 ELSE 1 END,
+        COALESCE(i.core_order_index, i.order_index, 9999),
+        i.priority DESC, i.lapse_count DESC, i.id
       LIMIT ?
     `).all(now, Math.min(Math.max(Number(limit) || 10, 1), 30));
     return rows.map((row) => hydratedItem(row, { includeWritingPrompt: true }));
@@ -355,18 +398,29 @@ export function createRepository(db, { timeZone }) {
     const kind = VALID_KINDS.has(input.kind) ? input.kind : current.kind;
     const module = VALID_MODULES.has(input.module) ? input.module : current.module;
     const components = input.components === undefined ? parseComponents(current.components_json) : normalizeComponents(input.components);
+    const content = {
+      term, meaning,
+      phonetic: input.phonetic === undefined ? current.phonetic : optionalText(input.phonetic, '音标', 120),
+      kind, module,
+      source: input.source === undefined ? current.source : input.source.trim() || '手动添加',
+      source_url: input.sourceUrl === undefined ? current.source_url : input.sourceUrl.trim() || null,
+      example: input.example === undefined ? current.example : input.example.trim(),
+      note: input.note === undefined ? current.note : input.note.trim(),
+      components_json: JSON.stringify(components)
+    };
+    const edited = editedFields(current.user_edited_fields);
+    for (const [field, value] of Object.entries(content)) {
+      if (value !== current[field]) edited.add(field);
+    }
     db.prepare(`
       UPDATE learning_items SET
         term = ?, meaning = ?, phonetic = ?, kind = ?, module = ?, source = ?, source_url = ?,
-        example = ?, note = ?, components_json = ?, updated_at = ?
+        example = ?, note = ?, components_json = ?, user_edited_fields = ?, updated_at = ?
       WHERE id = ?
     `).run(
-      term, meaning, input.phonetic === undefined ? current.phonetic : optionalText(input.phonetic, '音标', 120), kind, module,
-      input.source === undefined ? current.source : input.source.trim() || '手动添加',
-      input.sourceUrl === undefined ? current.source_url : input.sourceUrl.trim() || null,
-      input.example === undefined ? current.example : input.example.trim(),
-      input.note === undefined ? current.note : input.note.trim(),
-      JSON.stringify(components), nowIso(), Number(id)
+      content.term, content.meaning, content.phonetic, content.kind, content.module, content.source,
+      content.source_url, content.example, content.note, content.components_json,
+      JSON.stringify([...edited]), nowIso(), Number(id)
     );
     return getItem(id);
   }
@@ -451,8 +505,8 @@ export function createRepository(db, { timeZone }) {
     for (const status of ['S0', 'S1', 'S2', 'S3']) counts[status] ||= 0;
     const coreRows = db.prepare(`
       SELECT status, COUNT(*) AS value FROM learning_items
-      WHERE archived = 0 AND source = ? GROUP BY status
-    `).all(CORE_SOURCE);
+      WHERE archived = 0 AND core_order_index IS NOT NULL GROUP BY status
+    `).all();
     const coreCounts = Object.fromEntries(coreRows.map((row) => [row.status, row.value]));
     for (const status of ['S0', 'S1', 'S2', 'S3']) coreCounts[status] ||= 0;
 
