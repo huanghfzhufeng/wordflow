@@ -1,10 +1,10 @@
-const CACHE = 'wordflow-shell-v14';
+const CACHE = 'wordflow-shell-v15';
 const BASE_URL = new URL('./', self.location.href);
 const API_PATH = new URL('api/', BASE_URL).pathname;
 const SHELL = [
   './',
-  'styles.css',
-  'app.js',
+  'styles.css?v=1.8.0',
+  'app.js?v=1.8.0',
   'speech.js',
   'ui-atmosphere.png',
   'card-wave.png',
