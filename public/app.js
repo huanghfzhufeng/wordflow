@@ -10,12 +10,13 @@ const MODULE_LABELS = {
   'reddit-x': 'Reddit / X',
   'reddit-core': 'Reddit 核心 3000',
   'reddit-forms': '变形与缩写',
+  'reddit-reading': '阅读短句',
   tech: 'AI / 技术',
   daily: '日常',
   basketball: '篮球',
   custom: '临时收集'
 };
-const WORK_MODULES = ['reddit-core', 'reddit-forms', 'reddit-x', 'tech', 'custom'];
+const WORK_MODULES = ['reddit-core', 'reddit-forms', 'reddit-reading', 'reddit-x', 'tech', 'custom'];
 
 const KIND_LABELS = {
   word: '单词',
@@ -57,6 +58,11 @@ function emptyWritingState() {
 const state = {
   view: 'today',
   today: [],
+  trainingType: 'words',
+  practice: false,
+  nextDueAt: null,
+  drafts: [],
+  editingDraftId: null,
   revealed: false,
   reviewMode: localStorage.getItem(REVIEW_MODE_KEY) === 'listening' ? 'listening' : 'reading',
   audioUnlocked: false,
@@ -286,7 +292,10 @@ function renderToday() {
           <i data-lucide="headphones"></i><span>听辨</span>
         </button>
       </div>
+      <button class="text-button training-toggle" id="toggle-training" type="button">${state.trainingType === 'sentence' ? '回到词汇' : '练句子'}</button>
     </div>
+    <p class="recall-instruction">${state.practice ? '主动练习：不会改变正式到期日或等级。' : state.trainingType === 'sentence' ? '先想整句意思，再揭晓核对人物、动作和关键关系。' : '先在心里回想中文义，再揭晓。看答案才想起来，请选“没想起来”。'}</p>
+    ${state.practice ? '<button class="text-button" id="end-practice" type="button">回到正式复习</button>' : ''}
     ${item ? reviewCard(item) : emptyToday()}
     ${longTermStats()}
   `;
@@ -339,7 +348,7 @@ function reviewCard(item) {
   if (state.writing.active) return writingCard(item);
   const listeningPrompt = state.reviewMode === 'listening' && !state.revealed;
   return `
-    <article class="review-card ${listeningPrompt ? 'listening-card' : ''}" data-item-id="${item.id}">
+    <article class="review-card ${listeningPrompt ? 'listening-card' : ''} ${item.kind === 'sentence' ? 'sentence-card' : ''}" data-item-id="${item.id}">
       <div class="review-card-top">
         <div class="review-meta">
           ${moduleBadge(item.module)}
@@ -518,10 +527,11 @@ function answerPanel(item) {
     : state.writing.result === 'incorrect' ? '有错，再写一次' : '写一下';
   return `
     <div class="answer-panel">
-      <p class="answer-label">中文核心义</p>
+      <p class="answer-label">${item.kind === 'sentence' ? '中文参考解释' : '中文核心义'}</p>
       <p class="answer-meaning">${escapeHtml(item.meaning)}</p>
       ${item.example ? `<p class="answer-detail"><span>上下文</span>${escapeHtml(item.example)}</p>` : ''}
-      ${item.note && (item.coreOrder || item.module === 'reddit-forms') ? `<p class="answer-detail"><span>补充</span>${escapeHtml(item.note)}</p>` : ''}
+      ${item.note && (item.coreOrder || item.module === 'reddit-forms' || item.kind === 'sentence') ? `<p class="answer-detail"><span>${item.kind === 'sentence' ? '关键关系' : '补充'}</span>${escapeHtml(item.note)}</p>` : ''}
+      ${item.sourceUrl ? `<a class="source-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看原文来源</a>` : ''}
       ${componentBreakdown(item)}
       <button class="write-practice-button writing-result-${state.writing.result || 'none'}" id="start-writing" type="button">
         <i data-lucide="pen-line"></i><span>${writingLabel}</span>
@@ -529,10 +539,10 @@ function answerPanel(item) {
     </div>
     <div class="review-actions" aria-label="复习结果">
       <button class="rating-button rating-again" data-rating="again" type="button">
-        <i data-lucide="rotate-ccw"></i><span>忘了</span>
+        <i data-lucide="rotate-ccw"></i><span>没想起来</span>
       </button>
       <button class="rating-button rating-hard" data-rating="hard" type="button">
-        <i data-lucide="circle-help"></i><span>模糊</span>
+        <i data-lucide="circle-help"></i><span>想起来但慢</span>
       </button>
       <button class="rating-button rating-good" data-rating="good" type="button">
         <i data-lucide="check"></i><span>记得</span>
@@ -553,7 +563,7 @@ function emptyToday() {
     <div class="empty-state">
       <div class="completion-mark"><i data-lucide="check"></i></div>
       <h2>当前没有到期内容</h2>
-      <p>可继续在词句库查看和练习。</p>
+      <p>${state.nextDueAt ? `下一次到期：${escapeHtml(formatDue(state.nextDueAt))}。` : ''}可以在词句库主动练习或添加工作词句。</p>
       <button class="text-button primary-button" id="open-library" type="button">
         <i data-lucide="notebook-tabs"></i>打开词句
       </button>
@@ -662,6 +672,13 @@ function initializeWritingCanvas() {
 }
 
 function bindTodayEvents() {
+  document.querySelector('#toggle-training')?.addEventListener('click', async () => {
+    state.trainingType = state.trainingType === 'sentence' ? 'words' : 'sentence';
+    state.reviewMode = 'reading';
+    speech.cancel();
+    try { await loadToday(); } catch (error) { showError(error); }
+  });
+  document.querySelector('#end-practice')?.addEventListener('click', () => loadToday().catch(showError));
   document.querySelector('#reveal-answer')?.addEventListener('click', () => {
     state.revealed = true;
     renderToday();
@@ -730,6 +747,7 @@ function showReviewReward(rating) {
 async function submitRating(rating) {
   const item = state.today[0];
   if (!item) return;
+  const practice = state.practice;
   document.querySelectorAll('[data-rating]').forEach((button) => { button.disabled = true; });
   showReviewReward(rating);
   try {
@@ -737,21 +755,26 @@ async function submitRating(rating) {
       method: 'POST',
       body: JSON.stringify({
         rating,
+        ratingVersion: 2,
+        eventKind: practice ? 'practice' : 'review',
         writingResult: state.writing.result,
         writingDurationMs: state.writing.durationMs
       })
     });
     const transition = result.transition;
     const changed = transition.previousStatus !== transition.nextStatus;
-    if (changed) {
-      toast(`${transition.previousStatus} → ${transition.nextStatus}，证据已更新`);
-    } else if (rating === 'good' && !transition.isDelayedReview) {
-      toast('今天记住了；跨天答对才会升 S2');
+    if (practice) {
+      toast('练习已记录，正式到期日和等级不变');
+    } else {
+      toast(`${changed ? `${transition.previousStatus} → ${transition.nextStatus}；` : ''}下次复习：${formatDue(result.item.nextReviewAt)}`);
     }
     state.progress = result.progress;
     state.session.reviews += 1;
     state.revealed = false;
-    await loadToday();
+    if (state.today[0]?.id !== item.id) return;
+    if (practice) {
+      state.today = [result.item]; state.writing = emptyWritingState(); renderToday();
+    } else await loadToday();
     const preferences = speech.getPreferences();
     if (preferences.autoplay && state.audioUnlocked && state.today[0]) {
       setTimeout(() => speakItem(state.today[0]), 180);
@@ -763,7 +786,9 @@ async function submitRating(rating) {
 }
 
 async function loadToday() {
-  const data = await api('/api/today?limit=10');
+  const data = await api(`/api/today?limit=10&kind=${state.trainingType}`);
+  state.practice = false;
+  state.nextDueAt = data.nextDueAt;
   state.today = data.items;
   state.progress = data.progress;
   state.revealed = false;
@@ -784,6 +809,7 @@ function renderLibrary() {
         </div>
       </button>
       <div class="library-row-actions">
+        <button class="text-button practice-item-button" type="button" data-practice-id="${item.id}" aria-label="练习 ${escapeHtml(item.term)}" title="练习本词句">练习</button>
         ${speakerButton(item, 'row-speaker')}
       </div>
     </div>
@@ -813,6 +839,10 @@ function renderLibrary() {
       </select>
     </div>
     <button class="text-button module-toggle" id="toggle-other-modules" type="button" aria-expanded="${state.libraryOtherModules}">${state.libraryOtherModules ? '收起其他分类' : '其他分类'}</button>
+    <section class="draft-collection">
+      <button class="text-button" id="collect-reading" type="button">收藏工作原句</button>
+      ${state.drafts.length ? `<details><summary>待整理原句 · ${state.drafts.length} 条</summary>${state.drafts.map(draft => `<button class="draft-row" type="button" data-draft-id="${draft.id}">${escapeHtml(draft.text)}</button>`).join('')}</details>` : ''}
+    </section>
     <p class="result-count">显示 ${state.library.length} / ${state.libraryTotal}</p>
     <div class="library-list">
       ${rows || '<div class="list-empty"><i data-lucide="search-x"></i><p>没有找到</p></div>'}
@@ -832,12 +862,66 @@ function moduleOptions(selected, allowAll = true, includeOther = true) {
     ${includeOther ? `<optgroup label="历史与其他分类">${other.map(option).join('')}</optgroup>` : ''}`;
 }
 
+function formatDue(value) {
+  if (!value) return '尚未安排';
+  return new Date(value).toLocaleString('zh-CN', { timeZone: 'Asia/Singapore', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+async function startPractice(id) {
+  const { item } = await api(`/api/items/${id}`);
+  state.trainingType = item.kind === 'sentence' ? 'sentence' : 'words';
+  state.reviewMode = 'reading'; state.practice = true; state.today = [item];
+  state.revealed = false; state.componentFocus = null; state.writing = emptyWritingState();
+  switchView('today'); renderToday();
+}
+
+function openDraftDialog(id = null) {
+  const draft = state.drafts.find(entry => entry.id === id);
+  state.editingDraftId = draft?.id || null;
+  document.querySelector('#draft-form').reset();
+  document.querySelector('#draft-text').value = draft?.text || '';
+  document.querySelector('#draft-source-url').value = draft?.sourceUrl || '';
+  document.querySelector('#draft-text').readOnly = Boolean(draft);
+  document.querySelector('#draft-source-url').readOnly = Boolean(draft);
+  document.querySelector('#draft-title').textContent = draft ? '核对工作原句' : '收藏工作原句';
+  document.querySelector('#save-draft').hidden = Boolean(draft);
+  document.querySelector('#publish-draft').hidden = !draft;
+  document.querySelector('#draft-reference').hidden = !draft;
+  document.querySelector('#draft-dialog').showModal();
+}
+
+async function saveDraft(event) {
+  event.preventDefault();
+  const button = document.querySelector('#save-draft'); button.disabled = true;
+  try {
+    await api('/api/reading-drafts', { method: 'POST', body: JSON.stringify({
+      text: document.querySelector('#draft-text').value, sourceUrl: document.querySelector('#draft-source-url').value
+    }) });
+    document.querySelector('#draft-dialog').close();
+    toast('已收藏，补充并核对参考解释后再练习'); await loadLibrary(true);
+  } catch (error) { showError(error); } finally { button.disabled = false; }
+}
+
+async function publishDraft() {
+  const button = document.querySelector('#publish-draft'); button.disabled = true;
+  try {
+    await api(`/api/reading-drafts/${state.editingDraftId}/publish`, { method: 'POST', body: JSON.stringify({
+      meaning: document.querySelector('#draft-meaning').value, note: document.querySelector('#draft-note').value
+    }) });
+    document.querySelector('#draft-dialog').close();
+    toast('已加入阅读练习'); await loadLibrary(true); await loadToday();
+  } catch (error) { showError(error); } finally { button.disabled = false; }
+}
+
 function segmentButton(value, label) {
   return `<button class="segment-button ${state.libraryStatus === value ? 'active' : ''}" type="button" data-library-status="${value}">${label}</button>`;
 }
 
 let searchTimer;
 function bindLibraryEvents() {
+  document.querySelector('#collect-reading')?.addEventListener('click', () => openDraftDialog());
+  document.querySelectorAll('[data-draft-id]').forEach(button => button.addEventListener('click', () => openDraftDialog(Number(button.dataset.draftId))));
+  document.querySelectorAll('[data-practice-id]').forEach(button => button.addEventListener('click', () => startPractice(Number(button.dataset.practiceId)).catch(showError)));
   document.querySelector('#toggle-other-modules')?.addEventListener('click', () => {
     state.libraryOtherModules = !state.libraryOtherModules;
     if (!state.libraryOtherModules && !WORK_MODULES.includes(state.libraryModule)) state.libraryModule = 'all';
@@ -875,6 +959,7 @@ async function loadLibrary(reset = true) {
     offset: String(offset)
   });
   const data = await api(`/api/items?${query}`);
+  state.drafts = (await api('/api/reading-drafts')).drafts;
   state.library = reset ? data.items : [...state.library, ...data.items];
   state.libraryTotal = data.total;
   renderLibrary();
@@ -917,6 +1002,7 @@ function renderProgress() {
     </section>
     <section class="progress-section">
       <div class="section-heading"><div><p class="section-kicker">词汇证据</p><h2>S0–S3 分布</h2></div></div>
+      <p class="answer-detail">新规则正式自评：词汇 ${progress.readingReview.correct}/${progress.readingReview.reviewed}；句子 ${progress.sentenceReview.correct}/${progress.sentenceReview.reviewed}。其中长期排程自评 ${progress.longTermReview.correct}/${progress.longTermReview.reviewed}。主动练习不计入该结果。</p>
       <div class="evidence-list">
         ${['S0', 'S1', 'S2', 'S3'].map((status) => `
           <div class="evidence-row evidence-${status}">
@@ -1087,6 +1173,8 @@ function openEditDialog(id) {
   document.querySelector('#item-module').innerHTML = moduleOptions(item.module in MODULE_LABELS ? item.module : 'custom', false);
   document.querySelector('#item-example').value = item.example || '';
   document.querySelector('#item-source').value = item.source || '';
+  document.querySelector('#item-source-url').value = item.sourceUrl || '';
+  document.querySelector('#item-note').value = item.note || '';
   renderComponentEditor(item.components || []);
   document.querySelector('#item-advanced').open = false;
   updateAdvancedSummary();
@@ -1111,6 +1199,8 @@ async function saveItem(event) {
     module: document.querySelector('#item-module').value,
     example: document.querySelector('#item-example').value,
     source: document.querySelector('#item-source').value,
+    sourceUrl: document.querySelector('#item-source-url').value,
+    note: document.querySelector('#item-note').value,
     components: readComponentRows()
   };
   try {
@@ -1238,6 +1328,9 @@ document.querySelector('.brand').addEventListener('click', (event) => {
   switchView('today');
 });
 document.querySelector('#add-button').addEventListener('click', openAddDialog);
+document.querySelector('#draft-form').addEventListener('submit', saveDraft);
+document.querySelector('#publish-draft').addEventListener('click', publishDraft);
+document.querySelector('#close-draft').addEventListener('click', () => document.querySelector('#draft-dialog').close());
 document.querySelector('#audio-settings-button').addEventListener('click', openAudioDialog);
 document.querySelector('#close-dialog').addEventListener('click', closeItemDialog);
 document.querySelector('#cancel-dialog').addEventListener('click', closeItemDialog);
@@ -1305,5 +1398,5 @@ const initialView = ['today', 'library', 'progress'].includes(location.hash.slic
 bootstrapAuth();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.7.2'), { scope: APP_BASE_URL.pathname }).catch(console.error);
+  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.8.0'), { scope: APP_BASE_URL.pathname }).catch(console.error);
 }

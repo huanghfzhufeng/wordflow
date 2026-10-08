@@ -1,0 +1,182 @@
+[
+  [
+    "动作与对象",
+    "Read the post before you reply.",
+    "回复之前，先读帖子。",
+    "动作：读、回复；对象：帖子；顺序：先读后回复。"
+  ],
+  [
+    "动作与对象",
+    "The author explains the problem in this post.",
+    "作者在这篇帖子里解释这个问题。",
+    "谁：作者；做什么：解释；对象：问题。"
+  ],
+  [
+    "动作与对象",
+    "You can ask a question in the comments.",
+    "你可以在评论区提问。",
+    "谁：你；动作：提问；地点：评论区；can 表示可以。"
+  ],
+  [
+    "动作与对象",
+    "We need to check the rules before posting.",
+    "我们需要在发帖之前检查规则。",
+    "动作：检查规则；need to 表示需要；before 表示之前。"
+  ],
+  [
+    "动作与对象",
+    "They read the post and reply to the author.",
+    "他们读帖子，并回复作者。",
+    "谁：他们；两个动作：读帖子、回复作者。"
+  ],
+  [
+    "否定",
+    "This comment does not answer the question.",
+    "这条评论没有回答这个问题。",
+    "否定：does not；动作：回答；对象：问题。"
+  ],
+  [
+    "否定",
+    "You do not need to agree with everyone.",
+    "你不需要同意每一个人的看法。",
+    "否定的是“需要”，不是“可以”；不等于“不能同意”。"
+  ],
+  [
+    "否定",
+    "The author did not share a link.",
+    "作者没有分享链接。",
+    "did not 表示过去没有做；share 的对象是链接。"
+  ],
+  [
+    "否定",
+    "Not all comments are useful to you.",
+    "并非所有评论都对你有用。",
+    "not all＝并非所有；不能译成“所有评论都没用”。"
+  ],
+  [
+    "否定",
+    "There is no answer in this post.",
+    "这篇帖子里没有答案。",
+    "there is 表示存在；no answer 表示没有答案。"
+  ],
+  [
+    "条件",
+    "If you have a question, ask the author.",
+    "如果你有问题，就问作者。",
+    "条件：有问题；行动：问作者。"
+  ],
+  [
+    "条件",
+    "If the rules allow it, you can share the link.",
+    "如果规则允许，你可以分享这个链接。",
+    "条件：规则允许分享链接；it 指分享链接这件事。"
+  ],
+  [
+    "条件",
+    "You can reply if you have useful information.",
+    "如果你有有用的信息，就可以回复。",
+    "if 后面的内容是回复的条件，不是已经发生的事实。"
+  ],
+  [
+    "条件",
+    "If this does not work, try another way.",
+    "如果这个办法不起作用，就试另一种办法。",
+    "条件含否定：不起作用；行动：试另一种办法。"
+  ],
+  [
+    "条件",
+    "Ask for help if you do not understand the post.",
+    "如果你不理解帖子，就寻求帮助。",
+    "主行动：寻求帮助；条件：不理解帖子。"
+  ],
+  [
+    "因果",
+    "I read this post because I need help.",
+    "我读这篇帖子，因为我需要帮助。",
+    "because 后面是原因；读帖子是行动。"
+  ],
+  [
+    "因果",
+    "The question is clear, so I can answer it.",
+    "问题很清楚，所以我能回答它。",
+    "原因：问题清楚；结果：能回答；it 指问题。"
+  ],
+  [
+    "因果",
+    "The post was removed because it broke the rules.",
+    "帖子因违反规则而被删除。",
+    "被动：was removed；原因：违反规则；it 指帖子。"
+  ],
+  [
+    "因果",
+    "This reply helped me, so I thanked the author.",
+    "这条回复帮到了我，所以我向作者道谢。",
+    "前半句是原因，后半句是结果；过去的动作。"
+  ],
+  [
+    "因果",
+    "I cannot reply because I do not know the answer.",
+    "我不能回复，因为我不知道答案。",
+    "cannot 与 do not 都是否定；不知道答案是原因。"
+  ],
+  [
+    "比较",
+    "This reply is more useful than that one.",
+    "这条回复比另一条更有用。",
+    "比较对象：两条回复；more useful than＝比……更有用。"
+  ],
+  [
+    "比较",
+    "This post is shorter than the other post.",
+    "这篇帖子比另一篇短。",
+    "shorter than 表示更短，不表示内容更好。"
+  ],
+  [
+    "比较",
+    "A clear question is better than a long question.",
+    "清楚的问题比冗长的问题更好。",
+    "better than＝比……更好；比较的是清楚与冗长。"
+  ],
+  [
+    "比较",
+    "I need more information than this post gives.",
+    "我需要的信息比这篇帖子提供的更多。",
+    "比较：需要的信息量，大于帖子提供的信息量。"
+  ],
+  [
+    "比较",
+    "This way is easier for me than that way.",
+    "对我来说，这个办法比那个更容易。",
+    "for me 限定对谁容易；easier than 表示比较。"
+  ],
+  [
+    "指代",
+    "This is a post. It explains the problem clearly.",
+    "这是一篇帖子。它把问题解释得很清楚。",
+    "第二句的 It 指第一句的帖子。"
+  ],
+  [
+    "指代",
+    "The author shared a link. You can open it.",
+    "作者分享了一个链接。你可以打开它。",
+    "it 指链接，而不是作者。"
+  ],
+  [
+    "指代",
+    "The comments are useful. They answer my question.",
+    "这些评论很有用。它们回答了我的问题。",
+    "They 指复数的 comments，不是作者。"
+  ],
+  [
+    "指代",
+    "I do not understand this reply. Can you explain it?",
+    "我不理解这条回复。你能解释一下它吗？",
+    "it 指这条回复；第一句是否定。"
+  ],
+  [
+    "指代",
+    "We asked the author. She gave us an answer.",
+    "我们问了作者。她给了我们一个答案。",
+    "She 指这里的作者；us 指提出问题的我们。"
+  ]
+]

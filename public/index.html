@@ -168,6 +168,8 @@
             <span>来源</span>
             <input id="item-source" maxlength="200" placeholder="例如：iPhone 设置">
           </label>
+          <label class="field"><span>原文链接（可选）</span><input id="item-source-url" type="url" maxlength="2048" placeholder="https://www.reddit.com/..."></label>
+          <label class="field"><span>补充／关键关系（可选）</span><textarea id="item-note" rows="3" maxlength="1000"></textarea></label>
         </div>
       </details>
 
@@ -240,7 +242,20 @@
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog class="item-dialog" id="draft-dialog">
+    <form class="dialog-frame" id="draft-form">
+      <div class="dialog-header"><h2 id="draft-title">收藏工作原句</h2><button class="icon-button" id="close-draft" type="button" aria-label="关闭原句窗口"><i data-lucide="x"></i></button></div>
+      <p class="draft-hint">原句先保存为待整理，核对中文解释后才能加入练习。这里不自动翻译。</p>
+      <label class="field"><span>工作原句</span><textarea id="draft-text" rows="4" maxlength="500" required placeholder="粘贴一小段 Reddit 原句"></textarea></label>
+      <label class="field"><span>原文链接（可选）</span><input id="draft-source-url" type="url" maxlength="2048" placeholder="https://www.reddit.com/..."></label>
+      <div id="draft-reference" hidden>
+        <label class="field"><span>核对后的中文参考解释</span><textarea id="draft-meaning" rows="3" maxlength="500"></textarea></label>
+        <label class="field"><span>关键关系（可选）</span><textarea id="draft-note" rows="3" maxlength="1000" placeholder="人物、动作、否定、条件、指代"></textarea></label>
+      </div>
+      <div class="dialog-actions"><button class="text-button primary-button" id="save-draft" type="submit">收藏，稍后整理</button><button class="text-button primary-button" id="publish-draft" type="button" hidden>已核对，加入练习</button></div>
+    </form>
+  </dialog>
   <script src="./vendor/lucide/lucide.min.js"></script>
-  <script type="module" src="./app.js?v=1.6.0"></script>
+  <script type="module" src="./app.js?v=1.8.0"></script>
 </body>
 </html>

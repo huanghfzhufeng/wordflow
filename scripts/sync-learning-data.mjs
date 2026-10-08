@@ -3,9 +3,10 @@ import path from 'node:path';
 import { config } from '../src/config.js';
 import { buildSeedData } from '../src/sync-data.js';
 import { mergeRedditCore } from '../src/reddit-core.js';
+import { withReadingSeed } from '../src/sentence-seed.js';
 
 const outputPath = config.seedPath;
-const data = mergeRedditCore(buildSeedData(config.memoryRoot));
+const data = withReadingSeed(mergeRedditCore(buildSeedData(config.memoryRoot)));
 fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 fs.writeFileSync(outputPath, `${JSON.stringify(data, null, 2)}\n`);
 console.log(`已生成 ${outputPath}`);

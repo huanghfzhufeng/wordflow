@@ -26,7 +26,7 @@ export function createApp({ config, db, repository }) {
   app.use('/api', auth.requireAuth);
 
   app.get('/api/today', (req, res) => {
-    res.json({ items: repository.todayQueue(req.query.limit), progress: repository.progress() });
+    res.json({ items: repository.todayQueue(req.query.limit, req.query.kind), nextDueAt: repository.nextDueAt(req.query.kind), progress: repository.progress() });
   });
 
   app.get('/api/items', (req, res) => res.json(repository.listItems(req.query)));
@@ -54,11 +54,18 @@ export function createApp({ config, db, repository }) {
     const result = repository.reviewItem(req.params.id, req.body?.rating, new Date(), {
       result: req.body?.writingResult,
       durationMs: req.body?.writingDurationMs
-    });
+    }, { ratingVersion: req.body?.ratingVersion, eventKind: req.body?.eventKind });
     if (!result) return res.status(404).json({ error: '没有找到这条内容' });
     res.json({ ...result, progress: repository.progress() });
   });
   app.get('/api/progress', (_req, res) => res.json(repository.progress()));
+  app.get('/api/reading-drafts', (_req, res) => res.json({ drafts: repository.listReadingDrafts() }));
+  app.post('/api/reading-drafts', (req, res) => res.status(201).json({ draft: repository.createReadingDraft(req.body) }));
+  app.post('/api/reading-drafts/:id/publish', (req, res) => {
+    const item = repository.publishReadingDraft(req.params.id, req.body);
+    if (!item) return res.status(404).json({ error: '没有找到这条原句' });
+    res.json({ item });
+  });
   app.get('/api/export', (_req, res) => {
     res.setHeader('Content-Disposition', `attachment; filename="wordflow-${new Date().toISOString().slice(0, 10)}.json"`);
     res.json(repository.exportData());

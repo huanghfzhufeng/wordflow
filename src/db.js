@@ -2,11 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
 import { applyReviewPolicy, localDay, statusRank } from './review-policy.js';
+import { scheduleReview, SCHEDULER_VERSION } from './scheduler.js';
 
 const VALID_KINDS = new Set(['word', 'phrase', 'sentence']);
 const VALID_MODULES = new Set([
   'foundation', 'learning-ledger', 'iphone-p0', 'iphone-p1', 'iphone-p2',
-  'iphone-path', 'reddit-x', 'reddit-core', 'reddit-forms', 'tech', 'daily', 'basketball', 'custom'
+  'iphone-path', 'reddit-x', 'reddit-core', 'reddit-forms', 'reddit-reading', 'tech', 'daily', 'basketball', 'custom'
 ]);
 const VALID_COMPONENT_ROLES = new Set(['word', 'prefix', 'root', 'suffix']);
 const VALID_WRITING_RESULTS = new Set(['correct', 'incorrect']);
@@ -40,6 +41,15 @@ function optionalText(value, label, maxLength) {
   const text = typeof value === 'string' ? value.trim() : '';
   if (text.length > maxLength) throw new Error(`${label}过长`);
   return text;
+}
+
+function sourceUrl(value) {
+  const text = optionalText(value, '来源链接', 2048);
+  if (!text) return null;
+  let url;
+  try { url = new URL(text); } catch { throw new Error('来源链接必须是有效网址'); }
+  if (!['http:', 'https:'].includes(url.protocol)) throw new Error('来源链接只支持 HTTP 或 HTTPS');
+  return url.href;
 }
 
 function normalizeComponents(value) {
@@ -130,6 +140,19 @@ export function openDatabase(dbPath) {
       target_value INTEGER NOT NULL,
       updated_at TEXT NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS review_schedules (
+      item_id INTEGER PRIMARY KEY REFERENCES learning_items(id) ON DELETE CASCADE,
+      card_json TEXT NOT NULL,
+      scheduler_version TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS reading_drafts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      text TEXT NOT NULL,
+      source_url TEXT,
+      item_id INTEGER UNIQUE REFERENCES learning_items(id),
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
   `);
   const itemColumns = new Set(db.prepare('PRAGMA table_info(learning_items)').all().map((column) => column.name));
   if (!itemColumns.has('phonetic')) {
@@ -152,6 +175,10 @@ export function openDatabase(dbPath) {
   if (!reviewColumns.has('writing_duration_ms')) {
     db.exec('ALTER TABLE review_events ADD COLUMN writing_duration_ms INTEGER');
   }
+  if (!reviewColumns.has('rating_version')) db.exec('ALTER TABLE review_events ADD COLUMN rating_version INTEGER NOT NULL DEFAULT 1');
+  if (!reviewColumns.has('event_kind')) db.exec("ALTER TABLE review_events ADD COLUMN event_kind TEXT NOT NULL DEFAULT 'review'");
+  if (!reviewColumns.has('scheduler_state_before')) db.exec('ALTER TABLE review_events ADD COLUMN scheduler_state_before INTEGER');
+  if (!reviewColumns.has('next_review_at')) db.exec('ALTER TABLE review_events ADD COLUMN next_review_at TEXT');
   return db;
 }
 
@@ -280,6 +307,9 @@ export function createRepository(db, { timeZone }) {
   function hydratedItem(row) {
     const item = publicItem(row);
     if (!item) return null;
+    const schedule = db.prepare('SELECT card_json FROM review_schedules WHERE item_id = ?').get(item.id);
+    const phases = ['new', 'learning', 'review', 'relearning'];
+    item.learningPhase = schedule ? phases[JSON.parse(schedule.card_json).state] : 'new';
     item.components = item.components.map((component) => {
       if (component.role !== 'word') return component;
       const linked = findLinkedItemRow.get(component.text);
@@ -334,17 +364,20 @@ export function createRepository(db, { timeZone }) {
     return { items: rows.map((row) => hydratedItem(row)), total: count };
   }
 
-  function todayQueue(limit = 10) {
+  function todayQueue(limit = 10, kind = 'all') {
     const now = nowIso();
     const rows = db.prepare(`
       SELECT i.* FROM learning_items i
+      LEFT JOIN review_schedules schedule ON schedule.item_id = i.id
       LEFT JOIN review_events latest ON latest.id = (
-        SELECT id FROM review_events WHERE item_id = i.id ORDER BY id DESC LIMIT 1
+        SELECT id FROM review_events WHERE item_id = i.id AND event_kind = 'review' ORDER BY id DESC LIMIT 1
       )
       WHERE i.archived = 0
         AND (i.next_review_at IS NULL OR i.next_review_at <= ?)
+        AND (? = 'all' OR (? = 'sentence' AND i.kind = 'sentence') OR (? = 'words' AND i.kind <> 'sentence'))
       ORDER BY
         CASE
+          WHEN json_extract(schedule.card_json, '$.state') IN (1, 3) THEN -1
           WHEN latest.rating IN ('again', 'hard') THEN 0
           WHEN i.seed_key IS NULL AND i.review_count = 0 THEN 1
           WHEN i.status <> 'S0' THEN 2
@@ -356,7 +389,7 @@ export function createRepository(db, { timeZone }) {
         COALESCE(i.core_order_index, i.order_index, 9999),
         i.priority DESC, i.lapse_count DESC, i.id
       LIMIT ?
-    `).all(now, Math.min(Math.max(Number(limit) || 10, 1), 30));
+    `).all(now, kind, kind, kind, Math.min(Math.max(Number(limit) || 10, 1), 30));
     return rows.map((row) => hydratedItem(row));
   }
 
@@ -374,7 +407,7 @@ export function createRepository(db, { timeZone }) {
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'S0', 70, ?, ?, ?)
     `).run(
       term, meaning, optionalText(input.phonetic, '音标', 120), kind, module, input.source?.trim() || '手动添加',
-      input.sourceUrl?.trim() || null, input.example?.trim() || '', input.note?.trim() || '', JSON.stringify(components),
+      sourceUrl(input.sourceUrl), input.example?.trim() || '', input.note?.trim() || '', JSON.stringify(components),
       now, now, now
     );
     return getItem(info.lastInsertRowid);
@@ -393,7 +426,7 @@ export function createRepository(db, { timeZone }) {
       phonetic: input.phonetic === undefined ? current.phonetic : optionalText(input.phonetic, '音标', 120),
       kind, module,
       source: input.source === undefined ? current.source : input.source.trim() || '手动添加',
-      source_url: input.sourceUrl === undefined ? current.source_url : input.sourceUrl.trim() || null,
+      source_url: input.sourceUrl === undefined ? current.source_url : sourceUrl(input.sourceUrl),
       example: input.example === undefined ? current.example : input.example.trim(),
       note: input.note === undefined ? current.note : input.note.trim(),
       components_json: JSON.stringify(components)
@@ -443,48 +476,84 @@ export function createRepository(db, { timeZone }) {
     return info.changes > 0;
   }
 
-  function reviewItem(id, rating, reviewedAt = new Date(), writingInput = null) {
+  function reviewItem(id, rating, reviewedAt = new Date(), writingInput = null, options = {}) {
     const row = getItemRow.get(Number(id));
     if (!row) return null;
-    const reviewedIso = reviewedAt instanceof Date ? reviewedAt.toISOString() : new Date(reviewedAt).toISOString();
+    if (!['again', 'hard', 'good', 'real'].includes(rating)) throw new Error('无效的复习结果');
+    const ratingVersion = options.ratingVersion ?? 1;
+    const eventKind = options.eventKind ?? 'review';
+    if (![1, 2].includes(ratingVersion)) throw new Error('评分版本无效');
+    if (!['review', 'practice'].includes(eventKind)) throw new Error('练习类型无效');
+    const now = new Date(reviewedAt);
+    const reviewedIso = now.toISOString();
     const writing = normalizeWritingAttempt(writingInput);
-    const realDaysRows = db.prepare(`
-      SELECT reviewed_at FROM review_events WHERE item_id = ? AND rating = 'real'
-    `).all(row.id);
-    const realDays = new Set(realDaysRows.map((event) => localDay(event.reviewed_at, timeZone)));
-    if (rating === 'real') realDays.add(localDay(reviewedIso, timeZone));
-    const result = applyReviewPolicy({
-      status: row.status,
-      rating,
-      reviewedAt: reviewedIso,
-      previousReviewedAt: row.last_reviewed_at,
-      realHitDays: realDays.size,
-      timeZone
+    const realDays = new Set(db.prepare("SELECT reviewed_at FROM review_events WHERE item_id = ? AND rating = 'real' AND event_kind = 'review'")
+      .all(row.id).map(event => localDay(event.reviewed_at, timeZone)));
+    if (rating === 'real') realDays.add(localDay(now, timeZone));
+    const schedule = eventKind === 'review' ? scheduleReview(
+      db.prepare('SELECT card_json FROM review_schedules WHERE item_id = ?').get(row.id)?.card_json,
+      rating, now, ratingVersion
+    ) : null;
+    const result = eventKind === 'practice' ? {
+      previousStatus: row.status, nextStatus: row.status, nextReviewAt: row.next_review_at, isDelayedReview: false
+    } : applyReviewPolicy({
+      status: row.status, rating: rating === 'hard' && ratingVersion === 2 ? 'good' : rating,
+      reviewedAt: now, previousReviewedAt: row.last_reviewed_at, realHitDays: realDays.size, timeZone
     });
-    const isCorrect = rating === 'good' || rating === 'real';
-
+    if (schedule) {
+      if (!schedule.wasLongTerm && statusRank(result.nextStatus) > Math.max(statusRank(row.status), 1)) result.nextStatus = row.status;
+      result.nextReviewAt = schedule.nextReviewAt;
+      result.isDelayedReview = result.isDelayedReview && schedule.wasLongTerm;
+    }
+    const isCorrect = ['good', 'real'].includes(rating) || (rating === 'hard' && ratingVersion === 2);
     db.transaction(() => {
-      db.prepare(`
-        UPDATE learning_items SET
-          status = ?, last_reviewed_at = ?, next_review_at = ?, review_count = review_count + 1,
-          correct_count = correct_count + ?, lapse_count = lapse_count + ?,
-          real_hit_count = real_hit_count + ?, updated_at = ?
-        WHERE id = ?
-      `).run(
-        result.nextStatus, reviewedIso, result.nextReviewAt, isCorrect ? 1 : 0,
-        rating === 'again' ? 1 : 0, rating === 'real' ? 1 : 0, reviewedIso, row.id
-      );
-      db.prepare(`
-        INSERT INTO review_events (
-          item_id, rating, previous_status, next_status, writing_result, writing_duration_ms, reviewed_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?)
-      `).run(
-        row.id, rating, result.previousStatus, result.nextStatus,
-        writing.result, writing.durationMs, reviewedIso
-      );
+      if (eventKind === 'review') {
+        db.prepare(`UPDATE learning_items SET status = ?, last_reviewed_at = ?, next_review_at = ?,
+          review_count = review_count + 1, correct_count = correct_count + ?, lapse_count = lapse_count + ?,
+          real_hit_count = real_hit_count + ?, updated_at = ? WHERE id = ?
+        `).run(result.nextStatus, reviewedIso, result.nextReviewAt, isCorrect ? 1 : 0,
+          rating === 'again' ? 1 : 0, rating === 'real' ? 1 : 0, reviewedIso, row.id);
+        db.prepare(`INSERT INTO review_schedules (item_id, card_json, scheduler_version) VALUES (?, ?, ?)
+          ON CONFLICT(item_id) DO UPDATE SET card_json = excluded.card_json, scheduler_version = excluded.scheduler_version
+        `).run(row.id, schedule.cardJson, SCHEDULER_VERSION);
+      }
+      db.prepare(`INSERT INTO review_events (item_id, rating, previous_status, next_status, writing_result,
+        writing_duration_ms, reviewed_at, rating_version, event_kind, scheduler_state_before, next_review_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `).run(row.id, rating, result.previousStatus, result.nextStatus, writing.result, writing.durationMs,
+        reviewedIso, ratingVersion, eventKind, schedule?.stateBefore ?? null, schedule?.nextReviewAt ?? null);
     })();
+    return { item: getItem(id), transition: result, eventKind };
+  }
 
-    return { item: getItem(id), transition: result };
+  function nextDueAt(kind = 'all') {
+    return db.prepare(`SELECT MIN(next_review_at) AS value FROM learning_items WHERE archived = 0
+      AND (? = 'all' OR (? = 'sentence' AND kind = 'sentence') OR (? = 'words' AND kind <> 'sentence'))
+    `).get(kind, kind, kind).value;
+  }
+
+  function listReadingDrafts() {
+    return db.prepare('SELECT id, text, source_url AS sourceUrl, created_at AS createdAt FROM reading_drafts WHERE item_id IS NULL ORDER BY id DESC').all();
+  }
+
+  function createReadingDraft(input) {
+    const text = requireText(input.text, '工作原句', 500);
+    const now = nowIso();
+    const info = db.prepare('INSERT INTO reading_drafts (text, source_url, created_at, updated_at) VALUES (?, ?, ?, ?)')
+      .run(text, sourceUrl(input.sourceUrl), now, now);
+    return listReadingDrafts().find(draft => draft.id === Number(info.lastInsertRowid));
+  }
+
+  function publishReadingDraft(id, input) {
+    return db.transaction(() => {
+      const draft = db.prepare('SELECT * FROM reading_drafts WHERE id = ?').get(Number(id));
+      if (!draft) return null;
+      if (draft.item_id) return getItem(draft.item_id);
+      const item = createItem({ term: draft.text, meaning: requireText(input.meaning, '中文参考解释', 500),
+        kind: 'sentence', module: 'reddit-reading', source: '工作原句 · 人工核对',
+        sourceUrl: draft.source_url || '', note: optionalText(input.note, '关键关系', 1000) });
+      db.prepare('UPDATE reading_drafts SET item_id = ?, updated_at = ? WHERE id = ?').run(item.id, nowIso(), draft.id);
+      return item;
+    })();
   }
 
   function progress() {
@@ -510,6 +579,17 @@ export function createRepository(db, { timeZone }) {
         SUM(CASE WHEN writing_result = 'correct' THEN 1 ELSE 0 END) AS correct,
         SUM(CASE WHEN writing_result = 'incorrect' THEN 1 ELSE 0 END) AS incorrect
       FROM review_events
+    `).get();
+    const newStats = db.prepare(`SELECT i.kind, COUNT(*) AS reviewed,
+      SUM(CASE WHEN e.rating IN ('hard', 'good', 'real') THEN 1 ELSE 0 END) AS correct
+      FROM review_events e JOIN learning_items i ON i.id = e.item_id
+      WHERE e.rating_version = 2 AND e.event_kind = 'review' GROUP BY i.kind
+    `).all();
+    const sumStats = (sentence) => newStats.filter(row => (row.kind === 'sentence') === sentence)
+      .reduce((sum, row) => ({ reviewed: sum.reviewed + row.reviewed, correct: sum.correct + row.correct }), { reviewed: 0, correct: 0 });
+    const longTermReview = db.prepare(`SELECT COUNT(*) AS reviewed,
+      COALESCE(SUM(CASE WHEN rating IN ('hard', 'good', 'real') THEN 1 ELSE 0 END), 0) AS correct
+      FROM review_events WHERE rating_version = 2 AND event_kind = 'review' AND scheduler_state_before = 2
     `).get();
 
     const iphoneRows = db.prepare(`
@@ -546,6 +626,9 @@ export function createRepository(db, { timeZone }) {
 
     return {
       counts,
+      readingReview: sumStats(false), sentenceReview: sumStats(true),
+      longTermReview,
+      practiceCount: db.prepare("SELECT COUNT(*) AS value FROM review_events WHERE event_kind = 'practice'").get().value,
       coreCounts,
       today: {
         reviewed: todayEvents.length,
@@ -568,6 +651,8 @@ export function createRepository(db, { timeZone }) {
       exportedAt: nowIso(),
       items: db.prepare('SELECT * FROM learning_items WHERE archived = 0 ORDER BY id').all().map(publicItem),
       reviewEvents: db.prepare('SELECT * FROM review_events ORDER BY id').all(),
+      schedules: db.prepare('SELECT * FROM review_schedules ORDER BY item_id').all(),
+      readingDrafts: db.prepare('SELECT * FROM reading_drafts ORDER BY id').all(),
       progress: progress()
     };
   }
@@ -581,6 +666,10 @@ export function createRepository(db, { timeZone }) {
     addComponentAsItem,
     archiveItem,
     reviewItem,
+    nextDueAt,
+    listReadingDrafts,
+    createReadingDraft,
+    publishReadingDraft,
     progress,
     exportData
   };

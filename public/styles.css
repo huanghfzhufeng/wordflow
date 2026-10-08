@@ -3347,3 +3347,20 @@ h2 {
   color: var(--secondary);
   line-height: 1.7;
 }
+
+.practice-toolbar { flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+.training-toggle { min-height: 44px; }
+.recall-instruction { margin: 12px 28px; color: var(--secondary); font-size: 13px; line-height: 1.6; }
+.sentence-card .review-stage { min-height: 150px; padding-top: 24px; }
+.sentence-card .review-term { font-size: clamp(22px, 5.7vw, 32px); line-height: 1.45; overflow-wrap: anywhere; }
+.sentence-card .answer-detail { grid-template-columns: 58px minmax(0, 1fr); }
+.sentence-card .answer-meaning { font-size: 20px; line-height: 1.6; }
+.source-link { display: inline-block; min-height: 44px; padding-top: 10px; font-size: 13px; color: var(--blue); }
+.rating-button span { text-align: center; line-height: 1.35; }
+.draft-collection { margin: 10px 0 18px; font-size: 14px; }
+.draft-collection summary { min-height: 44px; align-content: center; cursor: pointer; color: var(--secondary); }
+.draft-row { display: block; width: 100%; border: 0; border-bottom: 1px solid var(--separator-soft); background: transparent; text-align: left; padding: 14px 4px; font: inherit; line-height: 1.6; color: var(--ink); }
+.draft-hint { font-size: 13px; color: var(--secondary); line-height: 1.7; margin-bottom: 18px; }
+#draft-reference[hidden] { display: none; }
+.practice-toolbar { display: flex; align-items: center; }
+.training-toggle { flex-shrink: 0; white-space: nowrap; padding: 10px 12px; }
