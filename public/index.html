@@ -14,7 +14,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png">
-  <link rel="stylesheet" href="./styles.css?v=1.8.0">
+  <link rel="stylesheet" href="./styles.css?v=1.8.1">
 </head>
 <body class="is-booting">
   <div class="boot-screen" id="boot-screen" aria-label="正在打开词流">
@@ -242,6 +242,12 @@
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog class="item-dialog" id="learning-details-dialog">
+    <div class="dialog-frame">
+      <div class="dialog-header"><h2>学习详情</h2><button class="icon-button" id="close-learning-details" type="button" aria-label="关闭学习详情"><i data-lucide="x"></i></button></div>
+      <div id="learning-details-body"></div>
+    </div>
+  </dialog>
   <dialog class="item-dialog" id="draft-dialog">
     <form class="dialog-frame" id="draft-form">
       <div class="dialog-header"><h2 id="draft-title">收藏工作原句</h2><button class="icon-button" id="close-draft" type="button" aria-label="关闭原句窗口"><i data-lucide="x"></i></button></div>
@@ -256,6 +262,6 @@
     </form>
   </dialog>
   <script src="./vendor/lucide/lucide.min.js"></script>
-  <script type="module" src="./app.js?v=1.8.0"></script>
+  <script type="module" src="./app.js?v=1.8.1"></script>
 </body>
 </html>

@@ -3350,7 +3350,6 @@ h2 {
 
 .practice-toolbar { flex-wrap: wrap; justify-content: space-between; gap: 10px; }
 .training-toggle { min-height: 44px; }
-.recall-instruction { margin: 12px 28px; color: var(--secondary); font-size: 13px; line-height: 1.6; }
 .sentence-card .review-stage { min-height: 150px; padding-top: 24px; }
 .sentence-card .review-term { font-size: clamp(22px, 5.7vw, 32px); line-height: 1.45; overflow-wrap: anywhere; }
 .sentence-card .answer-detail { grid-template-columns: 58px minmax(0, 1fr); }
@@ -3364,3 +3363,118 @@ h2 {
 #draft-reference[hidden] { display: none; }
 .practice-toolbar { display: flex; align-items: center; }
 .training-toggle { flex-shrink: 0; white-space: nowrap; padding: 10px 12px; }
+
+/* Keep the mobile learning loop inside the visible screen and above navigation. */
+:root {
+  --learning-safe-top: env(safe-area-inset-top, 0px);
+  --learning-safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+.review-content { min-width: 0; }
+.review-secondary-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
+.review-secondary-actions > button { min-height: 44px; }
+.details-term { font-size: 24px; line-height: 1.4; overflow-wrap: anywhere; font-weight: 700; }
+.details-meaning { font-size: 19px; line-height: 1.5; margin: 12px 0; }
+.details-source { color: var(--secondary); font-size: 13px; margin: 12px 0; overflow-wrap: anywhere; }
+#learning-details-body { padding-bottom: 12px; }
+
+@media (max-width: 899px) {
+  body.is-learning { overflow: hidden; }
+  body.is-learning .app-shell {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: calc(64px + var(--learning-safe-top)) minmax(0, 1fr) calc(76px + var(--learning-safe-bottom));
+  }
+  body.is-learning .topbar {
+    position: static;
+    grid-row: 1;
+    height: 100%;
+    padding: calc(8px + var(--learning-safe-top)) 18px 8px;
+  }
+  body.is-learning .brand-copy strong { font-size: 26px; }
+  body.is-learning .brand-copy small { font-size: 11px; }
+  body.is-learning .topbar .icon-button { width: 44px; height: 44px; flex-basis: 44px; }
+  body.is-learning main {
+    grid-row: 2;
+    width: 100%;
+    min-height: 0;
+    height: 100%;
+    padding: 8px 14px 10px;
+    overflow: hidden;
+  }
+  body.is-learning #today-view.active { display: flex; flex-direction: column; height: 100%; min-height: 0; gap: 8px; }
+  body.is-learning .practice-toolbar { flex: 0 0 44px; margin: 0; gap: 8px; flex-wrap: nowrap; }
+  body.is-learning .mode-segment { width: 188px; min-width: 0; max-width: 58%; flex-shrink: 1; padding: 3px; }
+  body.is-learning .mode-segment button { min-width: 0; height: 38px; font-size: 13px; gap: 5px; }
+  body.is-learning .training-toggle { font-size: 13px; padding: 8px 10px; min-height: 44px; }
+  body.is-learning .review-card {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-height: 0;
+    min-width: 0;
+    padding: 14px 16px 10px;
+    border-radius: 24px;
+  }
+  body.is-learning .review-card-top { flex: 0 0 auto; gap: 5px; }
+  body.is-learning .review-meta { gap: 5px; }
+  body.is-learning .status-badge, body.is-learning .module-badge { font-size: 10px; min-height: 24px; padding: 4px 6px; }
+  body.is-learning .queue-position { font-size: 10px; padding: 3px 0; }
+  body.is-learning .review-content { flex: 1 1 0; min-height: 0; overflow: auto; overscroll-behavior: contain; }
+  body.is-learning .review-card .review-stage { min-height: 0; padding: 16px 0 10px; display: block; }
+  body.is-learning .review-card .review-term { font-size: clamp(32px, 9vw, 44px); line-height: 1.12; overflow-wrap: anywhere; }
+  body.is-learning .review-card.phrase-card .review-term { font-size: clamp(28px, 7.8vw, 36px); line-height: 1.2; }
+  body.is-learning .review-card.sentence-card .review-term { font-size: clamp(20px, 5.8vw, 25px); line-height: 1.35; }
+  body.is-learning .pronunciation-row { min-height: 40px; margin-top: 8px; }
+  body.is-learning .term-speaker { width: 40px; height: 40px; }
+  body.is-learning .pronunciation-row > span { font-size: 16px; }
+  body.is-learning .answer-panel { min-height: 0; padding: 12px 0 6px; }
+  body.is-learning .answer-label { margin-bottom: 6px; }
+  body.is-learning .answer-meaning { font-size: 23px; line-height: 1.35; margin: 0; overflow-wrap: anywhere; }
+  body.is-learning .sentence-card .answer-meaning { font-size: 19px; line-height: 1.45; }
+  body.is-learning .review-controls { flex: 0 0 auto; padding-top: 8px; }
+  body.is-learning .review-actions { margin: 0; gap: 7px; }
+  body.is-learning .rating-button { min-height: 56px; padding: 6px 2px; gap: 4px; }
+  body.is-learning .rating-button span { font-size: 12px; }
+  body.is-learning .review-secondary-actions { margin-top: 4px; }
+  body.is-learning .review-secondary-actions .write-practice-button { margin: 0; padding: 8px 12px; }
+  body.is-learning .reveal-button { flex: 0 0 50px; height: 50px; margin: 12px 0 0; }
+  body.is-learning .long-term-stats { display: none; }
+  body.is-learning .app-nav {
+    grid-row: 3;
+    align-self: start;
+    position: static;
+    height: 64px;
+    margin: 0 14px;
+    padding: 6px 10px;
+    border-radius: 24px;
+  }
+  body.is-learning .nav-item svg { width: 21px; height: 21px; }
+  body.is-learning .nav-item { font-size: 11px; }
+  body.is-learning .empty-state { flex: 1; min-height: 0; overflow: auto; }
+  body.is-learning .writing-card { min-height: 0; gap: 8px; }
+  body.is-learning .writing-header { flex: 0 0 auto; }
+  body.is-learning .writing-prompt { font-size: 17px; }
+  body.is-learning .writing-surface { flex: 1; min-height: 80px; height: auto; }
+  body.is-learning .writing-tools { flex: 0 0 auto; gap: 6px; }
+}
+@media (max-width: 899px) {
+  body.is-learning .term-line { grid-template-columns: minmax(0, 1fr) 40px; gap: 10px; }
+  body.is-learning .pronunciation-row { min-height: 22px; margin-top: 6px; }
+}
+@media (max-width: 899px) {
+  body.is-learning .review-content { display: flex; flex-direction: column; justify-content: flex-start; justify-content: safe center; }
+  body.is-learning .review-content > .review-stage,
+  body.is-learning .review-content > .answer-panel { flex: 0 0 auto; }
+}
+@media (max-width: 899px) and (max-height: 650px) {
+  body.is-learning .app-shell { grid-template-rows: calc(56px + var(--learning-safe-top)) minmax(0, 1fr) calc(68px + var(--learning-safe-bottom)); }
+  body.is-learning .topbar { padding: calc(6px + var(--learning-safe-top)) 14px 6px; }
+  body.is-learning .brand-copy strong { font-size: 24px; }
+  body.is-learning main { padding: 6px 12px 8px; }
+  body.is-learning .review-card { padding: 12px 14px 8px; }
+  body.is-learning .review-card .review-stage { padding: 10px 0 6px; }
+  body.is-learning .answer-panel { padding: 8px 0 4px; }
+  body.is-learning .app-nav { height: 56px; margin: 0 12px; padding: 4px 8px; }
+}

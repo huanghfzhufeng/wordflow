@@ -147,6 +147,7 @@ async function authRequest(path, options = {}) {
 }
 
 function showLogin(message = '') {
+  document.body.classList.remove('is-learning');
   speech.cancel();
   state.session = { startedAt: null, reviews: 0 };
   els.boot.hidden = true;
@@ -292,14 +293,14 @@ function renderToday() {
           <i data-lucide="headphones"></i><span>听辨</span>
         </button>
       </div>
-      <button class="text-button training-toggle" id="toggle-training" type="button">${state.trainingType === 'sentence' ? '回到词汇' : '练句子'}</button>
+      <button class="text-button training-toggle" id="${state.practice ? 'end-practice' : 'toggle-training'}" type="button">${state.practice ? '返回复习' : state.trainingType === 'sentence' ? '回到词汇' : '练句子'}</button>
     </div>
-    <p class="recall-instruction">${state.practice ? '主动练习：不会改变正式到期日或等级。' : state.trainingType === 'sentence' ? '先想整句意思，再揭晓核对人物、动作和关键关系。' : '先在心里回想中文义，再揭晓。看答案才想起来，请选“没想起来”。'}</p>
-    ${state.practice ? '<button class="text-button" id="end-practice" type="button">回到正式复习</button>' : ''}
     ${item ? reviewCard(item) : emptyToday()}
     ${longTermStats()}
   `;
+  renderLearningDetails(item);
   bindTodayEvents();
+  requestAnimationFrame(fitReviewContent);
   bindSpeechButtons(els.today);
   icons(els.today);
   initializeWritingCanvas();
@@ -348,16 +349,16 @@ function reviewCard(item) {
   if (state.writing.active) return writingCard(item);
   const listeningPrompt = state.reviewMode === 'listening' && !state.revealed;
   return `
-    <article class="review-card ${listeningPrompt ? 'listening-card' : ''} ${item.kind === 'sentence' ? 'sentence-card' : ''}" data-item-id="${item.id}">
+    <article class="review-card ${listeningPrompt ? 'listening-card' : ''} ${item.kind === 'sentence' ? 'sentence-card' : item.kind === 'phrase' ? 'phrase-card' : ''}" data-item-id="${item.id}">
       <div class="review-card-top">
         <div class="review-meta">
           ${moduleBadge(item.module)}
-          ${statusBadge(item.status)}
+          ${state.practice ? '<span class="status-badge">主动练习</span>' : statusBadge(item.status)}
         </div>
         <span class="queue-position">${item.coreOrder ? `第 ${item.coreOrder} / 3000 项` : escapeHtml(KIND_LABELS[item.kind] || item.kind)}</span>
       </div>
 
-      <div class="review-stage">
+      <div class="review-content"><div class="review-stage">
         ${listeningPrompt ? `
           <button class="listening-trigger" type="button" data-speak-id="${item.id}"
             aria-label="播放英文发音" aria-pressed="false">
@@ -366,19 +367,17 @@ function reviewCard(item) {
             <small>${speech.getPreferences().rate.toFixed(2).replace(/0$/, '')}× · ${speech.getPreferences().accent === 'en-GB' ? '英式' : '美式'}</small>
           </button>
         ` : `
-          <div class="review-term">${escapeHtml(item.term)}</div>
-          <div class="pronunciation-row">
-            ${item.phonetic ? `<span>${escapeHtml(item.phonetic)}</span>` : ''}
-            ${speakerButton(item, 'term-speaker')}
-          </div>
-          <p class="review-source">${escapeHtml(item.source || '学习内容')}</p>
+          <div class="term-line"><div class="review-term">${escapeHtml(item.term)}</div>${speakerButton(item, 'term-speaker')}</div>
+          ${item.phonetic ? `<div class="pronunciation-row"><span>${escapeHtml(item.phonetic)}</span></div>` : ''}
+
         `}
       </div>
 
-      ${state.revealed ? answerPanel(item) : `
+      ${state.revealed ? answerPanel(item) : ''}
+      </div>
+      ${state.revealed ? reviewControls() : `
         <button class="reveal-button" id="reveal-answer" type="button">
-          <span>${listeningPrompt ? '看答案' : '显示答案'}</span>
-          <i data-lucide="chevron-down"></i>
+          <span>${listeningPrompt ? '看答案' : '显示答案'}</span><i data-lucide="chevron-down"></i>
         </button>
       `}
     </article>
@@ -522,40 +521,61 @@ async function addComponentToLearning(index) {
 }
 
 function answerPanel(item) {
-  const writingLabel = state.writing.result === 'correct'
-    ? '已写对'
-    : state.writing.result === 'incorrect' ? '有错，再写一次' : '写一下';
-  return `
-    <div class="answer-panel">
-      <p class="answer-label">${item.kind === 'sentence' ? '中文参考解释' : '中文核心义'}</p>
-      <p class="answer-meaning">${escapeHtml(item.meaning)}</p>
-      ${item.example ? `<p class="answer-detail"><span>上下文</span>${escapeHtml(item.example)}</p>` : ''}
-      ${item.note && (item.coreOrder || item.module === 'reddit-forms' || item.kind === 'sentence') ? `<p class="answer-detail"><span>${item.kind === 'sentence' ? '关键关系' : '补充'}</span>${escapeHtml(item.note)}</p>` : ''}
-      ${item.sourceUrl ? `<a class="source-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看原文来源</a>` : ''}
-      ${componentBreakdown(item)}
-      <button class="write-practice-button writing-result-${state.writing.result || 'none'}" id="start-writing" type="button">
-        <i data-lucide="pen-line"></i><span>${writingLabel}</span>
-      </button>
-    </div>
+  return `<div class="answer-panel">
+    <p class="answer-label">${item.kind === 'sentence' ? '中文参考解释' : '中文核心义'}</p>
+    <p class="answer-meaning">${escapeHtml(item.meaning)}</p>
+  </div>`;
+}
+
+function reviewControls() {
+  const writingLabel = state.writing.result === 'correct' ? '已写对' : state.writing.result === 'incorrect' ? '再写一次' : '写一下';
+  return `<div class="review-controls">
     <div class="review-actions" aria-label="复习结果">
-      <button class="rating-button rating-again" data-rating="again" type="button">
-        <i data-lucide="rotate-ccw"></i><span>没想起来</span>
-      </button>
-      <button class="rating-button rating-hard" data-rating="hard" type="button">
-        <i data-lucide="circle-help"></i><span>想起来但慢</span>
-      </button>
-      <button class="rating-button rating-good" data-rating="good" type="button">
-        <i data-lucide="check"></i><span>记得</span>
-      </button>
+      <button class="rating-button rating-again" data-rating="again" type="button"><i data-lucide="rotate-ccw"></i><span>没想起来</span></button>
+      <button class="rating-button rating-hard" data-rating="hard" type="button"><i data-lucide="circle-help"></i><span>想起来但慢</span></button>
+      <button class="rating-button rating-good" data-rating="good" type="button"><i data-lucide="check"></i><span>记得</span></button>
     </div>
-    <details class="review-more">
-      <summary>更多操作</summary>
-      <p>仅在实际帖文中无提示理解这个词时，记录真实命中。</p>
-      <button class="rating-button rating-real" data-rating="real" type="button">
-        <i data-lucide="scan-text"></i><span>真实命中</span>
-      </button>
-    </details>
-  `;
+    <div class="review-secondary-actions">
+      <button class="text-button" id="open-learning-details" type="button">补充说明</button>
+      <button class="write-practice-button writing-result-${state.writing.result || 'none'}" id="start-writing" type="button"><i data-lucide="pen-line"></i><span>${writingLabel}</span></button>
+    </div>
+  </div>`;
+}
+
+function renderLearningDetails(item) {
+  const body = document.querySelector('#learning-details-body');
+  body.innerHTML = item ? `
+    <p class="details-term">${escapeHtml(item.term)}</p>
+    <p class="details-meaning">${escapeHtml(item.meaning)}</p>
+    <p class="details-source">${escapeHtml(item.source || '学习内容')}</p>
+    ${item.example ? `<p class="answer-detail"><span>上下文</span>${escapeHtml(item.example)}</p>` : ''}
+    ${item.note ? `<p class="answer-detail"><span>${item.kind === 'sentence' ? '关键关系' : '补充'}</span>${escapeHtml(item.note)}</p>` : ''}
+    ${item.sourceUrl ? `<a class="source-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看原文来源</a>` : ''}
+    ${componentBreakdown(item)}
+    <details class="review-more"><summary>更多操作</summary>
+      <p>仅在实际帖文中无提示理解时，记录真实命中。</p>
+      <button class="rating-button rating-real" data-rating="real" type="button"><i data-lucide="scan-text"></i><span>真实命中</span></button>
+    </details>` : '';
+  bindSpeechButtons(body); icons(body);
+}
+
+function fitReviewContent() {
+  if (!window.matchMedia('(max-width: 899px)').matches || state.view !== 'today') return;
+  const content = document.querySelector('#today-view .review-content');
+  if (!content) return;
+  const term = content.querySelector('.review-term');
+  const meaning = content.querySelector('.answer-meaning');
+  for (const node of [term, meaning]) if (node) node.style.fontSize = '';
+  let rounds = 0;
+  while (content.scrollHeight > content.clientHeight + 1 && rounds++ < 40) {
+    let changed = false;
+    for (const [node, min] of [[term, state.trainingType === 'sentence' ? 18 : 24], [meaning, 17]]) {
+      if (!node) continue;
+      const size = parseFloat(getComputedStyle(node).fontSize);
+      if (size > min) { node.style.fontSize = `${Math.max(min, size - 1)}px`; changed = true; }
+    }
+    if (!changed) break;
+  }
 }
 
 function emptyToday() {
@@ -672,6 +692,7 @@ function initializeWritingCanvas() {
 }
 
 function bindTodayEvents() {
+  document.querySelector('#open-learning-details')?.addEventListener('click', () => document.querySelector('#learning-details-dialog').showModal());
   document.querySelector('#toggle-training')?.addEventListener('click', async () => {
     state.trainingType = state.trainingType === 'sentence' ? 'words' : 'sentence';
     state.reviewMode = 'reading';
@@ -749,6 +770,7 @@ async function submitRating(rating) {
   if (!item) return;
   const practice = state.practice;
   document.querySelectorAll('[data-rating]').forEach((button) => { button.disabled = true; });
+  document.querySelector('#learning-details-dialog').close();
   showReviewReward(rating);
   try {
     const result = await api(`/api/items/${item.id}/reviews`, {
@@ -1057,6 +1079,8 @@ async function loadProgress() {
 function switchView(view) {
   speech.cancel();
   state.view = view;
+  document.body.classList.toggle('is-learning', view === 'today');
+  requestAnimationFrame(fitReviewContent);
   document.querySelectorAll('.view').forEach((node) => node.classList.toggle('active', node.id === `${view}-view`));
   document.querySelectorAll('.nav-item').forEach((node) => node.classList.toggle('active', node.dataset.view === view));
   history.replaceState(null, '', `#${view}`);
@@ -1328,6 +1352,8 @@ document.querySelector('.brand').addEventListener('click', (event) => {
   switchView('today');
 });
 document.querySelector('#add-button').addEventListener('click', openAddDialog);
+document.querySelector('#close-learning-details').addEventListener('click', () => document.querySelector('#learning-details-dialog').close());
+if ('ResizeObserver' in window) new ResizeObserver(() => requestAnimationFrame(fitReviewContent)).observe(els.main);
 document.querySelector('#draft-form').addEventListener('submit', saveDraft);
 document.querySelector('#publish-draft').addEventListener('click', publishDraft);
 document.querySelector('#close-draft').addEventListener('click', () => document.querySelector('#draft-dialog').close());
@@ -1398,5 +1424,5 @@ const initialView = ['today', 'library', 'progress'].includes(location.hash.slic
 bootstrapAuth();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.8.0'), { scope: APP_BASE_URL.pathname }).catch(console.error);
+  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.8.1'), { scope: APP_BASE_URL.pathname }).catch(console.error);
 }

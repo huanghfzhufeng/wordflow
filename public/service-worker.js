@@ -1,10 +1,10 @@
-const CACHE = 'wordflow-shell-v15';
+const CACHE = 'wordflow-shell-v16';
 const BASE_URL = new URL('./', self.location.href);
 const API_PATH = new URL('api/', BASE_URL).pathname;
 const SHELL = [
   './',
-  'styles.css?v=1.8.0',
-  'app.js?v=1.8.0',
+  'styles.css?v=1.8.1',
+  'app.js?v=1.8.1',
   'speech.js',
   'ui-atmosphere.png',
   'card-wave.png',
@@ -22,7 +22,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key))))
+      .then((keys) => Promise.all(keys.filter((key) => key.startsWith('wordflow-shell-') && key !== CACHE).map((key) => caches.delete(key))))
       .then(() => self.clients.claim())
   );
 });
