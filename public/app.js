@@ -206,11 +206,25 @@ async function bootstrapAuth() {
 }
 
 let toastTimer;
-function toast(message) {
+function dismissReviewFeedback() {
+  document.querySelector('#review-feedback').hidden = true;
+  document.querySelector('.brand-copy small').hidden = false;
+}
+function toast(message, { duration = 2200, review = false } = {}) {
   clearTimeout(toastTimer);
-  els.toast.textContent = message;
-  els.toast.classList.add('show');
-  toastTimer = setTimeout(() => els.toast.classList.remove('show'), 2200);
+  els.toast.classList.remove('show');
+  dismissReviewFeedback();
+  if (review) {
+    const receipt = document.querySelector('#review-feedback');
+    receipt.textContent = message;
+    receipt.hidden = false;
+    document.querySelector('.brand-copy small').hidden = true;
+    toastTimer = setTimeout(dismissReviewFeedback, duration);
+  } else {
+    els.toast.textContent = message;
+    els.toast.classList.add('show');
+    toastTimer = setTimeout(() => els.toast.classList.remove('show'), duration);
+  }
 }
 
 function showError(error) {
@@ -701,6 +715,7 @@ function bindTodayEvents() {
   });
   document.querySelector('#end-practice')?.addEventListener('click', () => loadToday().catch(showError));
   document.querySelector('#reveal-answer')?.addEventListener('click', () => {
+    dismissReviewFeedback();
     state.revealed = true;
     renderToday();
   });
@@ -749,29 +764,15 @@ function bindTodayEvents() {
   document.querySelector('#open-library')?.addEventListener('click', () => switchView('library'));
 }
 
-function showReviewReward(rating) {
-  const feedback = {
-    again: ['rotate-ccw', '再见一次', 'reward-again'],
-    hard: ['brain', '正在变熟', 'reward-hard'],
-    good: ['check', '记住了', 'reward-good'],
-    real: ['sparkles', '真实命中', 'reward-real']
-  }[rating];
-  const node = document.createElement('div');
-  node.className = `reward-flash ${feedback[2]}`;
-  node.innerHTML = `<i data-lucide="${feedback[0]}"></i><strong>${feedback[1]}</strong>`;
-  document.body.append(node);
-  icons(node);
-  navigator.vibrate?.(rating === 'good' || rating === 'real' ? 24 : 10);
-  setTimeout(() => node.remove(), 720);
-}
-
 async function submitRating(rating) {
   const item = state.today[0];
   if (!item) return;
   const practice = state.practice;
   document.querySelectorAll('[data-rating]').forEach((button) => { button.disabled = true; });
   document.querySelector('#learning-details-dialog').close();
-  showReviewReward(rating);
+  clearTimeout(toastTimer);
+  els.toast.classList.remove('show');
+  dismissReviewFeedback();
   try {
     const result = await api(`/api/items/${item.id}/reviews`, {
       method: 'POST',
@@ -783,13 +784,8 @@ async function submitRating(rating) {
         writingDurationMs: state.writing.durationMs
       })
     });
-    const transition = result.transition;
-    const changed = transition.previousStatus !== transition.nextStatus;
-    if (practice) {
-      toast('练习已记录，正式到期日和等级不变');
-    } else {
-      toast(`${changed ? `${transition.previousStatus} → ${transition.nextStatus}；` : ''}下次复习：${formatDue(result.item.nextReviewAt)}`);
-    }
+    navigator.vibrate?.(rating === 'good' || rating === 'real' ? 24 : 10);
+    toast(practice ? '练习已记录' : `下次复习 ${formatDue(result.item.nextReviewAt)}`, { duration: 900, review: true });
     state.progress = result.progress;
     state.session.reviews += 1;
     state.revealed = false;
@@ -1424,5 +1420,5 @@ const initialView = ['today', 'library', 'progress'].includes(location.hash.slic
 bootstrapAuth();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.8.1'), { scope: APP_BASE_URL.pathname }).catch(console.error);
+  navigator.serviceWorker.register(appUrl('/service-worker.js?v=1.8.2'), { scope: APP_BASE_URL.pathname }).catch(console.error);
 }

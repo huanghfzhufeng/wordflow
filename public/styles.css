@@ -493,8 +493,7 @@ a:focus-visible {
 .nav-item svg,
 .rating-button svg,
 .goal-check svg,
-.completion-mark svg,
-.reward-flash svg {
+.completion-mark svg {
   width: 19px;
   height: 19px;
   stroke-width: 2.15;
@@ -1347,36 +1346,6 @@ h2 {
 .rating-real {
   color: var(--blue-dark);
   background: var(--blue-soft);
-}
-
-.reward-flash {
-  position: fixed;
-  z-index: 100;
-  top: 42%;
-  left: 50%;
-  display: flex;
-  min-width: 150px;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  padding: 15px 19px;
-  border-radius: 30px;
-  color: #fff;
-  background: var(--ink);
-  box-shadow: var(--shadow-float);
-  transform: translate(-50%, -50%);
-  animation: reward-in 700ms ease-out both;
-}
-
-.reward-good { background: var(--green); }
-.reward-real { background: var(--blue); }
-.reward-hard { background: var(--orange); }
-.reward-again { background: var(--pink); }
-
-@keyframes reward-in {
-  0% { opacity: 0; transform: translate(-50%, -42%) scale(.82); }
-  22%, 72% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -58%) scale(.96); }
 }
 
 .empty-state,
@@ -3477,4 +3446,12 @@ h2 {
   body.is-learning .review-card .review-stage { padding: 10px 0 6px; }
   body.is-learning .answer-panel { padding: 8px 0 4px; }
   body.is-learning .app-nav { height: 56px; margin: 0 12px; padding: 4px 8px; }
+}
+
+/* Reuse the brand subtitle slot so receipts never cover learning controls. */
+#review-feedback {
+  color: var(--secondary);
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: nowrap;
 }
