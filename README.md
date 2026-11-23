@@ -52,7 +52,7 @@ npm start
 
 ## 线上访问
 
-- 地址：`http://1.15.122.48/wordflow/`
+- 地址：`http://YOUR_SERVER_IP/wordflow/`
 - 首次使用记账系统的老板账号登录；应用使用 90 天签名 Cookie 保持登录，不保存密码。
 - 生产数据：`/var/lib/wordflow/wordflow.db`，每天自动备份并保留 14 天。
 - 更新和回滚步骤见 [DEPLOY.md](DEPLOY.md)。
