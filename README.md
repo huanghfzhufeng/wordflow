@@ -2,11 +2,8 @@
 
 面向真实阅读目标的单用户英语复习 PWA。它把词句收集、系统发音、听辨练习和证据进度放在一个安静的学习流中，用 SQLite 保存每次复习结果。
 
-<p>
-  <img src="docs/screenshots/login.png" width="250" alt="应用登录">
-  <img src="docs/screenshots/today.png" width="250" alt="今日认读">
-  <img src="docs/screenshots/listening.png" width="250" alt="听辨模式">
-  <img src="docs/screenshots/progress.png" width="250" alt="学习进度">
+<p align="center">
+  <img src="docs/screenshots/app-showcase.png" alt="词流 Wordflow iPhone 18 Pro Max 三屏界面展示" width="100%">
 </p>
 
 ## 功能
